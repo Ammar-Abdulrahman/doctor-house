@@ -77,9 +77,9 @@ import {
 } from "@Types/Categories";
 
 const useCategories = (
-  needPagination: boolean,
-//   pageSize: number = 10,
-//   page: number = 1
+  needPagination: boolean
+  //   pageSize: number = 10,
+  //   page: number = 1
 ) => {
   const queryClient = useQueryClient();
 
@@ -91,7 +91,12 @@ const useCategories = (
           `/categories?needPagination=${needPagination}`
         ),
       {
-        cacheTime: 1000 * 60 * 5, 
+        // refetchOnWindowFocus: false,
+        // refetchOnMount: false,
+        // refetchOnReconnect: false,
+        // enabled: false,
+        cacheTime: 120000,
+        staleTime: Infinity,
         //keepPreviousData: needPagination, // Keep previous data while fetching new data during pagination
         //enabled: needPagination, // Enable or disable query based on the flag
       }

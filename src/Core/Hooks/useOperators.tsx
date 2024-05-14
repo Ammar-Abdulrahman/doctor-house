@@ -16,13 +16,14 @@ const useOperators = (
 
   const getOperators = () =>
     useQuery<OperatorResponse, Error>(
-      ["sperators"],
+      ["operators"],
       () =>
         fetchData<OperatorResponse>(
           `/operators?needPagination=${needPagination}`
         ),
       {
-        cacheTime: 1000 * 60 * 5,
+        cacheTime: 120000,
+        staleTime: Infinity,
         //keepPreviousData: needPagination, // Keep previous data while fetching new data during pagination
         //enabled: needPagination, // Enable or disable query based on the flag
       }

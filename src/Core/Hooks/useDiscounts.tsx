@@ -20,14 +20,14 @@ const useDiscounts = (
 
   const getDiscounts = () =>
     useQuery<DiscountsResponse, Error>(
-      ["categories"],
+      ["discounts"],
       () =>
         fetchData<DiscountsResponse>(
           `/discounts?needPagination=${needPagination}`
         ),
       {
-        cacheTime: 1000 * 60 * 5, 
-
+        cacheTime: 120000, 
+        staleTime: Infinity,
       }
     );
 
