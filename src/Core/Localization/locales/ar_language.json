@@ -1,0 +1,30 @@
+{
+  "homePage": {
+    "doctor_house": "بيت الطبيب",
+    "dashboard": "لوحة التحكم",
+    "categories": "التصنيفات",
+    "vendors": "البائعين",
+    "discounts": "الحسومات",
+    "roles": "الأدوار",
+    "operators": "العاملين",
+    "advertisements": "الإعلانات",
+    "information": "المعلومات",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "home": "الصفحة الرئيسية"
+  },
+  "loginPage": {
+    "login": " تسجيل الدخول",
+    "username": "اسم المستخدم",
+    "password": "كلمة السر",
+    "welcome": "أهلا و سهلاً "
+  },
+  "notAuthorizationsPage": {
+    "access_denied": "تم الرفض",
+    "message_denied": "ليس لديك الإذن لعرض هذه الصفحة. الرجاء الاتصال بالمسؤول للحصول على المساعدة"
+  },
+  "notFoundPage": {
+    "not_found": "الصفحة غير موجودة",
+    "message_not_found": "لم نتمكن العثور على الصفحة المطلوبة . الرجاء التاكد من العنوان المرسل أو العودة إلى الصفحة الرئيسية"
+  }
+}

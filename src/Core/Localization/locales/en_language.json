@@ -1,0 +1,30 @@
+{
+  "homePage": {
+    "doctor_house": "Doctor house",
+    "dashboard": "Dashboard",
+    "categories": "Categories",
+    "vendors": "Vendors",
+    "discounts": "Discounts",
+    "roles": "Roles",
+    "operators": "Operators",
+    "advertisements": "Advertisements",
+    "information": "Information",
+    "settings": "Settings",
+    "logout": "Log out",
+    "home": "Home Page"
+  },
+  "loginPage": {
+    "login": "Login",
+    "username": "User name",
+    "password": "Password",
+    "welcome": "Welcome"
+  },
+  "notAuthorizationsPage": {
+    "access_denied": "Access Denied",
+    "message_denied": "You do not have permission to view this page. Please contact the administrator for assistance"
+  },
+  "notFoundPage": {
+    "not_found": "Page Not Found",
+    "message_not_found": "The requested page could not be found. Please check the URL or navigate back to the homepage"
+  }
+}

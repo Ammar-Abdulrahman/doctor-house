@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    
+    /*alias*/
+
+    "baseUrl": "./src", // This is to avoid adding the ./src prefix to each path below.
+    "paths": {
+      "@Assets/*": ["Core/Assets/*"],
+      "@Components/*": ["Core/Components/*"],
+      "@Constants/*": ["Core/Constants/*"],
+      "@Context/*": ["Core/Context/*"],
+      "@Hooks/*": ["Core/Hooks/*"],
+      "@Layout/*": ["Core/Layout/*"],
+      "@Localization/*": ["Core/Localization/*"],
+      "@Routes/*": ["Core/Routes/*"],
+      "@Services/*": ["Core/Services/*"],
+      "@Styles/*": ["Core/Styles/*"],
+      "@Types/*": ["Core/Types/*"],
+      "@Utils/*": ["Core/Utils/*"],
+      "@Pages/*": ["Pages/*"]
+    },
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
