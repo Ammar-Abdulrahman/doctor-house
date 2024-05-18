@@ -22,12 +22,13 @@ import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
 
+import EngineeringIcon from '@mui/icons-material/Engineering';
 //products
 //import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 
 export const menuItems = [
     {text:"homePage.dashboard", icon:DashboardIcon , link:"/home" , permission: 'viewRole' },
-    // {text:"homePage.roles", icon:GroupIcon , link:"/roles" , permission: 'viewRole' },
+    {text:"homePage.roles", icon:EngineeringIcon , link:"/roles" , permission: 'viewRole' },
     {text:"homePage.vendors", icon:FastfoodIcon , link:"/vendors" , permission: 'viewHome'},
     {text:"homePage.operators", icon:GroupIcon , link:"/operators", permission: 'viewOperator' },
     {text:"homePage.categories", icon:CategoryIcon , link:"/categories" , permission: 'viewCategory' },

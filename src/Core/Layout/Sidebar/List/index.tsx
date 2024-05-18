@@ -83,7 +83,7 @@ const ListItems = () => {
           marginLeft: i18n.language === "en" ? theme.spacing(2) : "",
           marginRight: i18n.language === "ar" ? theme.spacing(2) : "",
           textAlign: i18n.language === "ar" ? "right" : "left",
-          marginTop: "230px",
+          marginTop: "150px",
           justifyContent: "flex-start",
           direction: i18n.language === "ar" ? "rtl" : "ltr",
         }}
