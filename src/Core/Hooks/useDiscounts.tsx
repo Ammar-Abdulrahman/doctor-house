@@ -62,7 +62,7 @@ const useDiscounts = (
       (discount: DiscountsRequest & { id: number }) =>
         updateData(`/discounts/${discount.id}`, discount),
       {
-        onSuccess: () => {
+        onSuccess: (_,discount) => {
           queryClient.invalidateQueries(["discount", discount.id]);
         },
       }
