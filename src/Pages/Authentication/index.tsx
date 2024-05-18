@@ -6,6 +6,8 @@ import { setAuthToken } from "@Constants/Shared";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import theme from "@Styles/theme";
+import vectorImage from '@Assets/images/Vector.png'
+import teeth from '@Assets/images/teeth.png'
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -54,7 +56,7 @@ const Login: React.FC = () => {
           marginTop: "-10px",
           marginLeft: "-8px",
         }}
-        srcSet={`src/Core/Assets/images/vector.png`}
+        srcSet={vectorImage}
         loading="lazy"
       />
       {/* <img
@@ -108,7 +110,7 @@ const Login: React.FC = () => {
       >
         <Grid style={{ zIndex: 100 }} width={300}>
           
-          <div> <img style={{ position:"fixed" , height:"35px", marginTop:"0px" , marginLeft:"250px" }} srcSet={`src/Core/Assets/images/teeth.png`} /> <h2 style={{ direction: "rtl" , marginRight:"70px" , color:theme.palette.primary.main }}>  {t("loginPage.welcome")} </h2></div>
+          <div> <img style={{ position:"fixed" , height:"35px", marginTop:"0px" , marginLeft:"250px" }} srcSet={teeth} /> <h2 style={{ direction: "rtl" , marginRight:"70px" , color:theme.palette.primary.main }}>  {t("loginPage.welcome")} </h2></div>
           <form onSubmit={handleSubmit}>
             <TextField
               label={t("loginPage.username")}
