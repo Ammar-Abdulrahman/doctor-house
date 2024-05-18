@@ -19,6 +19,19 @@
     "password": "كلمة السر",
     "welcome": "أهلا و سهلاً "
   },
+  "discountsPage":{
+    "id":"رقم التعريف",
+    "code":"كود الحسم",
+    "percentage":"نسبة الحسم",
+    "from":"التاريخ الأولي",
+    "to":"التاريخ النهائي"
+  },
+  "operatorsPage":{
+    "id":"رقم التعريف",
+    "username":"اسم المستخدم",
+    "fullName":"الاسم الكامل",
+    "role":"الدور"
+  },
   "notAuthorizationsPage": {
     "access_denied": "تم الرفض",
     "message_denied": "ليس لديك الإذن لعرض هذه الصفحة. الرجاء الاتصال بالمسؤول للحصول على المساعدة"
