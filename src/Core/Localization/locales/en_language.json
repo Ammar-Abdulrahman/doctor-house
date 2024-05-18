@@ -32,6 +32,15 @@
     "fullName":"Full Name",
     "role":"Role"
   },
+  "rolesPage":{
+    "id":"Id",
+    "name":"Name"
+  },
+  "actions":{
+    "delete":"Delete",
+    "view":"View",
+    "edit":"Edit"
+  },
   "notAuthorizationsPage": {
     "access_denied": "Access Denied",
     "message_denied": "You do not have permission to view this page. Please contact the administrator for assistance"

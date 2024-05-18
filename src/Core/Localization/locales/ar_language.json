@@ -32,6 +32,16 @@
     "fullName":"الاسم الكامل",
     "role":"الدور"
   },
+  "rolesPage":{
+    "id":"رقم التعريف",
+    "name":"الاسم"
+  },
+  "actions":{
+    "delete":"حذف",
+    "view":"عرض",
+    "edit":"تعديل"
+  },
+
   "notAuthorizationsPage": {
     "access_denied": "تم الرفض",
     "message_denied": "ليس لديك الإذن لعرض هذه الصفحة. الرجاء الاتصال بالمسؤول للحصول على المساعدة"
