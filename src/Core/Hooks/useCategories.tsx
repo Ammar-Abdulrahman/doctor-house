@@ -117,16 +117,30 @@ const useCategories = (
       }
     );
 
-  const updateCategory = () =>
-    useMutation(
+  // const updateCategory = () =>
+  //   useMutation(
+  //     (category: CategoryRequest & { id: number }) =>
+  //       updateData(`/categories/${category.id}`, category),
+  //     {
+  //       onSuccess: () => {
+  //         queryClient.invalidateQueries(["category", category.id]);
+  //       },
+  //     }
+  //   );
+
+  const updateCategory = () => {
+    return useMutation(
       (category: CategoryRequest & { id: number }) =>
         updateData(`/categories/${category.id}`, category),
       {
-        onSuccess: () => {
+        onSuccess: (_, category) => {
+          // Now category is defined within this scope
           queryClient.invalidateQueries(["category", category.id]);
         },
       }
     );
+  };
+  
 
   const deleteCategory = () =>
     useMutation((id: number) => deleteData(`/categories/${id}`), {

@@ -143,7 +143,7 @@ const Login: React.FC = () => {
             </Box>
             {mutation.isError && (
               <div style={{ color: "red", marginTop: "20px" }}>
-                Login failed: {mutation.error?.message}
+                {/* Login failed: {mutation.error?.message} */}
               </div>
             )}
           </form>

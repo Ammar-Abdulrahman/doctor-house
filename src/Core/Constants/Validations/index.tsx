@@ -17,9 +17,4 @@ export const validationSchema = Yup.object({
     //   'The file is too large',
     //   value => value && value.size <= 1024 * 1024 // 1MB
     // )
-    .test(
-      'fileType',
-      'Unsupported File Format',
-      value => value && ['image/jpeg', 'image/png', 'image/gif'].includes(value.type)
-    ),
 });

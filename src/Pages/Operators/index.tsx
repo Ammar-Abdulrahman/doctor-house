@@ -34,7 +34,7 @@ const Operators: React.FC = () => {
                   {operator.username}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Role {operator?.role?.name}
+                  Role {operator?.isActive}
                 </Typography>
               </CardContent>
             </Card>

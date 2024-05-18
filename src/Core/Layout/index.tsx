@@ -22,7 +22,7 @@ const LayoutPage = () => {
             paddingRight: `${16}px`,
             //paddingLeft: `${16}px`,
           }}
-          style={{ direction:"ltr" , overflowY:"hidden" , backgroundColor: '#f5f5f5' , width:"100vh" , height:'100vh' }}
+          style={{ direction:"ltr" , backgroundColor: '#f5f5f5' , width:"100vh" , height:'100vh' }}
         >
           <Toolbar />
           <Outlet />

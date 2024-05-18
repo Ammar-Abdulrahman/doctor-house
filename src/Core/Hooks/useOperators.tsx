@@ -49,7 +49,7 @@ const useOperators = (
       (operator: OperatorRequest & { id: number }) =>
         updateData(`/Operators/${operator.id}`, operator),
       {
-        onSuccess: () => {
+        onSuccess: (_,operator) => {
           queryClient.invalidateQueries(["operator", operator.id]);
         },
       }

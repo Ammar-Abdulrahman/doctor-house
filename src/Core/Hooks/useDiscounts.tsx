@@ -46,8 +46,19 @@ const useDiscounts = (
       }
     );
 
-  const updateDiscount = () =>
-    useMutation(
+  // const updateDiscount = () =>
+  //   useMutation(
+  //     (discount: DiscountsRequest & { id: number }) =>
+  //       updateData(`/discounts/${discount.id}`, discount),
+  //     {
+  //       onSuccess: () => {
+  //         queryClient.invalidateQueries(["discount", discount.id]);
+  //       },
+  //     }
+  //   );
+
+  const updateDiscount = () => {
+    return useMutation(
       (discount: DiscountsRequest & { id: number }) =>
         updateData(`/discounts/${discount.id}`, discount),
       {
@@ -56,6 +67,7 @@ const useDiscounts = (
         },
       }
     );
+  };
 
   const deleteDiscount = () =>
     useMutation((id: number) => deleteData(`/discounts/${id}`), {

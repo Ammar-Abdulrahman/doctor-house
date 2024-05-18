@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import {
-  Card,
-  CardContent,
-  Grid,
+  // Card,
+  // CardContent,
+  // Grid,
   Paper,
   Table,
   TableBody,
@@ -10,15 +10,15 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
+  // Typography,
 } from "@mui/material";
 import useDiscounts from "@Hooks/useDiscounts";
 import { useTranslation } from "react-i18next";
 import HeaderTitle from "@Components/Header/HeaderTitle";
 import { Discount } from "@Types/Discounts";
-import { getDiscountColumns } from './Columns/index';
-import DataGridComponent from "@Components/Table";
-import ActionModal from "@Components/Card";
+//import { getDiscountColumns } from './Columns/index';
+// import DataGridComponent from "@Components/Table";
+// import ActionModal from "@Components/Card";
 
 const table = {
   minWidth: 650,
@@ -29,33 +29,33 @@ const Discounts: React.FC = () => {
   const { getDiscounts } = useDiscounts(needPagination);
   const { data, isLoading, isError, error } = getDiscounts();
   const { t, i18n } = useTranslation();
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedId, setSelectedId] = useState(null);
+  //const [openModal, setOpenModal] = useState(false);
+  //const [selectedId, setSelectedId] = useState(null);
 
-  const handleEdit = (id: number) => {
-    setSelectedId(id);
-    setOpenModal(true);
-  };
+  // const handleEdit = (id: number) => {
+  //   setSelectedId(id);
+  //   setOpenModal(true);
+  // };
 
-  const handleDelete = (id: number) => {
-    setSelectedId(id);
-    setOpenModal(true);
-  };
+  // const handleDelete = (id: number) => {
+  //   setSelectedId(id);
+  //   setOpenModal(true);
+  // };
 
-  const handleView = (id: number) => {
-    setSelectedId(id);
-    setOpenModal(true);
-  };
+  // const handleView = (id: number) => {
+  //   setSelectedId(id);
+  //   setOpenModal(true);
+  // };
 
-  const columns = getDiscountColumns(handleEdit, handleDelete, handleView);
+  // const columns = getDiscountColumns(handleEdit, handleDelete, handleView);
 
-  const rows = data?.data?.map( (discount:Discount)  => ({
-    id: discount.id,
-    code: discount.code,
-    percentage: discount.percentage,
-    from: discount.from,
-    to: discount.to,
-  })) || [];
+  // const rows = data?.data?.map( (discount:Discount)  => ({
+  //   id: discount.id,
+  //   code: discount.code,
+  //   percentage: discount.percentage,
+  //   from: discount.from,
+  //   to: discount.to,
+  // })) || [];
   
 
   if (isLoading) return <div>Loading...</div>;

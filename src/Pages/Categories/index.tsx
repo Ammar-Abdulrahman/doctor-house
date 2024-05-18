@@ -28,8 +28,8 @@ const Categories: React.FC = () => {
               }}
             >
               <CardMedia
+              style={{height:"50%", display:"flex" , justifyContent:"center" , marginRight:"100px" , width:"50%"}}
                 component="img"
-                height="140"
                 image={category.image}
                 alt={category.name}
               />
