@@ -11,6 +11,13 @@ const Operators: React.FC = () => {
   const { data, isLoading, isError, error } = getOperators();
   const { t, i18n } = useTranslation();
 
+  const rows = data?.data?.map( (operator:Operator)  => ({
+    id: operator.id,
+    //role: operator.role?.name,
+    userName: operator.username,
+    fullName: operator.fullName,
+  })) || [];
+
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
 
