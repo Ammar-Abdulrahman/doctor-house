@@ -11,9 +11,9 @@ const HomePage = () => {
       <HeaderTitle title={t("homePage.home")} />
       <div
         style={{
-          marginLeft: i18n.language === "en" ? "530px" : "",
-          marginRight: i18n.language === "ar" ? "530px" : "",
-          marginTop: "100px",
+          marginLeft: i18n.language === "en" ? "480px" : "",
+          marginRight: i18n.language === "ar" ? "480px" : "",
+          marginTop: "70px",
           height: "450px",
           width: "450px",
         }}

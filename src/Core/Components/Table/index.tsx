@@ -110,7 +110,7 @@ const EnhancedTable: React.FC<EnhancedTableProps> = ({ rows, columns }) => {
           count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
-          onPageChange={(event, newPage) => setPage(newPage)}
+          onPageChange={(_, newPage) => setPage(newPage)}
           onRowsPerPageChange={(event) =>
             setRowsPerPage(parseInt(event.target.value, 10))
           }
