@@ -8,9 +8,9 @@ import {
 import { OperatorResponse, OperatorRequest, Operator } from "@Types/Operator";
 
 const useOperators = (
-  needPagination: boolean
-  //   pageSize: number = 10,
-  //   page: number = 1
+  needPagination: boolean,
+  //limit: number = 10,
+    //page: number = 0
 ) => {
   const queryClient = useQueryClient();
 
@@ -19,6 +19,7 @@ const useOperators = (
       ["operators"],
       () =>
         fetchData<OperatorResponse>(
+          //needPagination=true&page=0&limit=10
           `/operators?needPagination=${needPagination}`
         ),
       {

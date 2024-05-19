@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Card, CardContent, Grid, Typography } from "@mui/material";
 import useOperators from "@Hooks/useOperators";
 import { useTranslation } from "react-i18next";
 import HeaderTitle from "@Components/Header/HeaderTitle";
 import { Operator } from "@Types/Operator";
+import { getOperatorColumns } from "./Columns";
+import EnhancedTable from "@Components/Table";
 
 const Operators: React.FC = () => {
   const [needPagination] = useState(true);
@@ -13,10 +14,23 @@ const Operators: React.FC = () => {
 
   const rows = data?.data?.map( (operator:Operator)  => ({
     id: operator.id,
-    //role: operator.role?.name,
     userName: operator.username,
     fullName: operator.fullName,
   })) || [];
+
+  const handleView = (id:number) => {
+    console.log('View:', id);
+  };
+
+const handleEdit = (id:any) => {
+    console.log('Edit:', id);
+  };
+
+  const handleDelete = (id:number) => {
+    console.log('Delete:', id);
+};
+
+const columns = getOperatorColumns(t, handleDelete, handleView, handleEdit);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
@@ -24,7 +38,8 @@ const Operators: React.FC = () => {
   return (
     <div style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
       <HeaderTitle title={t("homePage.operators")} />
-      <Grid style={{ margin: "5px" }} container spacing={3}>
+      <EnhancedTable rows={rows} columns={columns} />
+      {/* <Grid style={{ margin: "5px" }} container spacing={3}>
         {data?.data.map((operator: Operator) => (
           <Grid item key={operator.id} xs={12} md={4}>
             <Card
@@ -47,7 +62,7 @@ const Operators: React.FC = () => {
             </Card>
           </Grid>
         ))}
-      </Grid>
+      </Grid> */}
     </div>
   );
 };
