@@ -19,29 +19,23 @@
     "password": "كلمة السر",
     "welcome": "أهلا و سهلاً "
   },
-  "discountsPage":{
-    "id":"رقم التعريف",
-    "code":"كود الحسم",
-    "percentage":"نسبة الحسم",
-    "from":"التاريخ الأولي",
-    "to":"التاريخ النهائي"
+  "discountsPage": {
+    "id": "رقم التعريف",
+    "code": "كود الحسم",
+    "percentage": "نسبة الحسم",
+    "from": "التاريخ الأولي",
+    "to": "التاريخ النهائي"
   },
-  "operatorsPage":{
-    "id":"رقم التعريف",
-    "username":"اسم المستخدم",
-    "fullName":"الاسم الكامل",
-    "role":"الدور"
+  "operatorsPage": {
+    "id": "رقم التعريف",
+    "username": "اسم المستخدم",
+    "fullName": "الاسم الكامل",
+    "role": "الدور"
   },
-  "rolesPage":{
-    "id":"رقم التعريف",
-    "name":"الاسم"
+  "rolesPage": {
+    "id": "رقم التعريف",
+    "name": "الاسم"
   },
-  "actions":{
-    "delete":"حذف",
-    "view":"عرض",
-    "edit":"تعديل"
-  },
-
   "notAuthorizationsPage": {
     "access_denied": "تم الرفض",
     "message_denied": "ليس لديك الإذن لعرض هذه الصفحة. الرجاء الاتصال بالمسؤول للحصول على المساعدة"
@@ -49,5 +43,29 @@
   "notFoundPage": {
     "not_found": "الصفحة غير موجودة",
     "message_not_found": "لم نتمكن العثور على الصفحة المطلوبة . الرجاء التاكد من العنوان المرسل أو العودة إلى الصفحة الرئيسية"
+  },
+  "actions": {
+    "label": "الإجراءات",
+    "delete": "حذف",
+    "view": "عرض",
+    "edit": "تعديل"
+  },
+  "modal": {
+    "role": "الدور",
+    "operator": "العامل",
+    "category": "التصنيف",
+    "product": "المنتج",
+    "advertisement": "الإعلان",
+    "discount": "الحسم",
+    "confirm": "تأكيد",
+    "confirm_message": "هل أنت متأكد أنك تريد حذف هذا العنصر بالمعرف",
+    "confirm_title": "تأكيد حذف",
+    "cancel": "إلغاء",
+    "delete_role": "تم حذف الدور بنجاح",
+    "delete_operator": "تم حذف العامل بنجاح",
+    "delete_category": "تم حذف التصنيف بنجاح",
+    "delete_product": "تم حذف المنتج بنجاح",
+    "delete_advertisement": "تم حذف الإعلان بنجاح",
+    "delete_discount": "تم حذف الخصم بنجاح"
   }
 }
