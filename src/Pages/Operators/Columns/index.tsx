@@ -2,11 +2,25 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import ActionsMenu from '@Components/MenuItems';
 
 export const getOperatorColumns = (t:any, handleDelete:any, handleView:any, handleEdit:any) => [
     { id: 'id', label: t("operatorsPage.id"), align: 'center' },
     { id: 'username', label: t("operatorsPage.username"), align: 'center' },
     { id: 'fullName', label: t("operatorsPage.fullName"), align: 'center' },
+    {
+        id: "actions",
+        label: t("actions.label"),
+        align: "center",
+        render: (rowData: any) => (
+            <ActionsMenu
+              rowData={rowData}
+              onEdit={handleEdit}
+              onView={handleView}
+              onDelete={handleDelete}
+            />
+        ),
+    },
     {
         id: 'view',
         label: t("actions.view"),
