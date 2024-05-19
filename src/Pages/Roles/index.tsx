@@ -7,11 +7,12 @@ import useRoles from "@Hooks/useRoles";
 import { getRoleColumns } from "./Columns";
 import ConfirmationModal from "@Components/Modal/ConfirmationModal/index";
 import { toast } from "react-toastify";
+import PageLoader from "@Components/Loader/PageLoader";
 
 const Roles: React.FC = () => {
   const { t, i18n } = useTranslation();
   const [needPagination] = useState(true);
-  const { getRoles , deleteRole } = useRoles(needPagination);
+  const { getRoles, deleteRole } = useRoles(needPagination);
   const { data, isLoading, isError, error } = getRoles();
   const [openModal, setOpenModal] = useState(false);
   const [currentId, setCurrentId] = useState<number | null>(null);
@@ -52,7 +53,7 @@ const Roles: React.FC = () => {
 
   const columns = getRoleColumns(t, handleDelete, handleView, handleEdit);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <PageLoader />;
   if (isError) return <div>Error: {error.message}</div>;
 
   return (

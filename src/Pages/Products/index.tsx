@@ -4,13 +4,14 @@ import useProducts from "@Hooks/useProducts";
 import { useTranslation } from "react-i18next";
 import HeaderTitle from "@Components/Header/HeaderTitle";
 import { Product } from "@Types/Products";
+import PageLoader from "@Components/Loader/PageLoader";
 
 const Products: React.FC = () => {
   const { getProducts } = useProducts(true);
   const { data, isLoading, isError, error } = getProducts();
   const { t, i18n } = useTranslation();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <PageLoader />;
   if (isError) return <div>Error: {error.message}</div>;
 
   return (

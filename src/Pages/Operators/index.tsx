@@ -5,6 +5,7 @@ import HeaderTitle from "@Components/Header/HeaderTitle";
 import { Operator } from "@Types/Operator";
 import { getOperatorColumns } from "./Columns";
 import EnhancedTable from "@Components/Table";
+import PageLoader from "@Components/Loader/PageLoader";
 
 const Operators: React.FC = () => {
   const [needPagination] = useState(true);
@@ -32,7 +33,7 @@ const handleEdit = (id:any) => {
 
 const columns = getOperatorColumns(t, handleDelete, handleView, handleEdit);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <PageLoader />;
   if (isError) return <div>Error: {error.message}</div>;
 
   return (

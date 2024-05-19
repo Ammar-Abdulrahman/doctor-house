@@ -4,13 +4,14 @@ import useAdvertisements from "@Hooks/useAdvertisements";
 import { useTranslation } from "react-i18next";
 import HeaderTitle from "@Components/Header/HeaderTitle";
 import { Advertisement } from "@Types/Advertisements";
+import PageLoader from "@Components/Loader/PageLoader";
 
 const Advertisements: React.FC = () => {
   const { getAdvertisements } = useAdvertisements();
   const { data, isLoading, isError, error } = getAdvertisements();
   const { t, i18n } = useTranslation();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <PageLoader />;
   if (isError) return <div>Error: {error.message}</div>;
 
   return (

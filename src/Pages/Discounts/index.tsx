@@ -7,6 +7,7 @@ import EnhancedTable from "@Components/Table";
 import { getDiscountColumns } from "./Columns/index";
 import ConfirmationModal from "@Components/Modal/ConfirmationModal/index";
 import { toast } from 'react-toastify';
+import PageLoader from "@Components/Loader/PageLoader";
 
 const Discounts: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -55,7 +56,7 @@ const Discounts: React.FC = () => {
 
   const columns = getDiscountColumns(t, handleDelete, handleView, handleEdit);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <PageLoader />;
   if (isError) return <div>Error: {error.message}</div>;
   return (
     <div style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}>

@@ -4,6 +4,7 @@ import useCategories from "@Hooks/useCategories";
 import { useTranslation } from "react-i18next";
 import HeaderTitle from "@Components/Header/HeaderTitle";
 import { Category } from "@Types/Categories";
+import PageLoader from "@Components/Loader/PageLoader";
 
 const Categories: React.FC = () => {
   const [needPagination]=useState(false);
@@ -11,7 +12,7 @@ const Categories: React.FC = () => {
   const { data, isLoading, isError, error } = getCategories();
   const { t, i18n } = useTranslation();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <PageLoader />;
   if (isError) return <div>Error: {error.message}</div>;
 
 
