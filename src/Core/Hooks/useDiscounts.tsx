@@ -31,10 +31,28 @@ const useDiscounts = (
       }
     );
 
-  const getDiscount = (id: number) =>
-    useQuery<Discount, Error>(["discount", id], () =>
-      fetchData<Discount>(`/discounts/${id}`)
-    );
+  // const getDiscount = (id: number) =>
+  //   useQuery<Discount, Error>(["discount", id], () =>
+  //     fetchData<Discount>(`/discounts/${id}`)
+  //   );
+
+  // const getDiscount = (id: number) =>
+  //   useQuery(['discount', id], () => fetchData<Discount>(`/discounts/${id}`), {
+  //     enabled: false, // This will prevent the query from automatically running
+  //   });
+
+  // const getDiscount = (id: number) => {
+  //   // This setup won't run automatically, it's designed to be triggered manually
+  //   return useQuery(['discount', id], () => fetchData(`/discounts/${id}`), {
+  //     enabled: false  // Ensures this query does not run automatically
+  //   });
+  // };
+
+  const getDiscount = (id: number) => useQuery(
+    ['discount', id], 
+    () => fetchData(`/discounts/${id}`),
+    { enabled: false }  // Initially disabled
+  );
 
   const createDiscount = () =>
     useMutation(
@@ -69,8 +87,14 @@ const useDiscounts = (
     );
   };
 
-  const deleteDiscount = () =>
-    useMutation((id: number) => deleteData(`/discounts/${id}`), {
+  // const deleteDiscount = () =>
+  //   useMutation((id: number) => deleteData(`/discounts/${id}`), {
+  //     onSuccess: () => {
+  //       queryClient.invalidateQueries("discounts");
+  //     },
+  //   });
+
+    const deleteDiscount = useMutation((id: number) => deleteData(`/discounts/${id}`), {
       onSuccess: () => {
         queryClient.invalidateQueries("discounts");
       },
