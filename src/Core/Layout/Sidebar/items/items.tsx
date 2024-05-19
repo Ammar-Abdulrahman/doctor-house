@@ -1,5 +1,4 @@
 //import HomeIcon from '@mui/icons-material/Home';
-import FastfoodIcon from '@mui/icons-material/Fastfood';
 
 // import NextPlanIcon from '@mui/icons-material/NextPlan';
 import GroupIcon from '@mui/icons-material/Group';
@@ -24,14 +23,14 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 
 import EngineeringIcon from '@mui/icons-material/Engineering';
 //products
-//import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 
 export const menuItems = [
     {text:"homePage.dashboard", icon:DashboardIcon , link:"/home" , permission: 'viewRole' },
     {text:"homePage.roles", icon:EngineeringIcon , link:"/roles" , permission: 'viewRole' },
-    {text:"homePage.vendors", icon:FastfoodIcon , link:"/vendors" , permission: 'viewHome'},
     {text:"homePage.operators", icon:GroupIcon , link:"/operators", permission: 'viewOperator' },
-    {text:"homePage.categories", icon:CategoryIcon , link:"/categories" , permission: 'viewCategory' },
+    {text:"homePage.categories", icon:CategoryIcon , link:"/categories" , permission: 'viewCategory'},
+    {text:"homePage.products", icon:ShoppingBasketIcon , link:"/products" , permission: 'viewProduct'},
     {text:"homePage.advertisements", icon:TipsAndUpdatesIcon , link:"/advertisements" , permission: 'viewAd' },
     {text:"homePage.discounts", icon:DiscountIcon , link:"/discounts", permission: 'viewDiscount' }
 ]

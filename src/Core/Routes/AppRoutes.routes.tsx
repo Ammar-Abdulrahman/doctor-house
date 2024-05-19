@@ -10,7 +10,7 @@ const DiscountsPage = React.lazy(() => import("@Pages/Discounts/index"));
 const CategoriesPage = React.lazy(() => import("@Pages/Categories/index"));
 const RolesPage = React.lazy(() => import("@Pages/Roles/index"));
 const OperatorsPage = React.lazy(() => import("@Pages/Operators/index"));
-const VendorsPage = React.lazy(() => import("@Pages/Vendors/index"));
+const ProductsPage = React.lazy(() => import("@Pages/Products/index"));
 const NotAuthorizedPage = React.lazy(
   () => import("@Pages/NotAuthorized/index")
 );
@@ -103,13 +103,13 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/vendors",
+        path: "/products",
         element: (
           <ProtectedRoute
-            requiredPermission="view_plans"
+            requiredPermission="viewProduct"
             children={
               <Suspense fallback={<></>}>
-                <VendorsPage />
+                <ProductsPage />
               </Suspense>
             }
           />
