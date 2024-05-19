@@ -10,6 +10,7 @@ import {
   TableRow,
   TablePagination,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 // interface Column {
 //   render: any;
@@ -41,6 +42,7 @@ interface EnhancedTableProps {
 const EnhancedTable: React.FC<EnhancedTableProps> = ({ rows, columns }) => {
   // const [order, setOrder] = React.useState('asc');
   // const [orderBy, setOrderBy] = React.useState('');
+  const { i18n } = useTranslation();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -51,7 +53,7 @@ const EnhancedTable: React.FC<EnhancedTableProps> = ({ rows, columns }) => {
   // };
 
   return (
-    <Box sx={{ width: "100%", direction: "rtl" }}>
+    <Box sx={{ width: "100%", direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
           <Table
