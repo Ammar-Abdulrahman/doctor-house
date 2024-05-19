@@ -53,8 +53,14 @@ const useRoles = (
       }
     );
 
-  const deleteRole = () =>
-    useMutation((id: number) => deleteData(`/roles/${id}`), {
+  // const deleteRole = () =>
+  //   useMutation((id: number) => deleteData(`/roles/${id}`), {
+  //     onSuccess: () => {
+  //       queryClient.invalidateQueries("roles");
+  //     },
+  //   });
+
+    const deleteRole = useMutation((id: number) => deleteData(`/roles/${id}`), {
       onSuccess: () => {
         queryClient.invalidateQueries("roles");
       },
