@@ -5,7 +5,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 
 export const getRoleColumns = (t:any, handleDelete:any, handleView:any, handleEdit:any) => [
     { id: 'id', label: t("rolesPage.id"), align: 'center' },
-    { id: 'name', label: t("rolesPage.name"), align: 'center' },
+    { id: 'name_ar', label: t("rolesPage.name"), align: 'center' },
     {
         id: 'view',
         label: t("actions.view"),

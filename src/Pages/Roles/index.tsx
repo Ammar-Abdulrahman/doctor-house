@@ -15,7 +15,8 @@ const Roles: React.FC = () => {
  
   const rows = data?.data?.map( (role:Role)  => ({
     id: role.id,
-    name: role.name,
+    name_ar: role.name.ar,
+    name_en: role.name.en,
   })) || [];
   
   const handleDelete = (id:number) => {

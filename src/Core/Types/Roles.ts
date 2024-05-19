@@ -1,17 +1,19 @@
 export interface Role {
-    id: number;
-    name:string;
-  }
-  
-  export interface RoleRequest {
-    name: {
-        ar: string;
-        en: string;
-    };
-    privileges: number[];
-  }
+  id: number;
+  name: {
+    ar: string;
+    en: string;
+  };
+}
 
-  export interface RoleResponse {
-    data: Role[];
-  }
-  
+export interface RoleRequest {
+  name: {
+    ar: string;
+    en: string;
+  };
+  privileges: number[];
+}
+
+export interface RoleResponse {
+  data: Role[];
+}
