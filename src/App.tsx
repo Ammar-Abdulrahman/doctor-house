@@ -16,7 +16,8 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
         <ToastContainer
-          direction={i18n.language === "ar" ? "rtl" : "ltr"}
+        style={{direction:i18n.language === "ar" ? "rtl" : "ltr"}}
+          //direction={i18n.language === "ar" ? "rtl" : "ltr"}
           position="bottom-right"
         />
       </QueryClientProvider>
