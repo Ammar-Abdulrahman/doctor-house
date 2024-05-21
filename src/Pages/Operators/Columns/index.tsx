@@ -4,7 +4,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ActionsMenu from '@Components/MenuItems';
 
-export const getOperatorColumns = (t:any, handleDelete:any, handleView:any, handleEdit:any) => [
+interface Column {
+    id: string;
+    label: string;
+    align: 'center' | 'left' | 'right'; // This restricts the align values
+    render?: (rowData: any) => JSX.Element;
+  }
+
+export const getOperatorColumns = (t:any, handleDelete:any, handleView:any, handleEdit:any) : Column[] => [
     { id: 'id', label: t("operatorsPage.id"), align: 'center' },
     { id: 'username', label: t("operatorsPage.username"), align: 'center' },
     { id: 'fullName', label: t("operatorsPage.fullName"), align: 'center' },

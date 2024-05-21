@@ -8,7 +8,7 @@ import {
 import {
   DiscountsResponse,
   DiscountsRequest,
-  Discount,
+  //Discount,
 } from "@Types/Discounts";
 
 const useDiscounts = (

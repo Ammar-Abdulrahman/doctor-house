@@ -4,7 +4,14 @@
 // import VisibilityIcon from '@mui/icons-material/Visibility';
 import ActionsMenu from '@Components/MenuItems';
 
-export const getRoleColumns = (t:any, handleDelete:any, handleView:any, handleEdit:any) => [
+interface Column {
+    id: string;
+    label: string;
+    align: 'center' | 'left' | 'right'; // This restricts the align values
+    render?: (rowData: any) => JSX.Element;
+  }
+
+export const getRoleColumns = (t:any, handleDelete:any, handleView:any, handleEdit:any) : Column[] => [
     { id: 'id', label: t("rolesPage.id"), align: 'center' },
     { id: 'name_ar', label: t("rolesPage.name"), align: 'center' },
     {

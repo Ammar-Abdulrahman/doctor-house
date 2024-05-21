@@ -8,12 +8,19 @@
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ActionsMenu from "@Components/MenuItems";
 
+interface Column {
+  id: string;
+  label: string;
+  align: 'center' | 'left' | 'right'; // This restricts the align values
+  render?: (rowData: any) => JSX.Element;
+}
+
 export const getDiscountColumns = (
   t: any,
   handleDelete: any,
   handleView: any,
   handleEdit: any
-) => [
+) : Column[] => [
   { id: "id", label: t("discountsPage.id"), align: "center" },
   { id: "code", label: t("discountsPage.code"), align: "center" },
   { id: "percentage", label: t("discountsPage.percentage"), align: "center" },
