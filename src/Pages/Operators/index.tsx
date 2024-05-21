@@ -15,7 +15,7 @@ const Operators: React.FC = () => {
 
   const rows = data?.data?.map( (operator:Operator)  => ({
     id: operator.id,
-    userName: operator.username,
+    username: operator.username,
     fullName: operator.fullName,
   })) || [];
 
