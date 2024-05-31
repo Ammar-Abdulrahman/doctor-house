@@ -40,30 +40,6 @@ const columns = getOperatorColumns(t, handleDelete, handleView, handleEdit);
     <div style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
       <HeaderTitle title={t("homePage.operators")} />
       <EnhancedTable rows={rows} columns={columns} />
-      {/* <Grid style={{ margin: "5px" }} container spacing={3}>
-        {data?.data.map((operator: Operator) => (
-          <Grid item key={operator.id} xs={12} md={4}>
-            <Card
-              style={{
-                boxShadow: "1px 1px 3px 1px #B3B3B3",
-                borderRadius: 20,
-              }}
-            >
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {operator.id} - {operator.fullName}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {operator.username}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Role {operator?.isActive}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid> */}
     </div>
   );
 };
