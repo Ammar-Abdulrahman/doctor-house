@@ -13,12 +13,17 @@ const axiosInstance = axios.create({
   },
 });
 
-export const setAuthToken = (token: string) => {
-  if (token) {
-    axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  } else {
-    delete axiosInstance.defaults.headers.common["Authorization"];
+axiosInstance.interceptors.request.use(
+  config => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
   }
-};
+);
 
 export default axiosInstance;

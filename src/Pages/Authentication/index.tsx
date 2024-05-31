@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { TextField, Button, CircularProgress, Box, Grid } from "@mui/material";
 import { useMutation } from "react-query";
 import { loginApi } from "@Services/Authentications";
-import { setAuthToken } from "@Constants/Shared";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import theme from "@Styles/theme";
@@ -34,7 +33,6 @@ const Login: React.FC = () => {
       const { accessToken, user } = data.data;
       sessionStorage.setItem("token", accessToken);
       sessionStorage.setItem("privileges", JSON.stringify(user?.role?.privileges));
-      setAuthToken(accessToken); // Set token in Axios config
       navigate("/");
       console.log(data.data.accessToken);
       console.log(data.data?.user?.role?.privileges);
