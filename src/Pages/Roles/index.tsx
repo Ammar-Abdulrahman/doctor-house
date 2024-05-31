@@ -43,7 +43,7 @@ const Roles: React.FC = () => {
     if (currentId != null) {
       deleteRole.mutate(currentId, {
         onSuccess: () => {
-          toast.success(`Role with ID: #${currentId} deleted successfully`);
+          toast.success(`${t("modal.delete_role")}`);
           setOpenModal(false);
           setCurrentId(null);
         },
@@ -52,9 +52,11 @@ const Roles: React.FC = () => {
   };
 
   const columns = getRoleColumns(t, handleDelete, handleView, handleEdit);
-
+  
   if (isLoading) return <PageLoader />;
-  if (isError) return <div>Error: {error.message}</div>;
+  if (isError) {
+    toast.error(`Error: ${error.message}`, { autoClose: false });
+  }
 
   return (
     <div style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
