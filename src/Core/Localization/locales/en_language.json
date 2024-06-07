@@ -30,7 +30,8 @@
     "id": "Id",
     "username": "User name",
     "fullName": "Full Name",
-    "role": "Role"
+    "role": "Role",
+    "create":"Add Operator"
   },
   "rolesPage": {
     "id": "Id",
@@ -46,6 +47,7 @@
   },
   "actions": {
     "label": "Actions",
+    "add": "Add",
     "delete": "Delete",
     "view": "View",
     "edit": "Edit"
@@ -58,6 +60,7 @@
     "advertisement": "advertisement",
     "discount": "discount",
     "confirm": "Confirm",
+    "submit":"Submit",
     "confirm_message": "Are you sure you want to delete this item with ",
     "confirm_title": "Confirm delete",
     "cancel": "Cancel",
