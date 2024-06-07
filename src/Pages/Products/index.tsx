@@ -36,11 +36,11 @@ const Products: React.FC = () => {
                 }}
                 component="img"
                 image={product.image}
-                alt={product.name}
+                alt={product.name.ar}
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  {product.name}
+                  { i18n.language === "ar" ? product.name.ar : product.name.en}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {product.price}
