@@ -4,7 +4,7 @@
 import GroupIcon from '@mui/icons-material/Group';
 
 import LogoutIcon from '@mui/icons-material/Logout';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+// import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 //import PeopleIcon from '@mui/icons-material/People';
 
 //discounts
@@ -36,6 +36,6 @@ export const menuItems = [
 ]
 
 export const menuBottomItems = [
-    {text:"homePage.settings", icon:AdminPanelSettingsIcon , link:"/setting" },
+    // {text:"homePage.settings", icon:AdminPanelSettingsIcon , link:"/setting" },
     {text:"homePage.logout", icon:LogoutIcon , link:"/logout" }
 ]
