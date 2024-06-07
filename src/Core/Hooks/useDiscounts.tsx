@@ -54,8 +54,17 @@ const useDiscounts = (
     { enabled: false }  // Initially disabled
   );
 
-  const createDiscount = () =>
-    useMutation(
+  // const createDiscount = () =>
+  //   useMutation(
+  //     (newDiscount: DiscountsRequest) => postData("/discounts", newDiscount),
+  //     {
+  //       onSuccess: () => {
+  //         queryClient.invalidateQueries("discounts");
+  //       },
+  //     }
+  //   );
+
+    const createDiscount = useMutation(
       (newDiscount: DiscountsRequest) => postData("/discounts", newDiscount),
       {
         onSuccess: () => {
