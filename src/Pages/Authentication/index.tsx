@@ -116,6 +116,7 @@ const Login: React.FC = () => {
               style={{ direction:"rtl" }}
               margin="normal"
               value={username}
+              color="primary"
               onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
@@ -123,6 +124,7 @@ const Login: React.FC = () => {
               label={t("loginPage.password")}
               style={{direction:"rtl"}}
               fullWidth
+              color="primary"
               margin="normal"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

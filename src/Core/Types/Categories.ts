@@ -16,7 +16,7 @@ export interface Category {
   id: number;
   name: string;
   image: string;
-  subcategories: Subcategory[];
+  subcategories: Subcategory[]
 }
 
 export interface CategoriesResponse {
