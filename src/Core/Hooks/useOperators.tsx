@@ -35,16 +35,25 @@ const useOperators = (
       fetchData<Operator>(`/operators/${id}`)
     );
 
-  const createOperator = () =>
-    useMutation(
-      (newOperator: OperatorRequest) => postData("/operators", newOperator),
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries("operators");
-        },
-      }
-    );
+  // const createOperator = () =>
+  //   useMutation(
+  //     (newOperator: OperatorRequest) => postData("/operators", newOperator),
+  //     {
+  //       onSuccess: () => {
+  //         queryClient.invalidateQueries("operators");
+  //       },
+  //     }
+  //   );
 
+  const createOperator = useMutation(
+    (newOperator: OperatorRequest) => postData("/operators", newOperator),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("operators");
+      },
+    }
+  );
+  
   const updateOperator = () =>
     useMutation(
       (operator: OperatorRequest & { id: number }) =>

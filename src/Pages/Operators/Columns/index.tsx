@@ -16,6 +16,7 @@ export const getOperatorColumns = (
   { id: "id", label: t("operatorsPage.id"), align: "center" },
   { id: "username", label: t("operatorsPage.username"), align: "center" },
   { id: "fullName", label: t("operatorsPage.fullName"), align: "center" },
+  { id: "role", label: t("operatorsPage.role"), align: "center" },
   {
     id: "actions",
     label: t("actions.label"),

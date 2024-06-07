@@ -4,6 +4,13 @@ export interface Operator {
   isActive: boolean;
   type: string;
   fullName: string;
+  role: {
+    id: string;
+    name: {
+      ar: string;
+      en: string;
+    };
+  };
 }
 
 export interface OperatorRequest {
