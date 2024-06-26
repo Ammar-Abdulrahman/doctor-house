@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useOperators from "@Hooks/useOperators";
 import { useTranslation } from "react-i18next";
 import HeaderTitle from "@Components/Header/HeaderTitle";
@@ -10,13 +10,23 @@ import AddButton from "@Components/Button/Add";
 import { Grid } from "@mui/material";
 import CustomModal from "@Components/Modal/CreateModal";
 import OperatorForm from "./Components/OperatorForm";
+import ConfirmationModal from "@Components/Modal/ConfirmationModal/index";
+import ViewModal from "@Components/Modal/ViewModal";
+import { toast } from "react-toastify";
+import ViewOperatorModal from "./Components/ViewOperator";
 
 const Operators: React.FC = () => {
   const [needPagination] = useState(true);
-  const { getOperators , createOperator } = useOperators(needPagination);
+  const { getOperators, createOperator, deleteOperator, getOperator } =
+    useOperators(needPagination);
   const { data, isLoading, isError, error } = getOperators();
   const [modalOpen, setModalOpen] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [currentId, setCurrentId] = useState<number | null>(null);
+  const [openViewModal, setOpenViewModal] = useState(false);
+  const [currentOperator, setCurrentOperator] = useState<Operator | null>(null);
+
   const { t, i18n } = useTranslation();
 
   const rows =
@@ -24,45 +34,68 @@ const Operators: React.FC = () => {
       id: operator.id,
       username: operator.username,
       fullName: operator.fullName,
-      role:operator.role.name.ar
+      role:
+        i18n.language === "ar" ? operator.role.name.ar : operator.role.name.en,
     })) || [];
 
-    const handleAddClick = () => {
-      setModalOpen(true);
-    };
-  
-    // const handleFormSubmit = (formData: OperatorRequest) => {
-    //   createOperator.mutate(formData, {
-    //     onSuccess: () => {
-    //       console.log(formData)
-    //       console.log(formData)
-    //       setModalOpen(false);
-    //     },
-    //   });
-    // };
+  const handleAddClick = () => {
+    setModalOpen(true);
+  };
 
-    const handleFormSubmit = async (formData:OperatorRequest) => {
-      setSubmitting(true);
-      try {
-        createOperator.mutate(formData);
-        setModalOpen(false);
-      } catch (error) {
-        console.error('API error:', error);
-      } finally {
-        setSubmitting(false);
-      }
-    };
+  // const handleFormSubmit = (formData: OperatorRequest) => {
+  //   createOperator.mutate(formData, {
+  //     onSuccess: () => {
+  //       console.log(formData)
+  //       console.log(formData)
+  //       setModalOpen(false);
+  //     },
+  //   });
+  // };
+
+  const handleFormSubmit = async (formData: OperatorRequest) => {
+    setSubmitting(true);
+    try {
+      createOperator.mutate(formData);
+      setModalOpen(false);
+    } catch (error) {
+      console.error("API error:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const handleView = (id: number) => {
-    console.log("View:", id);
+    setCurrentId(id);
+    setOpenViewModal(true);
   };
+
+  useEffect(() => {
+    if (currentId !== null && openViewModal) {
+      getOperator(currentId).then((response) => {
+        setCurrentOperator(response.data);
+      });
+    }
+  }, [currentId]);
 
   const handleEdit = (id: any) => {
     console.log("Edit:", id);
   };
 
   const handleDelete = (id: number) => {
-    console.log("Delete:", id);
+    setCurrentId(id);
+    setOpenDeleteModal(true);
+  };
+
+  const confirmDelete = () => {
+    if (currentId != null) {
+      deleteOperator.mutate(currentId, {
+        onSuccess: () => {
+          toast.success(`${t("modal.delete_operator")}`);
+          setOpenDeleteModal(false);
+          setCurrentId(null);
+        },
+      });
+    }
   };
 
   const columns = getOperatorColumns(t, handleDelete, handleView, handleEdit);
@@ -77,18 +110,42 @@ const Operators: React.FC = () => {
           <HeaderTitle title={t("homePage.operators")} />
         </Grid>
         <Grid item xs={6} md={1}>
-          <AddButton onClickFunction={handleAddClick} />
+          <AddButton requiredPermission="createOperator" onClickFunction={handleAddClick} />
         </Grid>
       </Grid>
       <EnhancedTable rows={rows} columns={columns} />
       <CustomModal
         open={modalOpen}
-        onClose={() => { setModalOpen(false); setSubmitting(false); }}
-        title={t("operatorsPage.create")}
+        onClose={() => {
+          setModalOpen(false);
+          setSubmitting(false);
+        }}
+        title={t("modal.create_operator")}
         onSubmit={handleFormSubmit}
       >
-        <OperatorForm onSubmit={handleFormSubmit} isSubmitting={isSubmitting} />
+        <OperatorForm
+          onSubmit={handleFormSubmit}
+          isSubmitting={isSubmitting}
+          onClose={() => {
+            setModalOpen(false);
+            setSubmitting(false);
+          }}
+        />
       </CustomModal>
+      <ConfirmationModal
+        open={openDeleteModal}
+        onClose={() => setOpenDeleteModal(false)}
+        onConfirm={confirmDelete}
+        title={t("modal.operator")}
+        itemId={currentId || 0}
+      />
+      <ViewModal
+        open={openViewModal}
+        onClose={() => setOpenViewModal(false)}
+        title={t("modal.view_operator")}
+      >
+        <ViewOperatorModal operator={currentOperator} />
+      </ViewModal>
     </div>
   );
 };

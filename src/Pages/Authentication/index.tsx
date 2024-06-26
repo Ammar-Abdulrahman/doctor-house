@@ -5,12 +5,17 @@ import { loginApi } from "@Services/Authentications";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import theme from "@Styles/theme";
-import vectorImage from '@Assets/images/Vector.png'
-import teeth from '@Assets/images/teeth.png'
+import vectorImage from "@Assets/images/Vector.png";
+import teeth from "@Assets/images/teeth.png";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
+import { prefixer } from "stylis";
+import rtlPlugin from "stylis-plugin-rtl";
+
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t , i18n } = useTranslation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,12 +32,19 @@ const Login: React.FC = () => {
   //     navigate("/");
   //   },
   // });
+  const cacheRtl = createCache({
+    key: "muiltr",
+    stylisPlugins: i18n.language === "ar" ? [prefixer, rtlPlugin] : [],
+  });
 
   const mutation = useMutation(() => loginApi(username, password), {
     onSuccess: (data) => {
       const { accessToken, user } = data.data;
       sessionStorage.setItem("token", accessToken);
-      sessionStorage.setItem("privileges", JSON.stringify(user?.role?.privileges));
+      sessionStorage.setItem(
+        "privileges",
+        JSON.stringify(user?.role?.privileges)
+      );
       navigate("/");
       console.log(data.data.accessToken);
       console.log(data.data?.user?.role?.privileges);
@@ -107,13 +119,34 @@ const Login: React.FC = () => {
         minHeight="90vh"
       >
         <Grid style={{ zIndex: 100 }} width={300}>
-          
-          <div> <img style={{ position:"fixed" , height:"35px", marginTop:"0px" , marginLeft:"250px" }} srcSet={teeth} /> <h2 style={{ direction: "rtl" , marginRight:"70px" , color:theme.palette.primary.main }}>  {t("loginPage.welcome")} </h2></div>
+          <div>
+            {" "}
+            <img
+              style={{
+                position: "fixed",
+                height: "35px",
+                marginTop: "0px",
+                marginLeft: "250px",
+              }}
+              srcSet={teeth}
+            />{" "}
+            <h2
+              style={{
+                direction: "rtl",
+                marginRight: "70px",
+                color: theme.palette.primary.main,
+              }}
+            >
+              {" "}
+              {t("loginPage.welcome")}{" "}
+            </h2>
+          </div>
+          <CacheProvider value={cacheRtl}>
           <form onSubmit={handleSubmit}>
             <TextField
               label={t("loginPage.username")}
               fullWidth
-              style={{ direction:"rtl" }}
+              style={{ direction: "rtl" }}
               margin="normal"
               value={username}
               color="primary"
@@ -122,7 +155,7 @@ const Login: React.FC = () => {
             <TextField
               type="password"
               label={t("loginPage.password")}
-              style={{direction:"rtl"}}
+              style={{ direction: "rtl" }}
               fullWidth
               color="primary"
               margin="normal"
@@ -137,7 +170,7 @@ const Login: React.FC = () => {
                   fullWidth
                   type="submit"
                   variant="contained"
-                  style={{backgroundColor:theme.palette.primary.main}}
+                  style={{ backgroundColor: theme.palette.primary.main , color:"white" }}
                 >
                   {t("loginPage.login")}
                 </Button>
@@ -149,6 +182,7 @@ const Login: React.FC = () => {
               </div>
             )}
           </form>
+          </CacheProvider>
         </Grid>
       </Box>
     </div>
@@ -156,10 +190,6 @@ const Login: React.FC = () => {
 };
 
 export default Login;
-
-
-
-
 
 // import React from 'react';
 // import { useFormik } from 'formik';

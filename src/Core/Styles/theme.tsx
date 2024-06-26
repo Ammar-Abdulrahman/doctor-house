@@ -13,7 +13,7 @@ const colorPrimary = {
   200: "#80ECE7",
   100: "#AAF3EF",
   50: "#B3B3B3",
-  5:"#FFFFFF"
+  5: "#FFFFFF",
 };
 const theme = createTheme({
   palette: {
@@ -27,11 +27,11 @@ const theme = createTheme({
       main: teal["A400"],
       light: colorPrimary[5],
       dark: teal["A700"],
-      contrastText: teal["A200"],
+      contrastText: colorPrimary[800],
     },
     info: {
       main: blue[500],
-      light: blue[200],
+      light: "#F3FEF6",
       dark: blue[700],
       contrastText: blue[900],
     },
@@ -42,10 +42,10 @@ const theme = createTheme({
       contrastText: red[900],
     },
     success: {
-      main: green[500],
-      light: green[200],
-      dark: green[700],
-      contrastText: green[900],
+      main: teal[300],
+      light: teal[700],
+      dark: red["300"], //green
+      contrastText: teal["A400"],
     },
     warning: {
       main: yellow[500],

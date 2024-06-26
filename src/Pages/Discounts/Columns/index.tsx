@@ -24,6 +24,7 @@ export const getDiscountColumns = (
   { id: "id", label: t("discountsPage.id"), align: "center" },
   { id: "code", label: t("discountsPage.code"), align: "center" },
   { id: "percentage", label: t("discountsPage.percentage"), align: "center" },
+  { id: "value", label: t("discountsPage.value"), align: "center" },
   { id: "from", label: t("discountsPage.from"), align: "center" },
   { id: "to", label: t("discountsPage.to"), align: "center" },
   {

@@ -5,7 +5,7 @@ import {
   updateData,
   deleteData,
 } from "@Services/apiService";
-import { RoleResponse, RoleRequest, Role } from "@Types/Roles";
+import { RoleResponse, RoleRequest, Role, SingleRoleResponse } from "@Types/Roles";
 
 const useRoles = (
   needPagination: boolean
@@ -27,13 +27,15 @@ const useRoles = (
       }
     );
 
-  const getRole = (id: number) =>
-    useQuery<Role, Error>(["role", id], () =>
-      fetchData<Role>(`/roles/${id}`)
-    );
+    // const getRole = (id: number) =>
+    //   useQuery<SingleRoleResponse, Error>(["role", id], () =>
+    //     fetchData<SingleRoleResponse>(`/roles/${id}`)
+    //   );
 
-  const createRole = () =>
-    useMutation(
+    const getRole = (id: number) => fetchData<SingleRoleResponse>(`/roles/${id}`);
+
+    
+    const createRole = useMutation(
       (newRole: RoleRequest) => postData("/roles", newRole),
       {
         onSuccess: () => {
@@ -42,23 +44,14 @@ const useRoles = (
       }
     );
 
-  const updateRole = () =>
-    useMutation(
-      (role: RoleRequest & { id: number }) =>
-        updateData(`/roles/${role.id}`, role),
+    const updateRole = useMutation(
+      (role: RoleRequest & { id: number }) => updateData(`/roles/${role.id}`, role),
       {
         onSuccess: (_,role) => {
           queryClient.invalidateQueries(["role", role.id]);
         },
       }
     );
-
-  // const deleteRole = () =>
-  //   useMutation((id: number) => deleteData(`/roles/${id}`), {
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries("roles");
-  //     },
-  //   });
 
     const deleteRole = useMutation((id: number) => deleteData(`/roles/${id}`), {
       onSuccess: () => {

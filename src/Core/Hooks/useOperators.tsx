@@ -5,7 +5,7 @@ import {
   updateData,
   deleteData,
 } from "@Services/apiService";
-import { OperatorResponse, OperatorRequest, Operator } from "@Types/Operator";
+import { OperatorResponse, OperatorRequest, Operator, SingleOperatorResponse } from "@Types/Operator";
 
 const useOperators = (
   needPagination: boolean,
@@ -30,10 +30,12 @@ const useOperators = (
       }
     );
 
-  const getOperator = (id: number) =>
-    useQuery<Operator, Error>(["operator", id], () =>
-      fetchData<Operator>(`/operators/${id}`)
-    );
+  // const getOperator = (id: number) =>
+  //   useQuery<Operator, Error>(["operator", id], () =>
+  //     fetchData<Operator>(`/operators/${id}`)
+  //   );
+
+    const getOperator = (id: number) => fetchData<SingleOperatorResponse>(`/operators/${id}`);
 
   // const createOperator = () =>
   //   useMutation(
@@ -65,8 +67,14 @@ const useOperators = (
       }
     );
 
-  const deleteOperator = () =>
-    useMutation((id: number) => deleteData(`/operators/${id}`), {
+  // const deleteOperator = () =>
+  //   useMutation((id: number) => deleteData(`/operators/${id}`), {
+  //     onSuccess: () => {
+  //       queryClient.invalidateQueries("operators");
+  //     },
+  //   });
+
+    const deleteOperator = useMutation((id: number) => deleteData(`/operators/${id}`), {
       onSuccess: () => {
         queryClient.invalidateQueries("operators");
       },

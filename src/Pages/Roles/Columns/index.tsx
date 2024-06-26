@@ -7,13 +7,13 @@ import ActionsMenu from '@Components/MenuItems';
 interface Column {
     id: string;
     label: string;
-    align: 'center' | 'left' | 'right'; // This restricts the align values
+    align: 'center' | 'left' | 'right';
     render?: (rowData: any) => JSX.Element;
   }
 
 export const getRoleColumns = (t:any, handleDelete:any, handleView:any, handleEdit:any) : Column[] => [
     { id: 'id', label: t("rolesPage.id"), align: 'center' },
-    { id: 'name_ar', label: t("rolesPage.name"), align: 'center' },
+    { id: 'name', label: t("rolesPage.name"), align: 'center' },
     {
         id: "actions",
         label: t("actions.label"),

@@ -26,3 +26,7 @@ export interface OperatorResponse {
   duration: string;
   method: string;
 }
+
+export interface SingleOperatorResponse {
+  data: Operator;
+}

@@ -11,7 +11,9 @@
     "information": "المعلومات",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
-    "home": "الصفحة الرئيسية"
+    "home": "الصفحة الرئيسية",
+    "orders": "الطلبات",
+    "delivery_areas": "مناطق التسليم"
   },
   "loginPage": {
     "login": " تسجيل الدخول",
@@ -24,18 +26,28 @@
     "code": "كود الحسم",
     "percentage": "نسبة الحسم",
     "from": "التاريخ الأولي",
-    "to": "التاريخ النهائي"
+    "to": "التاريخ النهائي",
+    "subcategory": "التصنيف الفرعي",
+    "value": "القيمة"
   },
   "operatorsPage": {
     "id": "رقم التعريف",
     "username": "اسم المستخدم",
     "fullName": "الاسم الكامل",
-    "role": "الدور",
-    "create":"إضافة مدير"
+    "role": "الدور"
   },
   "rolesPage": {
     "id": "رقم التعريف",
-    "name": "الاسم"
+    "name": "الاسم",
+    "name_ar": "الاسم باللغة العربية",
+    "name_en": "الاسم باللغة الإنكليزية"
+  },
+  "ordersPage": {
+    "id": "رقم التعريف",
+    "user": "اسم المستخدم",
+    "status": "حالة الطلب",
+    "date": "تاريخ الطلب",
+    "delivery_option": "خيار التوصيل"
   },
   "notAuthorizationsPage": {
     "access_denied": "تم الرفض",
@@ -44,6 +56,21 @@
   "notFoundPage": {
     "not_found": "الصفحة غير موجودة",
     "message_not_found": "لم نتمكن العثور على الصفحة المطلوبة . الرجاء التاكد من العنوان المرسل أو العودة إلى الصفحة الرئيسية"
+  },
+  "statisticsPage": {
+    "total_users": "إجمالي المستخدمين",
+    "total_products_revenue": "إجمالي إيرادات المنتجات",
+    "total_discounts": "إجمالي الخصومات",
+    "total_advertisements": "إجمالي الإعلانات"
+  },
+  "delivery_areasPage": {
+    "id": "رقم التعريف",
+    "time": "التوقيت",
+    "area": "المنطقة",
+    "time_en": "التوقيت باللغة الإنكليزية",
+    "area_en": "المنطقة باللغة الإنكليزية",
+    "time_ar": "التوقيت باللغة العربية",
+    "area_ar": " المنطقة باللغة العربية"
   },
   "actions": {
     "label": "الإجراءات",
@@ -59,16 +86,47 @@
     "product": "المنتج",
     "advertisement": "الإعلان",
     "discount": "الحسم",
-    "confirm": "تأكيد",
-    "submit":"إرسال",
+    "order": "الطلب",
+    "delivery_area": "منطقة التوصيل",
     "confirm_message": "هل أنت متأكد أنك تريد حذف هذا العنصر بالمعرف",
     "confirm_title": "تأكيد حذف",
+    "logout_title": "تأكيد تسجيل الخروج",
+    "logout_message": "هل أنت متأكد أنك تريد تسجيل الخروج ؟",
+    "confirm": "تأكيد",
+    "submit": "إرسال",
     "cancel": "إلغاء",
     "delete_role": "تم حذف الدور بنجاح",
     "delete_operator": "تم حذف العامل بنجاح",
     "delete_category": "تم حذف التصنيف بنجاح",
     "delete_product": "تم حذف المنتج بنجاح",
     "delete_advertisement": "تم حذف الإعلان بنجاح",
-    "delete_discount": "تم حذف الخصم بنجاح"
+    "delete_discount": "تم حذف الخصم بنجاح",
+    "delete_order": "تم حذف الطلب بالنجاح",
+    "delete_delivery_area": "تم حذف منطقة التوصيل بنجاح",
+    "create_role": "إضافة دور جديد",
+    "create_operator": "إضافة مستخدم جديد",
+    "create_category": "إضافة تصنيف جديد",
+    "create_product": "إضافة منتج جديد",
+    "create_advertisement": "إضافة إعلان جديد",
+    "create_discount": "إضافة خصم جديد",
+    "create_order": "إضافة طلب",
+    "create_delivery_area": "إضافة منطقة توصيل مجاني جديدة",
+
+    "success_create_role": "تم إضافة الخصم بنجاح",
+    "success_create_operator": "تم إضافة المستخدم بنجاح",
+    "success_create_category": "تم إضافة التصنيف بنجاح",
+    "success_create_product": "تم إضافة المنتج بنجاح",
+    "success_create_advertisements": "تم إضافة الإعلان بنجاح",
+    "success_create_discount": "تم إضافة الخصم بنجاح",
+    "success_create_deivery_area": "تم إضافة منطقة التوصيل المجاني بنجاح",
+
+    "view_role": "عرض الدور",
+    "view_operator": "عرض المستخدم",
+    "view_category": "عرض التصنيف",
+    "view_product": "عرض المنتج",
+    "view_advertisement": "عرض الإعلان",
+    "view_discount": "عرض الخصم",
+    "view_order": "عرض الطلب",
+    "view_delivery_area": "عرض منطقة التوصيل"
   }
 }

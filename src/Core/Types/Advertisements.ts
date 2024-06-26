@@ -14,3 +14,7 @@ export interface AdvertisementsRequest {
 export interface AdvertisementsResponse {
   data: Advertisement[];
 }
+
+export interface SingleAdvertisementResponse {
+  data: Advertisement;
+}

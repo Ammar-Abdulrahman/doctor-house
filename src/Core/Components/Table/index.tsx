@@ -11,21 +11,13 @@ import {
   TablePagination,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-
-// interface Column {
-//   render: any;
-//   align: "center" | "left" | "right" | "inherit" | "justify" | undefined;
-//   id: keyof Row;
-//   label: string;
-//   numeric?: boolean;
-//   disablePadding?: boolean;
-// }
+import theme from "@Styles/theme";
 
 interface Column {
   id: string;
   label: string;
-  align?: 'left' | 'center' | 'right';
-  render?: (rowData: any) => JSX.Element; 
+  align?: "left" | "center" | "right";
+  render?: (rowData: any) => JSX.Element;
 }
 
 interface Row {
@@ -53,8 +45,10 @@ const EnhancedTable: React.FC<EnhancedTableProps> = ({ rows, columns }) => {
   // };
 
   return (
-    <Box sx={{ width: "100%", direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
+    <Box
+      sx={{ width: "100%", direction: i18n.language === "ar" ? "rtl" : "ltr" }}
+    >
+      <Paper sx={{ width: "100%", mb: 2, borderRadius: 2 }}>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -62,11 +56,17 @@ const EnhancedTable: React.FC<EnhancedTableProps> = ({ rows, columns }) => {
             size="medium"
           >
             <TableHead>
-              <TableRow>
+              <TableRow
+                style={{
+                  backgroundColor: theme.palette.info.light,
+                  height: theme.spacing(5),
+                }}
+              >
                 {columns.map((column: Column) => (
                   <TableCell
                     key={column.id}
                     align={column.align ? "center" : "center"}
+                    style={{ fontWeight: "bold" }}
                     // padding={column.disablePadding ? 'none' : 'normal'}
                     // sortDirection={orderBy === column.id ? order : false}
                     // onClick={(event) => handleRequestSort(event, column.id)}
@@ -90,8 +90,16 @@ const EnhancedTable: React.FC<EnhancedTableProps> = ({ rows, columns }) => {
             <TableBody>
               {rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => (
-                  <TableRow hover tabIndex={-1} key={row.id}>
+                .map((row, index) => (
+                  <TableRow
+                    hover
+                    tabIndex={-1}
+                    key={row.id}
+                    sx={{
+                      backgroundColor:
+                        index % 2 === 0 ? "white" : "rgba(0, 0, 0, 0.05)",
+                    }}
+                  >
                     {columns.map((column) => (
                       <TableCell
                         key={`${row.id}-${column.id}`}

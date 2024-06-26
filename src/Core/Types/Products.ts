@@ -20,3 +20,7 @@ export interface ProductsRequest {
 export interface ProductsResponse {
   data: Product[];
 }
+
+export interface SingleProductResponse {
+  data: Product;
+}

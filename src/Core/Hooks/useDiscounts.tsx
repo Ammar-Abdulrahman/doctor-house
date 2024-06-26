@@ -8,6 +8,7 @@ import {
 import {
   DiscountsResponse,
   DiscountsRequest,
+  SingleDiscountResponse,
   //Discount,
 } from "@Types/Discounts";
 
@@ -48,11 +49,13 @@ const useDiscounts = (
   //   });
   // };
 
-  const getDiscount = (id: number) => useQuery(
-    ['discount', id], 
-    () => fetchData(`/discounts/${id}`),
-    { enabled: false }  // Initially disabled
-  );
+  // const getDiscount = (id: number) => useQuery(
+  //   ['discount', id], 
+  //   () => fetchData(`/discounts/${id}`),
+  //   { enabled: false }  // Initially disabled
+  // );
+
+  const getDiscount = (id: number) => fetchData<SingleDiscountResponse>(`/discounts/${id}`);
 
   // const createDiscount = () =>
   //   useMutation(
@@ -84,17 +87,27 @@ const useDiscounts = (
   //     }
   //   );
 
-  const updateDiscount = () => {
-    return useMutation(
-      (discount: DiscountsRequest & { id: number }) =>
-        updateData(`/discounts/${discount.id}`, discount),
-      {
-        onSuccess: (_,discount) => {
-          queryClient.invalidateQueries(["discount", discount.id]);
-        },
-      }
-    );
-  };
+  // const updateDiscount = () => {
+  //   return useMutation(
+  //     (discount: DiscountsRequest & { id: number }) =>
+  //       updateData(`/discounts/${discount.id}`, discount),
+  //     {
+  //       onSuccess: (_,discount) => {
+  //         queryClient.invalidateQueries(["discount", discount.id]);
+  //       },
+  //     }
+  //   );
+  // };
+
+  const updateDiscount = useMutation(
+    (discount: DiscountsRequest & { id: number }) => updateData(`/discounts/${discount.id}`, discount),
+    {
+      onSuccess: (_, discount) => {
+        queryClient.invalidateQueries(["discount", discount.id]);
+        queryClient.invalidateQueries("discounts");
+      },
+    }
+  );
 
   // const deleteDiscount = () =>
   //   useMutation((id: number) => deleteData(`/discounts/${id}`), {

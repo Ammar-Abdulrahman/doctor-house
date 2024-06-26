@@ -1,14 +1,12 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {
-  TextField,
-  Button,
-  CircularProgress,
-} from "@mui/material";
+import { TextField, Button, CircularProgress } from "@mui/material";
 import useCategories from "@Hooks/useCategories";
 import { Category } from "@Types/Categories";
 import theme from "@Styles/theme";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import Loader from "@Components/Loader/AppLoader";
 
 interface OperatorFormProps {
   onSubmit?: any;
@@ -16,8 +14,8 @@ interface OperatorFormProps {
 }
 const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
   const { getCategories } = useCategories(false);
-  const { data, isLoading} = getCategories();
-  const { t } = useTranslation()
+  const { data, isLoading } = getCategories();
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -25,35 +23,35 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
       from: "",
       to: "",
       subcategory: "",
-      percentage:""
+      percentage: undefined,
+      value: undefined,
     },
     validationSchema: Yup.object({
       code: Yup.string().required("Discount Code is Required"),
       from: Yup.string().required("start date is Required"),
       to: Yup.string().required("end date is Required"),
       subcategory: Yup.number().required("subcategory is Required"),
-      percentage: Yup.number().required("Percentage is Required"),
     }),
     onSubmit: (values, { setSubmitting }) => {
       try {
         onSubmit(values);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Submission error:", error);
+        toast.error(error?.error?.message);
       } finally {
         setSubmitting(false);
+        //toast.success(`${t("modal.success_create_discount")}`);
       }
     },
   });
 
-  console.log(formik.values)
-
-  if (isLoading) return <div>Loading Subcategories...</div>;
+  if (isLoading) return <Loader />;
 
   return (
     <form onSubmit={formik.handleSubmit}>
       <TextField
         fullWidth
-        style={{marginTop:theme.spacing(1),marginBottom:theme.spacing(1) }}
+        style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
         id="code"
         name="code"
         label="Discount Code"
@@ -64,7 +62,7 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
       />
       <TextField
         fullWidth
-        style={{marginTop:theme.spacing(1),marginBottom:theme.spacing(1)}}
+        style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
         id="from"
         name="from"
         type="date"
@@ -76,7 +74,7 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
       />
       <TextField
         fullWidth
-        style={{marginTop:theme.spacing(1),marginBottom:theme.spacing(1)}}
+        style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
         type="date"
         id="to"
         name="to"
@@ -87,7 +85,7 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
         helperText={formik.touched.to && formik.errors.to}
       />
       <TextField
-      style={{marginTop:theme.spacing(1),marginBottom:theme.spacing(1)}}
+        style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
         fullWidth
         select
         id="subcategory"
@@ -100,7 +98,7 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
           native: true,
         }}
       >
-        {data?.data?.map((subcategory:Category) => (
+        {data?.data?.map((subcategory: Category) => (
           <option key={subcategory.id} value={subcategory.subcategories[0].id}>
             {subcategory.subcategories[0].name}
           </option>
@@ -109,7 +107,7 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
       <TextField
         fullWidth
         type="number"
-        style={{marginTop:theme.spacing(1),marginBottom:theme.spacing(1)}}
+        style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
         id="percentage"
         name="percentage"
         label="Percentage"
@@ -118,8 +116,24 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
         error={formik.touched.percentage && Boolean(formik.errors.percentage)}
         helperText={formik.touched.percentage && formik.errors.percentage}
       />
+      <TextField
+        fullWidth
+        type="number"
+        style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
+        id="value"
+        name="value"
+        label="Value"
+        value={formik.values.value}
+        onChange={formik.handleChange}
+        //error={formik.touched.percentage && Boolean(formik.errors.percentage)}
+        //helperText={formik.touched.percentage && formik.errors.percentage}
+      />
       <Button
-        style={{color:"white" , marginTop:theme.spacing(1),marginBottom:theme.spacing(1)}}
+        style={{
+          color: "white",
+          marginTop: theme.spacing(1),
+          marginBottom: theme.spacing(1),
+        }}
         color="primary"
         variant="contained"
         fullWidth

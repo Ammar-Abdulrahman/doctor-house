@@ -9,8 +9,9 @@ import { useTranslation } from "react-i18next";
 interface OperatorFormProps {
   onSubmit?: any;
   isSubmitting?: any;
+  onClose?: () => void;
 }
-const OperatorForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
+const OperatorForm = ({ onSubmit, isSubmitting , onClose }: OperatorFormProps) => {
   const { getRoles } = useRoles(true);
   const { data, isLoading: rolesLoading } = getRoles();
   const { t } = useTranslation();
@@ -107,11 +108,28 @@ const OperatorForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
         }}
         color="primary"
         variant="contained"
-        fullWidth
+        //fullWidth
         type="submit"
         disabled={isSubmitting || formik.isSubmitting}
       >
         {isSubmitting ? <CircularProgress size={24} /> : t("modal.submit")}
+      </Button>
+      <Button
+        style={{
+          //color: "white",
+          marginTop: theme.spacing(1),
+          marginBottom: theme.spacing(1),
+          marginLeft:theme.spacing(1),
+          marginRight:theme.spacing(1)
+        }}
+        color="primary"
+        //variant="contained"
+        //fullWidth
+        type="submit"
+        disabled={isSubmitting || formik.isSubmitting}
+        onClick={onClose}
+      >
+        {t("modal.cancel")}
       </Button>
     </form>
   );
