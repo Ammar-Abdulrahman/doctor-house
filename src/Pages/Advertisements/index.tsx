@@ -43,7 +43,9 @@ const Advertisements: React.FC = () => {
                   {Advertisement.url}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {Advertisement.description}
+                  {i18n.language === "ar"
+                    ? Advertisement.description?.ar
+                    : Advertisement.description?.en}
                 </Typography>
               </CardContent>
             </Card>

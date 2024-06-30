@@ -5,6 +5,7 @@ import useRoles from "@Hooks/useRoles";
 import { Role } from "@Types/Roles";
 import theme from "@Styles/theme";
 import { useTranslation } from "react-i18next";
+import Loader from "@Components/Loader/AppLoader";
 
 interface OperatorFormProps {
   onSubmit?: any;
@@ -42,7 +43,7 @@ const OperatorForm = ({ onSubmit, isSubmitting , onClose }: OperatorFormProps) =
 
   console.log(formik.values);
 
-  if (rolesLoading) return <div>Loading roles...</div>;
+  if (rolesLoading) return <Loader />;
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -51,7 +52,7 @@ const OperatorForm = ({ onSubmit, isSubmitting , onClose }: OperatorFormProps) =
         style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
         id="username"
         name="username"
-        label="Username"
+        label={t("operatorsPage.username")}
         value={formik.values.username}
         onChange={formik.handleChange}
         error={formik.touched.username && Boolean(formik.errors.username)}
@@ -62,7 +63,7 @@ const OperatorForm = ({ onSubmit, isSubmitting , onClose }: OperatorFormProps) =
         style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
         id="fullName"
         name="fullName"
-        label="Full Name"
+        label={t("operatorsPage.fullName")}
         value={formik.values.fullName}
         onChange={formik.handleChange}
         error={formik.touched.fullName && Boolean(formik.errors.fullName)}
@@ -74,7 +75,7 @@ const OperatorForm = ({ onSubmit, isSubmitting , onClose }: OperatorFormProps) =
         type="password"
         id="password"
         name="password"
-        label="Password"
+        label={t("operatorsPage.password")}
         value={formik.values.password}
         onChange={formik.handleChange}
         error={formik.touched.password && Boolean(formik.errors.password)}
@@ -87,7 +88,7 @@ const OperatorForm = ({ onSubmit, isSubmitting , onClose }: OperatorFormProps) =
         id="role"
         type="number"
         name="role"
-        label="Role"
+        label={t("operatorsPage.role")}
         value={formik.values.role}
         onChange={(e) => formik.setFieldValue("role", e.target.value)}
         SelectProps={{

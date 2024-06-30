@@ -8,7 +8,7 @@ import { LinearProgress } from '@mui/material'
   return (
     // <div style = {{marginLeft:"530px" , marginTop:"100px" , height:"450px" , width:"450px"}} >
       <div>
-        <LinearProgress color="info" />
+        <LinearProgress color="success" />
         {/* <Lottie loop={false} autoPlay={true} animationData={AppLoaderAnimation} /> */}
         </div>
     // </div>

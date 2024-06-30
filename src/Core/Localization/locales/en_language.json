@@ -30,11 +30,18 @@
     "subcategory": "Sub Category",
     "value": "Value"
   },
+  "advertisementsPage": {
+    "id": "Id",
+    "description": "Desciption",
+    "url": "Url",
+    "image": "Image"
+  },
   "operatorsPage": {
     "id": "Id",
     "username": "User name",
     "fullName": "Full Name",
-    "role": "Role"
+    "role": "Role",
+    "password": "Password"
   },
   "rolesPage": {
     "id": "Id",
@@ -71,6 +78,14 @@
     "status": "Order Status",
     "date": "Order Date",
     "delivery_option": "Delivery Option"
+  },
+  "categoriesPage": {
+    "ar_name": "Arabic Name",
+    "en_name": "English Name",
+    "desciption": "Desciption",
+    "upload_image": "Upload image",
+    "subcategory_name_ar": "Arabic Subcategory Name",
+    "subcategory_name_en": "English Subcategory Name"
   },
   "actions": {
     "label": "Actions",

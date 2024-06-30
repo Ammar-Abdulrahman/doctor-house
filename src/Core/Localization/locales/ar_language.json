@@ -4,7 +4,7 @@
     "dashboard": "لوحة التحكم",
     "categories": "التصنيفات",
     "products": "المنتجات",
-    "discounts": "الحسومات",
+    "discounts": "الخصومات",
     "roles": "الأدوار",
     "operators": "العاملين",
     "advertisements": "الإعلانات",
@@ -23,18 +23,25 @@
   },
   "discountsPage": {
     "id": "رقم التعريف",
-    "code": "كود الحسم",
-    "percentage": "نسبة الحسم",
+    "code": "كود الخصم",
+    "percentage": "نسبة الخصم",
     "from": "التاريخ الأولي",
     "to": "التاريخ النهائي",
     "subcategory": "التصنيف الفرعي",
     "value": "القيمة"
   },
+  "advertisementsPage": {
+    "id": "رقم التعريف",
+    "description": "الوصف",
+    "url": "الرابط",
+    "image": "الصورة"
+  },
   "operatorsPage": {
     "id": "رقم التعريف",
     "username": "اسم المستخدم",
     "fullName": "الاسم الكامل",
-    "role": "الدور"
+    "role": "الدور",
+    "password": "كلمة السر"
   },
   "rolesPage": {
     "id": "رقم التعريف",
@@ -48,6 +55,14 @@
     "status": "حالة الطلب",
     "date": "تاريخ الطلب",
     "delivery_option": "خيار التوصيل"
+  },
+  "categoriesPage": {
+    "ar_name": "الاسم باللغة العربية",
+    "en_name": "الاسم باللغة الإنكليزية",
+    "desciption": "الوصف",
+    "upload_image": "إدراج صورة",
+    "subcategory_name_ar": "اسم التصنيف باللغة العربية",
+    "subcategory_name_en": "اسم التصنيف باللغة الإنكليزية"
   },
   "notAuthorizationsPage": {
     "access_denied": "تم الرفض",

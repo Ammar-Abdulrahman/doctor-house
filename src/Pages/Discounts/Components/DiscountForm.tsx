@@ -54,7 +54,7 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
         style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
         id="code"
         name="code"
-        label="Discount Code"
+        label={t("discountsPage.code")}
         value={formik.values.code}
         onChange={formik.handleChange}
         error={formik.touched.code && Boolean(formik.errors.code)}
@@ -66,7 +66,7 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
         id="from"
         name="from"
         type="date"
-        label="Start Date"
+        label={t("discountsPage.from")}
         value={formik.values.from}
         onChange={formik.handleChange}
         error={formik.touched.from && Boolean(formik.errors.from)}
@@ -78,7 +78,7 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
         type="date"
         id="to"
         name="to"
-        label="End Date"
+        label={t("discountsPage.to")}
         value={formik.values.to}
         onChange={formik.handleChange}
         error={formik.touched.to && Boolean(formik.errors.to)}
@@ -91,7 +91,7 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
         id="subcategory"
         type="number"
         name="subcategory"
-        label="Sub Category"
+        label={t("discountsPage.subcategory")}
         value={formik.values.subcategory}
         onChange={(e) => formik.setFieldValue("subcategory", e.target.value)}
         SelectProps={{
@@ -110,11 +110,11 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
         style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
         id="percentage"
         name="percentage"
-        label="Percentage"
+        label={t("discountsPage.percentage")}
         value={formik.values.percentage}
         onChange={formik.handleChange}
         error={formik.touched.percentage && Boolean(formik.errors.percentage)}
-        helperText={formik.touched.percentage && formik.errors.percentage}
+        //helperText={formik.touched.percentage && formik.errors.percentage}
       />
       <TextField
         fullWidth
@@ -122,7 +122,7 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
         style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
         id="value"
         name="value"
-        label="Value"
+        label={t("discountsPage.value")}
         value={formik.values.value}
         onChange={formik.handleChange}
         //error={formik.touched.percentage && Boolean(formik.errors.percentage)}
