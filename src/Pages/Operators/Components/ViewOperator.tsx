@@ -43,8 +43,8 @@ const ViewOperatorModal: React.FC<ViewOperatorProps> = ({ operator }) => {
     <>
       {operator ? (
         <div style={{ marginTop: "60px" }}>
-          <Box component="fieldset" style={textFieldStyle}>
-            <Typography component="legend" style={labelStyle}>
+          <Box component="fieldset" sx={textFieldStyle}>
+            <Typography component="legend" sx={labelStyle}>
               {t("operatorsPage.id")}
             </Typography>
             <Typography style={valueStyle}>
@@ -52,8 +52,8 @@ const ViewOperatorModal: React.FC<ViewOperatorProps> = ({ operator }) => {
             </Typography>
           </Box>
 
-          <Box component="fieldset" style={textFieldStyle}>
-            <Typography component="legend" style={labelStyle}>
+          <Box component="fieldset" sx={textFieldStyle}>
+            <Typography component="legend" sx={labelStyle}>
               {t("operatorsPage.username")}
             </Typography>
             <Typography style={valueStyle}>
@@ -61,8 +61,8 @@ const ViewOperatorModal: React.FC<ViewOperatorProps> = ({ operator }) => {
             </Typography>
           </Box>
 
-          <Box component="fieldset" style={textFieldStyle}>
-            <Typography component="legend" style={labelStyle}>
+          <Box component="fieldset" sx={textFieldStyle}>
+            <Typography component="legend" sx={labelStyle}>
               {t("operatorsPage.fullName")}
             </Typography>
             <Typography style={valueStyle}>
@@ -70,8 +70,8 @@ const ViewOperatorModal: React.FC<ViewOperatorProps> = ({ operator }) => {
             </Typography>
           </Box>
 
-          <Box component="fieldset" style={textFieldStyle}>
-            <Typography component="legend" style={labelStyle}>
+          <Box component="fieldset" sx={textFieldStyle}>
+            <Typography component="legend" sx={labelStyle}>
               {t("modal.role")}
             </Typography>
             <Typography style={valueStyle}>

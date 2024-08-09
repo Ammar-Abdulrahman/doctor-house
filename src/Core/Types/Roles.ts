@@ -14,7 +14,7 @@ export interface RoleRequest {
     ar: string;
     en: string;
   };
-  privileges: Privilege[];
+  privileges: Number[];
 }
 
 export interface RoleResponse {

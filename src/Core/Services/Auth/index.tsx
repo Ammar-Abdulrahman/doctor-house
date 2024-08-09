@@ -1,6 +1,6 @@
 // authService.ts
 import { useMutation } from 'react-query';
-import axiosInstance, { setAuthToken } from '@Constants/Shared/index';
+import axiosInstance from '@Constants/Shared/index';
 
 interface AuthResponse {
   token: string;
@@ -15,7 +15,7 @@ export const useLogin = () => useMutation<AuthResponse, Error, LoginCredentials>
   (credentials) => axiosInstance.post('/auth/login', credentials),
   {
     onSuccess: (data) => {
-      setAuthToken(data.token);
+      //setAuthToken(data.token);
     },
   }
 );

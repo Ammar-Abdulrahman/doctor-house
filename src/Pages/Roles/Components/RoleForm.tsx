@@ -20,7 +20,7 @@ const RoleForm: React.FC<RoleFormProps> = ({ onSubmit }) => {
 
   useEffect(() => {
     const fetchPrivileges = async () => {
-      const response = await fetchData("/privileges?needPagination=false&type=E-commerce");
+      const response : any = await fetchData("/privileges?needPagination=false&type=E-commerce");
       setAllPrivileges(response?.data);
     };
     fetchPrivileges();

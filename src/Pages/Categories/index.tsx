@@ -151,12 +151,12 @@ const Categories: React.FC = () => {
                   onClick={(event) => {
                     handleMenuOpen(event, category.id);
                     setCurrentId(category.id);
-                    setCurrentCategory(category);
+                    //setCurrentCategory(category);
                   }}
                 >
                   <MoreVertIcon />
                 </IconButton>
-                <Menu
+                {/* <Menu
                   id="long-menu"
                   anchorEl={anchorEl}
                   keepMounted
@@ -226,7 +226,7 @@ const Categories: React.FC = () => {
                     />
                     {t("actions.delete")}
                   </MenuItem>
-                </Menu>
+                </Menu> */}
               </CardActions>
               <CardMedia
                 style={{
