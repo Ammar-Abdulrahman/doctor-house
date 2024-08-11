@@ -2,24 +2,35 @@ import React, { useEffect, useState } from "react";
 import useDeliveryAreas from "@Hooks/useDeliveryAreas";
 import { useTranslation } from "react-i18next";
 import HeaderTitle from "@Components/Header/HeaderTitle";
-import { DeliveryArea, DeliveryAreasRequest, DeliveryOneArea } from "@Types/Delivery-areas";
+import {
+  DeliveryArea,
+  DeliveryAreasRequest,
+  DeliveryOneArea,
+} from "@Types/Delivery-areas";
 import EnhancedTable from "@Components/Table";
 import { getDeliveryAreaColumns } from "./Columns/index";
 import ConfirmationModal from "@Components/Modal/ConfirmationModal/index";
 import { toast } from "react-toastify";
 import PageLoader from "@Components/Loader/PageLoader";
 import AddButton from "@Components/Button/Add";
-import { Grid } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import CustomModal from "@Components/Modal/CreateModal";
 import DeliveryAreaForm from "./Components/DeliveryAreaForm";
 import ViewDeliveryAreaModal from "./Components/ViewDeliveryAreaModal";
 import ViewModal from "@Components/Modal/ViewModal";
 import EditDeliveryAreaForm from "./Components/EditDeliveryAreaForm";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 const DeliveryAreas: React.FC = () => {
   const { t, i18n } = useTranslation();
-  const { getDeliveryAreas, deleteDeliveryArea, createDeliveryArea, updateDeliveryArea , getDeliveryArea } = useDeliveryAreas();
-  const { data, isLoading, isError, error } = getDeliveryAreas();
+  const {
+    getDeliveryAreas,
+    deleteDeliveryArea,
+    createDeliveryArea,
+    updateDeliveryArea,
+    getDeliveryArea,
+  } = useDeliveryAreas();
+  const { data, isLoading, isError, error, refetch } = getDeliveryAreas();
   const [modalOpen, setModalOpen] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -27,13 +38,22 @@ const DeliveryAreas: React.FC = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editData, setEditData] = useState<DeliveryOneArea | null>(null);
   const [openViewModal, setOpenViewModal] = useState(false);
-  const [currentDeliveryArea, setCurrentDeliveryArea] = useState<DeliveryOneArea | null>(null);
+  const [currentDeliveryArea, setCurrentDeliveryArea] =
+    useState<DeliveryOneArea | null>(null);
+  const [isRefetching, setIsRefetching] = useState(false);
 
-  const rows = data?.data?.map((deliveryArea: DeliveryArea) => ({
-    id: deliveryArea.id,
-    time: deliveryArea.time,
-    area: deliveryArea.area,
-  })) || [];
+  const rows =
+    data?.data?.map((deliveryArea: DeliveryArea) => ({
+      id: deliveryArea.id,
+      time: deliveryArea.time,
+      area: deliveryArea.area,
+    })) || [];
+
+  const handleRefetch = async () => {
+    setIsRefetching(true);
+    await refetch();
+    setIsRefetching(false);
+  };
 
   const handleDelete = (id: number) => {
     setCurrentId(id);
@@ -56,16 +76,15 @@ const DeliveryAreas: React.FC = () => {
   const handleEdit = (id: number) => {
     const deliveryArea = currentDeliveryArea;
     setEditData(deliveryArea);
-    console.log(id)
+    console.log(id);
     setEditModalOpen(true);
-    console.log("edit")
+    console.log("edit");
   };
 
   const confirmDelete = () => {
     if (currentId != null) {
       deleteDeliveryArea.mutate(currentId, {
         onSuccess: () => {
-          toast.success(`${t("modal.delete_deliver_area")}`);
           setOpenModal(false);
           setCurrentId(null);
         },
@@ -103,11 +122,15 @@ const DeliveryAreas: React.FC = () => {
     }
   };
 
-  const columns = getDeliveryAreaColumns(t, handleDelete, handleView, handleEdit);
+  const columns = getDeliveryAreaColumns(
+    t,
+    handleDelete,
+    handleView,
+    handleEdit
+  );
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading || isRefetching) return <PageLoader />;
   if (isError) return <div>Error: {error.message}</div>;
-  
 
   return (
     <div style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
@@ -115,8 +138,20 @@ const DeliveryAreas: React.FC = () => {
         <Grid item xs={6} md={8}>
           <HeaderTitle title={t("homePage.delivery_areas")} />
         </Grid>
-        <Grid item xs={6} md={1}>
-          <AddButton requiredPermission="createRole" onClickFunction={handleAddClick} />
+        <Grid item xs={6} md={1.5}>
+          <Grid container alignItems="center">
+            <Grid item xs={3} md={7.5}>
+              <AddButton
+                requiredPermission="createRole"
+                onClickFunction={handleAddClick}
+              />
+            </Grid>
+            <Grid item xs={3} md={1}>
+              <IconButton onClick={handleRefetch}>
+                <RefreshIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
       <EnhancedTable rows={rows} columns={columns} />
@@ -129,7 +164,10 @@ const DeliveryAreas: React.FC = () => {
         title={t("modal.create_delivery_area")}
         onSubmit={handleFormSubmit}
       >
-        <DeliveryAreaForm onSubmit={handleFormSubmit} isSubmitting={isSubmitting} />
+        <DeliveryAreaForm
+          onSubmit={handleFormSubmit}
+          isSubmitting={isSubmitting}
+        />
       </CustomModal>
       <CustomModal
         open={editModalOpen}
@@ -140,13 +178,19 @@ const DeliveryAreas: React.FC = () => {
         title="Edit Delivery Area"
         onSubmit={handleEditFormSubmit}
       >
-        {editData && <EditDeliveryAreaForm defaultValues={editData} onSubmit={handleEditFormSubmit} isSubmitting={isSubmitting} />}
+        {editData && (
+          <EditDeliveryAreaForm
+            defaultValues={editData}
+            onSubmit={handleEditFormSubmit}
+            isSubmitting={isSubmitting}
+          />
+        )}
       </CustomModal>
       <ConfirmationModal
         open={openModal}
         onClose={() => setOpenModal(false)}
         onConfirm={confirmDelete}
-        title={t("modal.discount")}
+        title={t("modal.delivery_area")}
         itemId={currentId || 0}
       />
       <ViewModal
