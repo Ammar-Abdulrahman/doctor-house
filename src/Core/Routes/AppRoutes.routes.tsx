@@ -134,7 +134,7 @@ const router = createBrowserRouter([
         path: "/delivery-areas",
         element: (
           <ProtectedRoute
-            requiredPermission="viewCategory"
+            requiredPermission="viewDeliveryArea"
             children={
               <Suspense fallback={<></>}>
                 <DeliveryAreasPage />

@@ -75,7 +75,7 @@ export const menuItems = [
     text: "homePage.delivery_areas",
     icon: StoreIcon,
     link: "/delivery-areas",
-    permission: "viewAd",
+    permission: "viewDeliveryArea",
   },
   {
     text: "homePage.orders",
