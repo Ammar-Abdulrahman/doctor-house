@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -28,6 +27,7 @@ import CategoryForm from "./Components/CategoryForm";
 import ViewCategoryModal from "./Components/ViewCategoryModal";
 import ViewModal from "@Components/Modal/ViewModal";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import RefreshIcon from "@mui/icons-material/Refresh";
 //import EditDiscountForm from "./Components/EditDiscountForm";
 //import ViewModal from "@Components/Modal/ViewModal";
 
@@ -40,7 +40,7 @@ const Categories: React.FC = () => {
     deleteCategory,
     createCategory,
   } = useCategories(needPagination);
-  const { data, isLoading, isError, error } = getCategories();
+  const { data, isLoading, isError, error, refetch } = getCategories();
   const { t, i18n } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
@@ -52,6 +52,7 @@ const Categories: React.FC = () => {
   const [currentCategory, setCurrentCategory] = useState<CategoryOne | null>(
     null
   );
+  const [isRefetching, setIsRefetching] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, id: number) => {
@@ -60,6 +61,12 @@ const Categories: React.FC = () => {
   };
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleRefetch = async () => {
+    setIsRefetching(true);
+    await refetch();
+    setIsRefetching(false);
   };
 
   const handleDeleteClick =
@@ -133,7 +140,7 @@ const Categories: React.FC = () => {
     }
   };
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading || isRefetching) return <PageLoader />;
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
@@ -142,11 +149,20 @@ const Categories: React.FC = () => {
         <Grid item xs={6} md={8}>
           <HeaderTitle title={t("homePage.categories")} />
         </Grid>
-        <Grid item xs={6} md={1}>
-          <AddButton
-            requiredPermission="createDiscount"
-            onClickFunction={handleAddClick}
-          />
+        <Grid item xs={6} md={1.5}>
+          <Grid container alignItems="center">
+            <Grid item xs={3} md={7.5}>
+              <AddButton
+                requiredPermission="createRole"
+                onClickFunction={handleAddClick}
+              />
+            </Grid>
+            <Grid item xs={3} md={1}>
+              <IconButton onClick={handleRefetch}>
+                <RefreshIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
       <Grid style={{ margin: "5px" }} container spacing={3}>

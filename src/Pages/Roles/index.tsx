@@ -11,29 +11,37 @@ import ViewModal from "@Components/Modal/ViewModal";
 import { toast } from "react-toastify";
 import PageLoader from "@Components/Loader/PageLoader";
 import AddButton from "@Components/Button/Add";
-import { Grid } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import RoleForm from "./Components/RoleForm";
 import ViewRoleModal from "./Components/ViewRole";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 const Roles: React.FC = () => {
   const { t, i18n } = useTranslation();
   const [needPagination] = useState(true);
   const { getRoles, deleteRole, createRole, getRole } =
     useRoles(needPagination);
-  const { data, isLoading, isError, error } = getRoles();
+  const { data, isLoading, isError, error, refetch } = getRoles();
   const [openModal, setOpenModal] = useState(false);
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openViewModal, setOpenViewModal] = useState(false);
   const [currentId, setCurrentId] = useState<number | null>(null);
   const [currentRole, setCurrentRole] = useState<Role | null>(null);
+  useState<Role | null>(null);
+  const [isRefetching, setIsRefetching] = useState(false);
 
   const rows =
     data?.data?.map((role: Role) => ({
       id: role.id,
       name: i18n.language === "ar" ? role.name.ar : role.name.en,
-      //name_en: role.name.en,
     })) || [];
+
+  const handleRefetch = async () => {
+    setIsRefetching(true);
+    await refetch();
+    setIsRefetching(false);
+  };
 
   const handleDelete = (id: number) => {
     setCurrentId(id);
@@ -61,7 +69,6 @@ const Roles: React.FC = () => {
     if (currentId != null) {
       deleteRole.mutate(currentId, {
         onSuccess: () => {
-          toast.success(`${t("modal.delete_role")}`);
           setOpenModal(false);
           setCurrentId(null);
         },
@@ -76,7 +83,6 @@ const Roles: React.FC = () => {
   const handleCreateRole = (data: RoleRequest) => {
     createRole.mutate(data, {
       onSuccess: () => {
-        toast.success(t("modal.create_role_success"));
         setOpenCreateModal(false);
       },
       onError: (error: any) => {
@@ -87,7 +93,7 @@ const Roles: React.FC = () => {
 
   const columns = getRoleColumns(t, handleDelete, handleView, handleEdit);
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading || isRefetching) return <PageLoader />;
   if (isError) {
     toast.error(`Error: ${error.message}`, { autoClose: false });
   }
@@ -98,8 +104,20 @@ const Roles: React.FC = () => {
         <Grid item xs={6} md={8}>
           <HeaderTitle title={t("homePage.roles")} />
         </Grid>
-        <Grid item xs={6} md={1}>
-          <AddButton requiredPermission="createRole" onClickFunction={handleAddClick} />
+        <Grid item xs={6} md={1.5}>
+          <Grid container alignItems="center">
+            <Grid item xs={3} md={7.5}>
+              <AddButton
+                requiredPermission="createRole"
+                onClickFunction={handleAddClick}
+              />
+            </Grid>
+            <Grid item xs={3} md={1}>
+              <IconButton onClick={handleRefetch}>
+                <RefreshIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
       <EnhancedTable rows={rows} columns={columns} />
