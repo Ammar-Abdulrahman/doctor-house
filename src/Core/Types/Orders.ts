@@ -7,6 +7,12 @@ export interface Order {
   };
   date: Date;
   deliverOption: string;
+  totalPrice?: number;
+  discount?: number;
+  freeDeliveryArea?: {
+    area: string;
+    time: string;
+  };
 }
 
 export interface OrdersResponse {

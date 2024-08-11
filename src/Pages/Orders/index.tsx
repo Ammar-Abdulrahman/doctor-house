@@ -11,6 +11,7 @@ import { Grid, Chip } from "@mui/material";
 import CustomModal from "@Components/Modal/CreateModal";
 import ConfirmationModal from "@Components/Modal/ConfirmationModal/index";
 import ViewModal from "@Components/Modal/ViewModal";
+import ViewOrderModal from "./Components/ViewOrderModal";
 import { toast } from "react-toastify";
 
 const Orders: React.FC = () => {
@@ -74,13 +75,13 @@ const Orders: React.FC = () => {
         </Grid>
       </Grid>
       <EnhancedTable rows={rows} columns={columns} />
-      {/* <ViewModal
+      <ViewModal
         open={openViewModal}
         onClose={() => setOpenViewModal(false)}
-        title={t("modal.view_operator")}
+        title={t("modal.view_order")}
       >
-        <ViewOperatorModal operator={currentOperator} />
-      </ViewModal> */}
+        <ViewOrderModal order={currentOrder} />
+      </ViewModal>
     </div>
   );
 };
