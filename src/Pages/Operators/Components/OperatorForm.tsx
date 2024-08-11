@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { TextField, Button, CircularProgress } from "@mui/material";
+import { TextField, Button, CircularProgress, FormHelperText, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import useRoles from "@Hooks/useRoles";
 import { Role } from "@Types/Roles";
 import theme from "@Styles/theme";
@@ -81,26 +81,31 @@ const OperatorForm = ({ onSubmit, isSubmitting , onClose }: OperatorFormProps) =
         error={formik.touched.password && Boolean(formik.errors.password)}
         helperText={formik.touched.password && formik.errors.password}
       />
-      <TextField
-        style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
+       <FormControl
         fullWidth
-        select
-        id="role"
-        type="number"
-        name="role"
-        label={t("operatorsPage.role")}
-        value={formik.values.role}
-        onChange={(e) => formik.setFieldValue("role", e.target.value)}
-        SelectProps={{
-          native: true,
-        }}
+        style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
+        error={formik.touched.role && Boolean(formik.errors.role)}
       >
-        {data?.data?.map((role: Role) => (
-          <option key={role.id} value={role.id}>
-            {role.name.ar}
-          </option>
-        ))}
-      </TextField>
+        <InputLabel id="role-label">{t("operatorsPage.role")}</InputLabel>
+        <Select
+          labelId="role-label"
+          id="role"
+          name="role"
+          value={formik.values.role}
+          onChange={(e) => {
+            formik.setFieldValue("role", e.target.value);
+          }}
+        >
+          {data?.data?.map((role: Role) => (
+            <MenuItem key={role.id} value={role.id}>
+              {role.name.ar}
+            </MenuItem>
+          ))}
+        </Select>
+        {formik.touched.role && formik.errors.role && (
+          <FormHelperText>{formik.errors.role}</FormHelperText>
+        )}
+      </FormControl>
       <Button
         style={{
           color: "white",

@@ -62,12 +62,23 @@ const Categories: React.FC = () => {
     setAnchorEl(null);
   };
 
+  const handleDeleteClick =
+    (id: number) => (event: React.MouseEvent<HTMLElement>) => {
+      setOpenModal(true);
+      handleDelete();
+    };
+
   const handleDelete = () => {
     //setCurrentId(id);
     //console.log(id)
     setOpenModal(true);
     handleMenuClose();
   };
+
+  const handleViewClick =
+    (id: number) => (event: React.MouseEvent<HTMLElement>) => {
+      handleView();
+    };
 
   const handleView = () => {
     //setCurrentId(id);
@@ -82,6 +93,11 @@ const Categories: React.FC = () => {
       });
     }
   }, [currentId]);
+
+  const handleEditClick =
+    (id: number) => (event: React.MouseEvent<HTMLElement>) => {
+      handleEdit(id);
+    };
 
   const handleEdit = (id: number) => {
     const category =
@@ -143,7 +159,7 @@ const Categories: React.FC = () => {
                 borderRadius: 20,
               }}
             >
-              <CardActions style={{ position:"inherit" }}>
+              <CardActions style={{ position: "inherit" }}>
                 <IconButton
                   aria-label="more"
                   aria-controls="long-menu"
@@ -156,7 +172,7 @@ const Categories: React.FC = () => {
                 >
                   <MoreVertIcon />
                 </IconButton>
-                {/* <Menu
+                <Menu
                   id="long-menu"
                   anchorEl={anchorEl}
                   keepMounted
@@ -178,7 +194,7 @@ const Categories: React.FC = () => {
                       marginRight:
                         i18n.language === "ar" ? "" : theme.spacing(2),
                     }}
-                    onClick={handleEdit}
+                    onClick={handleEditClick(currentId || 0)}
                   >
                     <EditIcon
                       style={{
@@ -197,7 +213,7 @@ const Categories: React.FC = () => {
                       marginRight:
                         i18n.language === "ar" ? "" : theme.spacing(2),
                     }}
-                    onClick={handleView}
+                    onClick={handleViewClick(currentId || 0)}
                   >
                     <VisibilityIcon
                       style={{
@@ -216,7 +232,7 @@ const Categories: React.FC = () => {
                       marginRight:
                         i18n.language === "ar" ? "" : theme.spacing(2),
                     }}
-                    onClick={handleDelete}
+                    onClick={handleDeleteClick(currentId || 0)}
                   >
                     <DeleteIcon
                       style={{
@@ -226,7 +242,7 @@ const Categories: React.FC = () => {
                     />
                     {t("actions.delete")}
                   </MenuItem>
-                </Menu> */}
+                </Menu>
               </CardActions>
               <CardMedia
                 style={{

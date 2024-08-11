@@ -1,6 +1,15 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { TextField, Button, CircularProgress } from "@mui/material";
+import {
+  TextField,
+  Button,
+  CircularProgress,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import useCategories from "@Hooks/useCategories";
 import { Category } from "@Types/Categories";
 import theme from "@Styles/theme";
@@ -66,6 +75,7 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
         id="from"
         name="from"
         type="date"
+        InputLabelProps={{ shrink: true }}
         label={t("discountsPage.from")}
         value={formik.values.from}
         onChange={formik.handleChange}
@@ -78,32 +88,40 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
         type="date"
         id="to"
         name="to"
+        InputLabelProps={{ shrink: true }}
         label={t("discountsPage.to")}
         value={formik.values.to}
         onChange={formik.handleChange}
         error={formik.touched.to && Boolean(formik.errors.to)}
         helperText={formik.touched.to && formik.errors.to}
       />
-      <TextField
-        style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
+      <FormControl
         fullWidth
-        select
-        id="subcategory"
-        type="number"
-        name="subcategory"
-        label={t("discountsPage.subcategory")}
-        value={formik.values.subcategory}
-        onChange={(e) => formik.setFieldValue("subcategory", e.target.value)}
-        SelectProps={{
-          native: true,
-        }}
+        style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
+        error={formik.touched.subcategory && Boolean(formik.errors.subcategory)}
       >
-        {data?.data?.map((subcategory: Category) => (
-          <option key={subcategory.id} value={subcategory.subcategories[0].id}>
-            {subcategory.subcategories[0].name}
-          </option>
-        ))}
-      </TextField>
+        <InputLabel id="subcategory-label">
+          {t("discountsPage.subcategory")}
+        </InputLabel>
+        <Select
+          labelId="subcategory-label"
+          id="subcategory"
+          name="subcategory"
+          value={formik.values.subcategory}
+          onChange={(e) => {
+            formik.setFieldValue("subcategory", e.target.value);
+          }}
+        >
+          {data?.data?.map((subcategory: Category) => (
+            <MenuItem key={subcategory.id} value={subcategory.id}>
+              {subcategory.subcategories[0].name}
+            </MenuItem>
+          ))}
+        </Select>
+        {formik.touched.subcategory && formik.errors.subcategory && (
+          <FormHelperText>{formik.errors.subcategory}</FormHelperText>
+        )}
+      </FormControl>
       <TextField
         fullWidth
         type="number"

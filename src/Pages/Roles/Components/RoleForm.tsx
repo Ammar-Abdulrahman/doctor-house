@@ -1,11 +1,17 @@
-// RoleForm.tsx
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { TextField, Checkbox, FormControlLabel, Button } from "@mui/material";
-//import useRoles from "@Hooks/useRoles";
+import {
+  TextField,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { fetchData } from "@Services/apiService";
-import { RoleRequest } from "@Types/Roles";
+import { Role, RoleRequest } from "@Types/Roles";
 import theme from "@Styles/theme";
+import { useFormik } from "formik";
 
 interface RoleFormProps {
   onSubmit: (data: RoleRequest) => void;
@@ -13,68 +19,72 @@ interface RoleFormProps {
 
 const RoleForm: React.FC<RoleFormProps> = ({ onSubmit }) => {
   const { t, i18n } = useTranslation();
-  const [nameAr, setNameAr] = useState("");
-  const [nameEn, setNameEn] = useState("");
-  const [privileges, setPrivileges] = useState<number[]>([]);
   const [allPrivileges, setAllPrivileges] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchPrivileges = async () => {
-      const response : any = await fetchData("/privileges?needPagination=false&type=E-commerce");
+      const response: any = await fetchData(
+        "/privileges?needPagination=false&type=E-commerce"
+      );
       setAllPrivileges(response?.data);
     };
     fetchPrivileges();
   }, []);
 
-  const handleCheckboxChange = (id: number) => {
-    setPrivileges((prev) =>
-      prev.includes(id) ? prev.filter((pid) => pid !== id) : [...prev, id]
-    );
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit({
-      name: {
-        ar: nameAr,
-        en: nameEn,
-      },
-      privileges,
-    });
-  };
+  const formik = useFormik({
+    initialValues: {
+      nameAr: "",
+      nameEn: "",
+      privileges: [] as number[],
+    },
+    onSubmit: (values) => {
+      onSubmit({
+        name: {
+          ar: values.nameAr,
+          en: values.nameEn,
+        },
+        privileges: values.privileges,
+      });
+    },
+  });
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
       <TextField
         style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2) }}
         label={t("rolesPage.name_ar")}
-        value={nameAr}
-        onChange={(e) => setNameAr(e.target.value)}
+        value={formik.values.nameAr}
+        name="nameAr"
+        onChange={formik.handleChange}
         fullWidth
         required
       />
       <TextField
         style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2) }}
         label={t("rolesPage.name_en")}
-        value={nameEn}
-        onChange={(e) => setNameEn(e.target.value)}
+        value={formik.values.nameEn}
+        name="nameEn"
+        onChange={formik.handleChange}
         fullWidth
         required
       />
-      <div>
-        {allPrivileges.map((privilege) => (
-          <FormControlLabel
-            key={privilege.id}
-            control={
-              <Checkbox
-                checked={privileges.includes(privilege.id)}
-                onChange={() => handleCheckboxChange(privilege.id)}
-              />
-            }
-            label={privilege.name[i18n.language]}
-          />
-        ))}
-      </div>
+      <FormControl fullWidth>
+        <InputLabel id="role-label">{t("operatorsPage.role")}</InputLabel>
+        <Select
+          multiple
+          labelId="role-label"
+          id="privileges"
+          name="privileges"
+          value={formik.values.privileges}
+          onChange={formik.handleChange}
+        >
+          {allPrivileges.map((role: Role) => (
+            <MenuItem key={role.id} value={role.id}>
+              {role.name[i18n.language]}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <Button
         style={{
           color: "white",
