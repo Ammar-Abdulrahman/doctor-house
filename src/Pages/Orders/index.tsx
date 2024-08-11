@@ -14,6 +14,7 @@ import ViewModal from "@Components/Modal/ViewModal";
 import ViewOrderModal from "./Components/ViewOrderModal";
 import { toast } from "react-toastify";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import { formatDate } from "@Utils/index";
 
 const Orders: React.FC = () => {
   const [needPagination] = useState(true);
@@ -34,12 +35,24 @@ const Orders: React.FC = () => {
       id: order.id,
       user: order.user.name,
       status: order.status ? (
-        <Chip label={order.status} color="secondary" />
+        <Chip
+          sx={{ color: "white", borderRadius: 2 }}
+          label={order.status}
+          color="secondary"
+        />
       ) : (
         ""
       ),
-      date: order.date,
-      deliveryOption: order.deliverOption,
+      date: order.date ? formatDate(order.date) : "-",
+      deliveryOption: order.deliverOption ? (
+        <Chip
+          sx={{ color: "white", borderRadius: 2 }}
+          label={order.deliverOption}
+          color="success"
+        />
+      ) : (
+        ""
+      ),
     })) || [];
 
   const handleRefetch = async () => {
@@ -81,14 +94,10 @@ const Orders: React.FC = () => {
         <Grid item xs={6} md={8}>
           <HeaderTitle title={t("homePage.orders")} />
         </Grid>
-        <Grid item xs={6} md={1.5}>
-          <Grid container alignItems="center">
-            <Grid item xs={3} md={1}>
-              <IconButton onClick={handleRefetch}>
-                <RefreshIcon />
-              </IconButton>
-            </Grid>
-          </Grid>
+        <Grid item xs={6} md={0.5}>
+          <IconButton onClick={handleRefetch}>
+            <RefreshIcon />
+          </IconButton>
         </Grid>
       </Grid>
       <EnhancedTable rows={rows} columns={columns} />
