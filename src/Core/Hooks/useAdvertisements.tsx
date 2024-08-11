@@ -9,6 +9,7 @@ import {
     AdvertisementsResponse,
     AdvertisementsRequest,
     Advertisement,
+    SingleAdvertisementResponse,
 } from "@Types/Advertisements";
 
 const useAdvertisements = (
@@ -31,14 +32,11 @@ const useAdvertisements = (
       }
     );
 
-  const getAdvertisement = (id: number) =>
-    useQuery<Advertisement, Error>(["advertisement", id], () =>
-      fetchData<Advertisement>(`/ads/${id}`)
-    );
+    const getAdvertisement = (id: number) => fetchData<SingleAdvertisementResponse>(`/ads/${id}`);
 
-  const createAdvertisement = () =>
-    useMutation(
-      (newAdvertisement: AdvertisementsRequest) => postData("/ads", newAdvertisement),
+
+    const createAdvertisement = useMutation(
+      (newAddvertisement: AdvertisementsRequest) => postData("/ads", newAddvertisement),
       {
         onSuccess: () => {
           queryClient.invalidateQueries("advertisements");
@@ -47,24 +45,25 @@ const useAdvertisements = (
     );
 
 
-  const updateAdvertisement = () => {
-    return useMutation(
-      (Advertisement: AdvertisementsRequest & { id: number }) =>
-        updateData(`/ads/${Advertisement.id}`, Advertisement),
-      {
-        onSuccess: (_,Advertisement) => {
-          queryClient.invalidateQueries(["advertisement", Advertisement.id]);
+    const updateAdvertisement = () => {
+      return useMutation(
+        (advertisement: AdvertisementsRequest & { id: number }) =>
+          updateData(`/ads/${advertisement.id}`, advertisement),
+        {
+          onSuccess: (_, advertisement) => {
+            // Now category is defined within this scope
+            queryClient.invalidateQueries(["advertisements", advertisement.id]);
+          },
+        }
+      );
+    };
+    
+  
+      const deleteAdvertisement = useMutation((id: number) => deleteData(`/ads/${id}`), {
+        onSuccess: () => {
+          queryClient.invalidateQueries("advertisements");
         },
-      }
-    );
-  };
-
-  const deleteAdvertisement = () =>
-    useMutation((id: number) => deleteData(`/ads/${id}`), {
-      onSuccess: () => {
-        queryClient.invalidateQueries("advertisements");
-      },
-    });
+      });
 
   return {
     getAdvertisements,

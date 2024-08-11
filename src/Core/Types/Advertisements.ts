@@ -10,7 +10,7 @@ export interface Advertisement {
 
 export interface AdvertisementsRequest {
   url: string;
-  image: string;
+  image: number;
   description?: {
     en: string;
     ar: string;
