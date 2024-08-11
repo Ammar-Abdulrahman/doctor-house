@@ -108,7 +108,6 @@ const Products: React.FC = () => {
     if (currentId != null) {
       deleteProduct.mutate(currentId, {
         onSuccess: () => {
-          toast.success(`${t("modal.delete_product")}`);
           setOpenModal(false);
           setCurrentId(null);
         },

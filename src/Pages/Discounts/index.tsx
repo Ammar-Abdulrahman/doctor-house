@@ -67,7 +67,6 @@ const Discounts: React.FC = () => {
     if (currentId != null) {
       deleteDiscount.mutate(currentId, {
         onSuccess: () => {
-          toast.success(`${t("modal.delete_discount")}`);
           setOpenModal(false);
           setCurrentId(null);
         },

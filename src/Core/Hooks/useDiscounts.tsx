@@ -11,6 +11,8 @@ import {
   SingleDiscountResponse,
   //Discount,
 } from "@Types/Discounts";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const useDiscounts = (
   needPagination: boolean
@@ -18,6 +20,7 @@ const useDiscounts = (
   //   page: number = 1
 ) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const getDiscounts = () =>
     useQuery<DiscountsResponse, Error>(
@@ -27,100 +30,45 @@ const useDiscounts = (
           `/discounts?needPagination=${needPagination}`
         ),
       {
-        cacheTime: 120000, 
+        cacheTime: 120000,
         staleTime: Infinity,
       }
     );
 
-  // const getDiscount = (id: number) =>
-  //   useQuery<Discount, Error>(["discount", id], () =>
-  //     fetchData<Discount>(`/discounts/${id}`)
-  //   );
+  const getDiscount = (id: number) =>
+    fetchData<SingleDiscountResponse>(`/discounts/${id}`);
 
-  // const getDiscount = (id: number) =>
-  //   useQuery(['discount', id], () => fetchData<Discount>(`/discounts/${id}`), {
-  //     enabled: false, // This will prevent the query from automatically running
-  //   });
-
-  // const getDiscount = (id: number) => {
-  //   // This setup won't run automatically, it's designed to be triggered manually
-  //   return useQuery(['discount', id], () => fetchData(`/discounts/${id}`), {
-  //     enabled: false  // Ensures this query does not run automatically
-  //   });
-  // };
-
-  // const getDiscount = (id: number) => useQuery(
-  //   ['discount', id], 
-  //   () => fetchData(`/discounts/${id}`),
-  //   { enabled: false }  // Initially disabled
-  // );
-
-  const getDiscount = (id: number) => fetchData<SingleDiscountResponse>(`/discounts/${id}`);
-
-  // const createDiscount = () =>
-  //   useMutation(
-  //     (newDiscount: DiscountsRequest) => postData("/discounts", newDiscount),
-  //     {
-  //       onSuccess: () => {
-  //         queryClient.invalidateQueries("discounts");
-  //       },
-  //     }
-  //   );
-
-    const createDiscount = useMutation(
-      (newDiscount: DiscountsRequest) => postData("/discounts", newDiscount),
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries("discounts");
-        },
-      }
-    );
-
-  // const updateDiscount = () =>
-  //   useMutation(
-  //     (discount: DiscountsRequest & { id: number }) =>
-  //       updateData(`/discounts/${discount.id}`, discount),
-  //     {
-  //       onSuccess: () => {
-  //         queryClient.invalidateQueries(["discount", discount.id]);
-  //       },
-  //     }
-  //   );
-
-  // const updateDiscount = () => {
-  //   return useMutation(
-  //     (discount: DiscountsRequest & { id: number }) =>
-  //       updateData(`/discounts/${discount.id}`, discount),
-  //     {
-  //       onSuccess: (_,discount) => {
-  //         queryClient.invalidateQueries(["discount", discount.id]);
-  //       },
-  //     }
-  //   );
-  // };
-
-  const updateDiscount = useMutation(
-    (discount: DiscountsRequest & { id: number }) => updateData(`/discounts/${discount.id}`, discount),
+  const createDiscount = useMutation(
+    (newDiscount: DiscountsRequest) => postData("/discounts", newDiscount),
     {
-      onSuccess: (_, discount) => {
-        queryClient.invalidateQueries(["discount", discount.id]);
+      onSuccess: () => {
         queryClient.invalidateQueries("discounts");
+        toast.success(`${t("modal.success_create_discount")}`);
       },
     }
   );
 
-  // const deleteDiscount = () =>
-  //   useMutation((id: number) => deleteData(`/discounts/${id}`), {
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries("discounts");
-  //     },
-  //   });
+  const updateDiscount = useMutation(
+    (discount: DiscountsRequest & { id: number }) =>
+      updateData(`/discounts/${discount.id}`, discount),
+    {
+      onSuccess: (_, discount) => {
+        queryClient.invalidateQueries(["discount", discount.id]);
+        queryClient.invalidateQueries("discounts");
+        toast.success(`${t("modal.success_edit_discount")}`);
+      },
+    }
+  );
 
-    const deleteDiscount = useMutation((id: number) => deleteData(`/discounts/${id}`), {
+  const deleteDiscount = useMutation(
+    (id: number) => deleteData(`/discounts/${id}`),
+    {
       onSuccess: () => {
         queryClient.invalidateQueries("discounts");
+        toast.success(`${t("modal.delete_discount")}`);
       },
-    });
+    }
+  );
 
   return {
     getDiscounts,

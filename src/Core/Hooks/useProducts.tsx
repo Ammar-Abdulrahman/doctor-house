@@ -10,6 +10,8 @@ import {
   ProductsRequest,
   SingleProductResponse,
 } from "@Types/Products";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const useProducts = (
   needPagination: boolean
@@ -17,6 +19,7 @@ const useProducts = (
   //   page: number = 1
 ) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const getProducts = () =>
     useQuery<ProductsResponse, Error>(
@@ -39,6 +42,7 @@ const useProducts = (
     {
       onSuccess: () => {
         queryClient.invalidateQueries("products");
+        toast.success(`${t("modal.success_create_product")}`);
       },
     }
   );
@@ -50,6 +54,7 @@ const useProducts = (
       onSuccess: (_, product) => {
         queryClient.invalidateQueries(["product", product.id]);
         queryClient.invalidateQueries("products");
+        toast.success(`${t("modal.success_edit_product")}`);
       },
     }
   );
@@ -59,6 +64,7 @@ const useProducts = (
     {
       onSuccess: () => {
         queryClient.invalidateQueries("products");
+        toast.success(`${t("modal.delete_product")}`);
       },
     }
   );

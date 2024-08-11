@@ -9,6 +9,8 @@ import {
   OrdersResponse,
   SingleOrderResponse,
 } from "@Types/Orders";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const useOrders = (
   needPagination: boolean
@@ -16,6 +18,7 @@ const useOrders = (
   //   page: number = 1
 ) => {
   //const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const getOrders = () =>
     useQuery<OrdersResponse, Error>(

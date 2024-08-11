@@ -90,7 +90,6 @@ const Operators: React.FC = () => {
     if (currentId != null) {
       deleteOperator.mutate(currentId, {
         onSuccess: () => {
-          toast.success(`${t("modal.delete_operator")}`);
           setOpenDeleteModal(false);
           setCurrentId(null);
         },

@@ -110,7 +110,6 @@ const Advertisements: React.FC = () => {
     if (currentId != null) {
       deleteAdvertisement.mutate(currentId, {
         onSuccess: () => {
-          toast.success(`${t("modal.delete_advertisement")}`);
           setOpenModal(false);
           setCurrentId(null);
         },

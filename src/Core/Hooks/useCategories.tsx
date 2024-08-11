@@ -11,6 +11,8 @@ import {
   Category,
   SingleCategoryResponse,
 } from "@Types/Categories";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const useCategories = (
   needPagination: boolean
@@ -18,6 +20,7 @@ const useCategories = (
   //   page: number = 1
 ) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const getCategories = () =>
     useQuery<CategoriesResponse, Error>(
@@ -27,28 +30,23 @@ const useCategories = (
           `/categories?needPagination=${needPagination}`
         ),
       {
-        // refetchOnWindowFocus: false,
-        // refetchOnMount: false,
-        // refetchOnReconnect: false,
-        // enabled: false,
         cacheTime: 120000,
         staleTime: Infinity,
-        //keepPreviousData: needPagination, // Keep previous data while fetching new data during pagination
-        //enabled: needPagination, // Enable or disable query based on the flag
       }
     );
 
-    const getCategory = (id: number) => fetchData<SingleCategoryResponse>(`/categories/${id}`);
+  const getCategory = (id: number) =>
+    fetchData<SingleCategoryResponse>(`/categories/${id}`);
 
-    const createCategory = useMutation(
-      (newCategory: CategoryRequest) => postData("/categories", newCategory),
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries("categories");
-        },
-      }
-    );
-
+  const createCategory = useMutation(
+    (newCategory: CategoryRequest) => postData("/categories", newCategory),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("categories");
+        toast.success(`${t("modal.success_create_category")}`);
+      },
+    }
+  );
 
   const updateCategory = () => {
     return useMutation(
@@ -56,19 +54,23 @@ const useCategories = (
         updateData(`/categories/${category.id}`, category),
       {
         onSuccess: (_, category) => {
-          // Now category is defined within this scope
           queryClient.invalidateQueries(["category", category.id]);
+          queryClient.invalidateQueries("categories");
+          toast.success(`${t("modal.success_edit_category")}`);
         },
       }
     );
   };
-  
 
-    const deleteCategory = useMutation((id: number) => deleteData(`/categories/${id}`), {
+  const deleteCategory = useMutation(
+    (id: number) => deleteData(`/categories/${id}`),
+    {
       onSuccess: () => {
         queryClient.invalidateQueries("categories");
+        toast.success(`${t("modal.delete_category")}`);
       },
-    });
+    }
+  );
 
   return {
     getCategories,

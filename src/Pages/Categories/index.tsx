@@ -110,7 +110,6 @@ const Categories: React.FC = () => {
     if (currentId != null) {
       deleteCategory.mutate(currentId, {
         onSuccess: () => {
-          toast.success(`${t("modal.delete_category")}`);
           setOpenModal(false);
           setCurrentId(null);
         },
