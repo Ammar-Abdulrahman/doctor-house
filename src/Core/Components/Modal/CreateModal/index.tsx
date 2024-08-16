@@ -45,7 +45,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
         <DialogContent>{children}</DialogContent>
       </CacheProvider>
       <DialogActions>
-        <Button onClick={onClose}>{t("modal.cancel")}</Button>
+        {/* <Button onClick={onClose}>{t("modal.cancel")}</Button> */}
         {/* <Button onClick={onSubmit} color="primary">
           Submit
         </Button> */}

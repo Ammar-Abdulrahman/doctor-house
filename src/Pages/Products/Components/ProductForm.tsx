@@ -20,9 +20,10 @@ import { ProductsRequest, ProductVariant, ProductSku } from "@Types/Products";
 interface ProductFormProps {
   onSubmit: (formData: ProductsRequest) => void;
   isSubmitting: boolean;
+  onClose?: () => void;
 }
 
-const ProductForm = ({ onSubmit, isSubmitting }: ProductFormProps) => {
+const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
   const { t } = useTranslation();
   const [imageUploading, setImageUploading] = useState(false);
 
@@ -438,11 +439,21 @@ const ProductForm = ({ onSubmit, isSubmitting }: ProductFormProps) => {
           }}
           color="primary"
           variant="contained"
-          fullWidth
           type="submit"
           disabled={isSubmitting || formik.isSubmitting}
         >
           {isSubmitting ? <CircularProgress size={24} /> : t("modal.submit")}
+        </Button>
+        <Button
+          style={{
+            margin: theme.spacing(1),
+          }}
+          color="primary"
+          type="submit"
+          disabled={isSubmitting || formik.isSubmitting}
+          onClick={onClose}
+        >
+          {t("modal.cancel")}
         </Button>
       </form>
     </FormikProvider>

@@ -20,9 +20,14 @@ import { CategoryRequest } from "@Types/Categories";
 interface CategoryFormProps {
   onSubmit: (formData: CategoryRequest) => void;
   isSubmitting: boolean;
+  onClose?: () => void;
 }
 
-const CategoryForm = ({ onSubmit, isSubmitting }: CategoryFormProps) => {
+const CategoryForm = ({
+  onSubmit,
+  isSubmitting,
+  onClose,
+}: CategoryFormProps) => {
   const { t } = useTranslation();
   const [imageUploading, setImageUploading] = useState(false);
 
@@ -139,7 +144,7 @@ const CategoryForm = ({ onSubmit, isSubmitting }: CategoryFormProps) => {
             color="primary"
             disabled={imageUploading}
             style={{
-              color:"white",
+              color: "white",
               marginTop: theme.spacing(1),
               marginBottom: theme.spacing(1),
             }}
@@ -234,11 +239,21 @@ const CategoryForm = ({ onSubmit, isSubmitting }: CategoryFormProps) => {
           }}
           color="primary"
           variant="contained"
-          fullWidth
           type="submit"
           disabled={isSubmitting || formik.isSubmitting}
         >
           {isSubmitting ? <CircularProgress size={24} /> : t("modal.submit")}
+        </Button>
+        <Button
+          style={{
+            margin: theme.spacing(1),
+          }}
+          color="primary"
+          type="submit"
+          disabled={isSubmitting || formik.isSubmitting}
+          onClick={onClose}
+        >
+          {t("modal.cancel")}
         </Button>
       </form>
     </FormikProvider>

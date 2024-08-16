@@ -157,7 +157,14 @@ const Discounts: React.FC = () => {
         title={t("modal.create_discount")}
         onSubmit={handleFormSubmit}
       >
-        <DiscountForm onSubmit={handleFormSubmit} isSubmitting={isSubmitting} />
+        <DiscountForm
+          onSubmit={handleFormSubmit}
+          isSubmitting={isSubmitting}
+          onClose={() => {
+            setModalOpen(false);
+            setSubmitting(false);
+          }}
+        />
       </CustomModal>
       <CustomModal
         open={editModalOpen}

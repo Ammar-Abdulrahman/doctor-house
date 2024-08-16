@@ -294,7 +294,14 @@ const Products: React.FC = () => {
         title={t("modal.create_advertisement")}
         onSubmit={handleFormSubmit}
       >
-        <ProductForm onSubmit={handleFormSubmit} isSubmitting={isSubmitting} />
+        <ProductForm
+          onSubmit={handleFormSubmit}
+          isSubmitting={isSubmitting}
+          onClose={() => {
+            setModalOpen(false);
+            setSubmitting(false);
+          }}
+        />
       </CustomModal>
 
       {/* <ViewModal

@@ -7,8 +7,13 @@ import { useTranslation } from "react-i18next";
 interface OperatorFormProps {
   onSubmit?: any;
   isSubmitting?: any;
+  onClose?: () => void;
 }
-const DeliveryAreaForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
+const DeliveryAreaForm = ({
+  onSubmit,
+  isSubmitting,
+  onClose,
+}: OperatorFormProps) => {
   const { t } = useTranslation();
 
   const formik = useFormik({
@@ -93,11 +98,21 @@ const DeliveryAreaForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
         }}
         color="primary"
         variant="contained"
-        fullWidth
         type="submit"
         disabled={isSubmitting || formik.isSubmitting}
       >
         {isSubmitting ? <CircularProgress size={24} /> : t("modal.submit")}
+      </Button>
+      <Button
+        style={{
+          margin: theme.spacing(1),
+        }}
+        color="primary"
+        type="submit"
+        disabled={isSubmitting || formik.isSubmitting}
+        onClick={onClose}
+      >
+        {t("modal.cancel")}
       </Button>
     </form>
   );

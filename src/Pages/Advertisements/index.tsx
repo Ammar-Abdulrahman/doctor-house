@@ -345,6 +345,10 @@ const Advertisements: React.FC = () => {
         <AdvertisementsForm
           onSubmit={handleFormSubmit}
           isSubmitting={isSubmitting}
+          onClose={() => {
+            setModalOpen(false);
+            setSubmitting(false);
+          }}
         />
       </CustomModal>
 

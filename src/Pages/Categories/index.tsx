@@ -281,52 +281,7 @@ const Categories: React.FC = () => {
                 >
                   {category.name}
                 </Typography>
-                {/* <Typography variant="body2" color="text.secondary">
-                  <ul>
-                    {category?.subcategories
-                      ? category?.subcategories?.map((sub) => (
-                          <span key={sub.id}> {sub.name}</span>
-                        ))
-                      : ""}
-                  </ul>
-                </Typography> */}
               </CardContent>
-              {/* <CardActions style={{ justifyContent: "center" }}>
-                <Button
-                  style={{
-                    backgroundColor: theme.palette.warning.dark, borderColor :theme.palette.warning.dark , marginLeft:"7px", 
-                    color: "white",
-                  }}
-                  variant="outlined"
-                  size="small"
-                  onClick={() => setOpenModal(true)}
-                >
-                  <EditIcon />
-                </Button>
-                <Button
-                  style={{
-                    color: "white",
-                    backgroundColor: theme.palette.error.main,
-                    borderColor: theme.palette.error.main,
-                  }}
-                  variant="outlined"
-                  size="small"
-                  onClick={() => handleDelete(category.id)}
-                >
-                  <DeleteIcon />
-                </Button>
-                <Button
-                  variant="text"
-                  size="small"
-                  style={{
-                    backgroundColor: theme.palette.primary.main,
-                    color: "white",
-                  }}
-                  onClick={() => handleView(category.id)}
-                >
-                  <VisibilityIcon />
-                </Button>
-              </CardActions> */}
             </Card>
           </Grid>
         ))}
@@ -341,7 +296,14 @@ const Categories: React.FC = () => {
         title={t("modal.create_category")}
         onSubmit={handleFormSubmit}
       >
-        <CategoryForm onSubmit={handleFormSubmit} isSubmitting={isSubmitting} />
+        <CategoryForm
+          onSubmit={handleFormSubmit}
+          isSubmitting={isSubmitting}
+          onClose={() => {
+            setModalOpen(false);
+            setSubmitting(false);
+          }}
+        />
       </CustomModal>
 
       <ViewModal

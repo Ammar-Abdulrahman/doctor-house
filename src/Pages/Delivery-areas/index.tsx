@@ -167,6 +167,10 @@ const DeliveryAreas: React.FC = () => {
         <DeliveryAreaForm
           onSubmit={handleFormSubmit}
           isSubmitting={isSubmitting}
+          onClose={() => {
+            setModalOpen(false);
+            setSubmitting(false);
+          }}
         />
       </CustomModal>
       <CustomModal

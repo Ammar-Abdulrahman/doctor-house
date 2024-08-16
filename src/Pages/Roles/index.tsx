@@ -134,7 +134,12 @@ const Roles: React.FC = () => {
         title={t("modal.create_role")}
         onSubmit={handleCreateRole}
       >
-        <RoleForm onSubmit={handleCreateRole} />
+        <RoleForm
+          onSubmit={handleCreateRole}
+          onClose={() => {
+            setOpenCreateModal(false);
+          }}
+        />
       </CustomModal>
       <ViewModal
         open={openViewModal}

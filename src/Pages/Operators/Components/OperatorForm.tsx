@@ -1,6 +1,15 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { TextField, Button, CircularProgress, FormHelperText, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  TextField,
+  Button,
+  CircularProgress,
+  FormHelperText,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import useRoles from "@Hooks/useRoles";
 import { Role } from "@Types/Roles";
 import theme from "@Styles/theme";
@@ -12,7 +21,11 @@ interface OperatorFormProps {
   isSubmitting?: any;
   onClose?: () => void;
 }
-const OperatorForm = ({ onSubmit, isSubmitting , onClose }: OperatorFormProps) => {
+const OperatorForm = ({
+  onSubmit,
+  isSubmitting,
+  onClose,
+}: OperatorFormProps) => {
   const { getRoles } = useRoles(true);
   const { data, isLoading: rolesLoading } = getRoles();
   const { t } = useTranslation();
@@ -81,7 +94,7 @@ const OperatorForm = ({ onSubmit, isSubmitting , onClose }: OperatorFormProps) =
         error={formik.touched.password && Boolean(formik.errors.password)}
         helperText={formik.touched.password && formik.errors.password}
       />
-       <FormControl
+      <FormControl
         fullWidth
         style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
         error={formik.touched.role && Boolean(formik.errors.role)}
@@ -114,7 +127,6 @@ const OperatorForm = ({ onSubmit, isSubmitting , onClose }: OperatorFormProps) =
         }}
         color="primary"
         variant="contained"
-        //fullWidth
         type="submit"
         disabled={isSubmitting || formik.isSubmitting}
       >
@@ -122,15 +134,9 @@ const OperatorForm = ({ onSubmit, isSubmitting , onClose }: OperatorFormProps) =
       </Button>
       <Button
         style={{
-          //color: "white",
-          marginTop: theme.spacing(1),
-          marginBottom: theme.spacing(1),
-          marginLeft:theme.spacing(1),
-          marginRight:theme.spacing(1)
+          margin: theme.spacing(1),
         }}
         color="primary"
-        //variant="contained"
-        //fullWidth
         type="submit"
         disabled={isSubmitting || formik.isSubmitting}
         onClick={onClose}

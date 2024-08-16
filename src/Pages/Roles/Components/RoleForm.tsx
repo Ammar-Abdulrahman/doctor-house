@@ -7,6 +7,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  CircularProgress,
 } from "@mui/material";
 import { fetchData } from "@Services/apiService";
 import { Role, RoleRequest } from "@Types/Roles";
@@ -15,9 +16,10 @@ import { useFormik } from "formik";
 
 interface RoleFormProps {
   onSubmit: (data: RoleRequest) => void;
+  onClose?: () => void;
 }
 
-const RoleForm: React.FC<RoleFormProps> = ({ onSubmit }) => {
+const RoleForm: React.FC<RoleFormProps> = ({ onSubmit, onClose }) => {
   const { t, i18n } = useTranslation();
   const [allPrivileges, setAllPrivileges] = useState<any[]>([]);
 
@@ -93,11 +95,28 @@ const RoleForm: React.FC<RoleFormProps> = ({ onSubmit }) => {
         }}
         color="primary"
         variant="contained"
-        fullWidth
         type="submit"
-        //disabled={isSubmitting || formik.isSubmitting}
+        disabled={formik.isSubmitting}
       >
-        {t("modal.submit")}
+        {formik.isSubmitting ? (
+          <CircularProgress size={24} />
+        ) : (
+          t("modal.submit")
+        )}
+      </Button>
+      <Button
+        style={{
+          marginTop: theme.spacing(1),
+          marginBottom: theme.spacing(1),
+          marginLeft: theme.spacing(1),
+          marginRight: theme.spacing(1),
+        }}
+        color="primary"
+        type="submit"
+        disabled={formik.isSubmitting}
+        onClick={onClose}
+      >
+        {t("modal.cancel")}
       </Button>
     </form>
   );

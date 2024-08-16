@@ -20,8 +20,13 @@ import Loader from "@Components/Loader/AppLoader";
 interface OperatorFormProps {
   onSubmit?: any;
   isSubmitting?: any;
+  onClose?: () => void;
 }
-const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
+const DiscountForm = ({
+  onSubmit,
+  isSubmitting,
+  onClose,
+}: OperatorFormProps) => {
   const { getCategories } = useCategories(false);
   const { data, isLoading } = getCategories();
   const { t } = useTranslation();
@@ -154,11 +159,21 @@ const DiscountForm = ({ onSubmit, isSubmitting }: OperatorFormProps) => {
         }}
         color="primary"
         variant="contained"
-        fullWidth
         type="submit"
         disabled={isSubmitting || formik.isSubmitting}
       >
         {isSubmitting ? <CircularProgress size={24} /> : t("modal.submit")}
+      </Button>
+      <Button
+        style={{
+          margin: theme.spacing(1),
+        }}
+        color="primary"
+        type="submit"
+        disabled={isSubmitting || formik.isSubmitting}
+        onClick={onClose}
+      >
+        {t("modal.cancel")}
       </Button>
     </form>
   );

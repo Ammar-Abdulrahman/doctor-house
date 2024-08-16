@@ -20,9 +20,14 @@ import { AdvertisementsRequest } from "@Types/Advertisements";
 interface CategoryFormProps {
   onSubmit: (formData: AdvertisementsRequest) => void;
   isSubmitting: boolean;
+  onClose?: () => void;
 }
 
-const AdvertisementForm = ({ onSubmit, isSubmitting }: CategoryFormProps) => {
+const AdvertisementForm = ({
+  onSubmit,
+  isSubmitting,
+  onClose,
+}: CategoryFormProps) => {
   const { t } = useTranslation();
   const [imageUploading, setImageUploading] = useState(false);
 
@@ -164,11 +169,24 @@ const AdvertisementForm = ({ onSubmit, isSubmitting }: CategoryFormProps) => {
           }}
           color="primary"
           variant="contained"
-          fullWidth
           type="submit"
           disabled={isSubmitting || formik.isSubmitting}
         >
           {isSubmitting ? <CircularProgress size={24} /> : t("modal.submit")}
+        </Button>
+        <Button
+          style={{
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(1),
+            marginLeft: theme.spacing(1),
+            marginRight: theme.spacing(1),
+          }}
+          color="primary"
+          type="submit"
+          disabled={isSubmitting || formik.isSubmitting}
+          onClick={onClose}
+        >
+          {t("modal.cancel")}
         </Button>
       </form>
     </FormikProvider>
