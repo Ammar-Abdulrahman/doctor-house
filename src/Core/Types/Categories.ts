@@ -1,8 +1,11 @@
 export interface Subcategory {
   id: number;
-  name: string;
+  name: {
+    ar: string;
+    en: string;
+  };
 }
-export interface SubcategoryOne {
+export interface SubcategoryRequest {
   name: {
     en: string;
     ar: string;
@@ -15,12 +18,15 @@ export interface CategoryRequest {
     en: string;
   };
   image: number;
-  subcategories: SubcategoryOne[];
+  subcategories: SubcategoryRequest[];
 }
 
 export interface Category {
   id: number;
-  name: string;
+  name: {
+    ar: string;
+    en: string;
+  };
   image: string;
   subcategories: Subcategory[];
 }
@@ -33,7 +39,7 @@ export interface CategoriesResponse {
 }
 
 export interface SingleCategoryResponse {
-  data: CategoryOne;
+  data: Category;
 }
 
 export interface CategoryOne {
@@ -43,5 +49,5 @@ export interface CategoryOne {
     ar: string;
   };
   image: string;
-  subcategories: SubcategoryOne[];
+  subcategories: SubcategoryRequest[];
 }

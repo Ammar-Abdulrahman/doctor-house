@@ -1,12 +1,12 @@
 import React from "react";
-import { CategoryOne } from "@Types/Categories";
+import { Category, CategoryOne } from "@Types/Categories";
 import theme from "@Styles/theme";
 import { useTranslation } from "react-i18next";
 import { Typography, Box } from "@mui/material";
 import Loader from "@Components/Loader/ModalLoader";
 
 interface ViewCategoryProps {
-  category: CategoryOne | null;
+  category: Category | null;
 }
 
 const ViewDeliveryAreaModal: React.FC<ViewCategoryProps> = ({ category }) => {
@@ -49,7 +49,7 @@ const ViewDeliveryAreaModal: React.FC<ViewCategoryProps> = ({ category }) => {
             sx={{
               height: 250,
               width: 250,
-              marginRight:"70px"
+              marginRight: "70px",
             }}
             src={category.image}
           />

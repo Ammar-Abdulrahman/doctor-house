@@ -49,9 +49,7 @@ const Categories: React.FC = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editData, setEditData] = useState<Category | null>(null);
   const [openViewModal, setOpenViewModal] = useState(false);
-  const [currentCategory, setCurrentCategory] = useState<CategoryOne | null>(
-    null
-  );
+  const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
   const [isRefetching, setIsRefetching] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -270,7 +268,9 @@ const Categories: React.FC = () => {
                 }}
                 component="img"
                 image={category.image}
-                alt={category.name}
+                alt={
+                  i18n.language === "ar" ? category.name.ar : category.name.en
+                }
               />
               <CardContent>
                 <Typography
@@ -279,7 +279,7 @@ const Categories: React.FC = () => {
                   component="div"
                   style={{ marginRight: "130px" }}
                 >
-                  {category.name}
+                  {i18n.language === "ar" ? category.name.ar : category.name.en}
                 </Typography>
               </CardContent>
             </Card>
