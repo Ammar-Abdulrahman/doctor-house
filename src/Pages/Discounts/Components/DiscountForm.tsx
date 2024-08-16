@@ -29,7 +29,7 @@ const DiscountForm = ({
 }: OperatorFormProps) => {
   const { getCategories } = useCategories(false);
   const { data, isLoading } = getCategories();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -119,7 +119,9 @@ const DiscountForm = ({
         >
           {data?.data?.map((subcategory: Category) => (
             <MenuItem key={subcategory.id} value={subcategory.id}>
-              {subcategory.subcategories[0].name}
+              {i18n.language === "ar"
+                ? subcategory.subcategories[0].name.ar
+                : subcategory.subcategories[0].name.en}
             </MenuItem>
           ))}
         </Select>
