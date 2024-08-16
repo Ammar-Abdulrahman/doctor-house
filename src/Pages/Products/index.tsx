@@ -24,7 +24,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import theme from "@Styles/theme";
 import ProductForm from "./Components/ProductForm";
-//import ViewAdvertisementModal from "./Components/ViewAdvertisementModal";
+//import ViewProductModal from "./Components/ViewProductModal";
 import ViewModal from "@Components/Modal/ViewModal";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -104,10 +104,9 @@ const Products: React.FC = () => {
     };
 
   const handleEdit = (id: number) => {
-    const advertisement =
-      data?.data.find((advertisement: Product) => advertisement.id === id) ||
-      null;
-    setEditData(advertisement);
+    const product =
+      data?.data.find((product: Product) => product.id === id) || null;
+    setEditData(product);
     setEditModalOpen(true);
   };
 
@@ -164,8 +163,8 @@ const Products: React.FC = () => {
         </Grid>
       </Grid>
       <Grid style={{ margin: "5px" }} container spacing={3}>
-        {data?.data.map((advertisement: Product) => (
-          <Grid item key={advertisement.id} xs={12} md={4}>
+        {data?.data.map((product: Product) => (
+          <Grid item key={product.id} xs={12} md={4}>
             <Card
               style={{
                 boxShadow: "1px 1px 3px 1px #B3B3B3",
@@ -178,9 +177,9 @@ const Products: React.FC = () => {
                   aria-controls="long-menu"
                   aria-haspopup="true"
                   onClick={(event) => {
-                    handleMenuOpen(event, advertisement.id);
-                    setCurrentId(advertisement.id);
-                    setCurrentProduct(advertisement);
+                    handleMenuOpen(event, product.id);
+                    setCurrentId(product.id);
+                    setCurrentProduct(product);
                   }}
                 >
                   <MoreVertIcon />
@@ -267,8 +266,8 @@ const Products: React.FC = () => {
                   width: "25%",
                 }}
                 component="img"
-                image={advertisement.image}
-                alt={advertisement.name.ar}
+                image={product.image}
+                alt={i18n.language === "ar" ? product.name.ar : product.name.en}
               />
               <CardContent>
                 <Typography
@@ -277,7 +276,7 @@ const Products: React.FC = () => {
                   component="div"
                   style={{ marginRight: "130px" }}
                 >
-                  {advertisement.name.ar}
+                  {i18n.language === "ar" ? product.name.ar : product.name.en}{" "}
                 </Typography>
               </CardContent>
             </Card>
@@ -291,7 +290,7 @@ const Products: React.FC = () => {
           setModalOpen(false);
           setSubmitting(false);
         }}
-        title={t("modal.create_advertisement")}
+        title={t("modal.create_product")}
         onSubmit={handleFormSubmit}
       >
         <ProductForm
@@ -307,16 +306,16 @@ const Products: React.FC = () => {
       {/* <ViewModal
         open={openViewModal}
         onClose={() => setOpenViewModal(false)}
-        title={t("modal.view_advertisement")}
+        title={t("modal.view_product")}
       >
-        <ViewAdvertisementModal advertisement={currentAdvertisement} />
+        <ViewProductModal product={currentProduct} />
       </ViewModal> */}
 
       <ConfirmationModal
         open={openModal}
         onClose={() => setOpenModal(false)}
         onConfirm={confirmDelete}
-        title={t("modal.advertisement")}
+        title={t("modal.product")}
         itemId={currentId || 0}
       />
     </div>

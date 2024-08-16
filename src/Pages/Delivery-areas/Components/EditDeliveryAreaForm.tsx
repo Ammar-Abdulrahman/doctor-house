@@ -2,10 +2,10 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { TextField, Button, Grid } from "@mui/material";
-import { DeliveryAreasRequest, DeliveryOneArea } from "@Types/Delivery-areas";
+import { DeliveryAreasRequest, DeliveryArea } from "@Types/Delivery-areas";
 
 interface EditDeliveryAreaFormProps {
-  defaultValues: DeliveryOneArea;
+  defaultValues: DeliveryArea;
   onSubmit: (data: DeliveryAreasRequest) => void;
   isSubmitting: boolean;
 }

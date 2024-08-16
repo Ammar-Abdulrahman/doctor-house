@@ -16,6 +16,7 @@ import ViewDiscountModal from "./Components/ViewDiscount";
 import EditDiscountForm from "./Components/EditDiscountForm";
 import ViewModal from "@Components/Modal/ViewModal";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import { formatDate } from "@Utils/index";
 
 const Discounts: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -43,8 +44,8 @@ const Discounts: React.FC = () => {
       id: discount.id,
       code: discount.code,
       percentage: discount.percentage ? `${discount.percentage}%` : "-",
-      from: discount.from,
-      to: discount.to,
+      from: formatDate(discount.from),
+      to: formatDate(discount.to),
       value: discount.value ?? "-",
     })) || [];
 

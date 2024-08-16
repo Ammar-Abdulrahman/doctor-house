@@ -1,19 +1,13 @@
 export interface DeliveryArea {
   id: number;
-  area: string;
-  time: string;
-}
-
-export interface DeliveryOneArea {
-    id: number;
-    time: {
-      en: string;
-      ar: string;
-    };
-    area: {
-      en: string;
-      ar: string;
-    };
+  area: {
+    en: string;
+    ar: string;
+  };
+  time: {
+    en: string;
+    ar: string;
+  };
 }
 
 export interface DeliveryAreasRequest {
@@ -35,5 +29,5 @@ export interface DeliveryAreasResponse {
 }
 
 export interface SingleDeliveryAreaResponse {
-  data: DeliveryOneArea;
+  data: DeliveryArea;
 }

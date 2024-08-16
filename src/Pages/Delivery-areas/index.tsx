@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import useDeliveryAreas from "@Hooks/useDeliveryAreas";
 import { useTranslation } from "react-i18next";
 import HeaderTitle from "@Components/Header/HeaderTitle";
-import {
-  DeliveryArea,
-  DeliveryAreasRequest,
-  DeliveryOneArea,
-} from "@Types/Delivery-areas";
+import { DeliveryArea, DeliveryAreasRequest } from "@Types/Delivery-areas";
 import EnhancedTable from "@Components/Table";
 import { getDeliveryAreaColumns } from "./Columns/index";
 import ConfirmationModal from "@Components/Modal/ConfirmationModal/index";
@@ -36,17 +32,19 @@ const DeliveryAreas: React.FC = () => {
   const [openModal, setOpenModal] = useState(false);
   const [currentId, setCurrentId] = useState<number | null>(null);
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editData, setEditData] = useState<DeliveryOneArea | null>(null);
+  const [editData, setEditData] = useState<DeliveryArea | null>(null);
   const [openViewModal, setOpenViewModal] = useState(false);
   const [currentDeliveryArea, setCurrentDeliveryArea] =
-    useState<DeliveryOneArea | null>(null);
+    useState<DeliveryArea | null>(null);
   const [isRefetching, setIsRefetching] = useState(false);
 
   const rows =
     data?.data?.map((deliveryArea: DeliveryArea) => ({
       id: deliveryArea.id,
-      time: deliveryArea.time,
-      area: deliveryArea.area,
+      time:
+        i18n.language === "ar" ? deliveryArea.time.ar : deliveryArea.time.en,
+      area:
+        i18n.language === "ar" ? deliveryArea.area.ar : deliveryArea.area.en,
     })) || [];
 
   const handleRefetch = async () => {
