@@ -21,6 +21,17 @@
     "password": "كلمة السر",
     "welcome": "مرحباً !"
   },
+  "productsPage": {
+    "name_ar": "اسم المنتج العربي",
+    "name_en": "اسم المنتح الإنكليزي",
+    "subcategory": "التصنيف الفرعي",
+    "price": "السعر",
+    "image": "الصورة",
+    "varients": "المتغيرات",
+    "stockVarients": "المخزون",
+    "desciption_ar":"الوصف باللغة العربية",
+    "desciption_en":"الوصف باللغة الإنكليزية"
+  },
   "discountsPage": {
     "id": "رقم التعريف",
     "code": "كود الخصم",

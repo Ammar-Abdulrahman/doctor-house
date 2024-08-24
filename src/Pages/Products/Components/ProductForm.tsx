@@ -126,12 +126,11 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
         <TextField
           fullWidth
           style={{
-            marginTop: theme.spacing(1),
-            marginBottom: theme.spacing(1),
+            margin: "5px",
           }}
           id="name.en"
           name="name.en"
-          label={t("specialtiesPage.en_name")}
+          label={t("productsPage.name_en")}
           value={formik.values.name.en}
           onChange={formik.handleChange}
           error={formik.touched.name?.en && Boolean(formik.errors.name?.en)}
@@ -145,7 +144,7 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
           }}
           id="name.ar"
           name="name.ar"
-          label={t("specialtiesPage.ar_name")}
+          label={t("productsPage.name_ar")}
           value={formik.values.name.ar}
           onChange={formik.handleChange}
           error={formik.touched.name?.ar && Boolean(formik.errors.name?.ar)}
@@ -157,7 +156,7 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
           }}
           id="description.ar"
           name="description.ar"
-          label={t("categoriesPage.ar_name")}
+          label={t("productsPage.desciption_ar")}
           value={formik.values.description.ar}
           onChange={formik.handleChange}
           error={
@@ -174,7 +173,7 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
           }}
           id="description.en"
           name="description.en"
-          label={t("categoriesPage.ar_name")}
+          label={t("productsPage.desciption_en")}
           value={formik.values.description.en}
           onChange={formik.handleChange}
           error={
@@ -189,7 +188,7 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
           style={{ margin: theme.spacing(1) }}
           id="subcategory"
           name="subcategory"
-          label={t("productForm.subcategory")}
+          label={t("productsPage.subcategory")}
           type="number"
           value={formik.values.subcategory}
           onChange={formik.handleChange}
@@ -220,13 +219,13 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
             {imageUploading ? (
               <CircularProgress size={24} />
             ) : (
-              t("productForm.upload_image")
+              t("productsPage.image")
             )}
           </Button>
         </label>
         {formik.values.image !== 0 && (
           <Typography variant="body2" color="textSecondary">
-            {t("productForm.image_uploaded")}
+            {t("productsPage.image")}
           </Typography>
         )}
 
@@ -240,28 +239,28 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
                   arrayHelpers.push({ name: "", values: [""], type: "" })
                 }
               >
-                {t("productForm.add_variant")}
+                {t("productsPage.variants")}
               </Button>
               {formik.values.variants.map((variant, index) => (
                 <div key={index}>
                   <TextField
                     style={{ margin: theme.spacing(1) }}
                     name={`variants.${index}.name.ar`}
-                    label={t("productForm.variant_name.ar")}
+                    label={t("productsPage.variant_name.ar")}
                     value={variant.name.ar}
                     onChange={formik.handleChange}
                   />
                   <TextField
                     style={{ margin: theme.spacing(1) }}
                     name={`variants.${index}.name.en`}
-                    label={t("productForm.variant_name.en")}
+                    label={t("productsPage.variant_name.en")}
                     value={variant.name.en}
                     onChange={formik.handleChange}
                   />
                   <TextField
                     style={{ margin: theme.spacing(1) }}
                     name={`variants.${index}.type`}
-                    label={t("productForm.variant_type")}
+                    label={t("productsPage.variant_type")}
                     value={variant.type}
                     onChange={formik.handleChange}
                   />
@@ -273,14 +272,14 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
                           type="button"
                           onClick={() => valuesHelpers.push("")}
                         >
-                          {t("productForm.add_variant_value")}
+                          {t("productsPage.add_variant_values")}
                         </Button>
                         {variant.values.map((value, valueIndex) => (
                           <div key={valueIndex}>
                             <TextField
                               style={{ margin: theme.spacing(1) }}
                               name={`variants.${index}.values.${valueIndex}`}
-                              label={t("productForm.variant_value")}
+                              label={t("productsPage.values")}
                               value={value}
                               onChange={formik.handleChange}
                             />

@@ -21,6 +21,17 @@
     "password": "Password",
     "welcome": "Welcome"
   },
+  "productsPage": {
+    "name_ar": "Arabic Product name",
+    "name_en": "English Product Name",
+    "subcategory": "Sub Category",
+    "price": "Price",
+    "image": "Image",
+    "varients": "Varients",
+    "stockVarients": "Stock Varients",
+    "desciption_ar": "Arabic Desciption",
+    "desciption_en": "English Desciption"
+  },
   "discountsPage": {
     "id": "Id",
     "code": "Discount Code",
