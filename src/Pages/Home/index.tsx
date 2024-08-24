@@ -1,26 +1,41 @@
 import HeaderTitle from "@Components/Header/HeaderTitle";
 import { useTranslation } from "react-i18next";
-// import Lottie from "lottie-react";
-// import InProgressLoaderAnimation from "@Assets/json/in_progress.json";
 import withGuards from "@Routes/withGuard.routes";
 import { Box, Grid } from "@mui/material";
 import StatisticCard from "@Components/StatisticCard";
-import SummaryChart from "@Components/Charts/Summary";
-import ProgressChart from "@Components/Charts/Progress";
-import OrdersChart from "@Components/Charts/Order";
+import OrdersOvertimeChart from "@Components/Charts/Order";
+import TopBuyersTable from "@Components/Charts/Table/index";
 import theme from "@Styles/theme";
-
-// #58508D (Deep Purple)
-// #BC5090 (Magenta)
-// #FF6361 (Coral)
-// #00B6AD (Teal, which you’ve already used for the sidebar background)
-// #009FFF (Bright Blue)
-// #00BFFF (Sky Blue)
-// #00FFFF (Cyan)
-// #0040FF (Royal Blue)
+import useDashboardData from "@Hooks/useStatistics";
+import PageLoader from "@Components/Loader/PageLoader";
 
 const HomePage = () => {
   const { t, i18n } = useTranslation();
+  const {
+    getActiveUsersCount,
+    getTotalProductsRevenue,
+    getTopThreeBuyers,
+    getOrdersOvertime,
+  } = useDashboardData();
+
+  const { data: activeUsersData, isLoading: isLoadingActiveUsers } =
+    getActiveUsersCount();
+  const { data: totalRevenueData, isLoading: isLoadingRevenue } =
+    getTotalProductsRevenue();
+  const { data: topBuyersData, isLoading: isLoadingBuyers } =
+    getTopThreeBuyers();
+  const { data: ordersOvertimeData, isLoading: isLoadingOrders } =
+    getOrdersOvertime();
+
+  if (
+    isLoadingActiveUsers ||
+    isLoadingRevenue ||
+    isLoadingBuyers ||
+    isLoadingOrders
+  ) {
+    return <PageLoader />;
+  }
+
   return (
     <div style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
       <HeaderTitle title={t("homePage.home")} />
@@ -31,43 +46,30 @@ const HomePage = () => {
           direction: i18n.language === "ar" ? "rtl" : "ltr",
         }}
       >
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6} md={3}>
-            <StatisticCard
-              title={t("statisticsPage.total_users")}
-              value="1,146"
-              color={theme.palette.success.main}
-            />
+        <Grid container spacing={3}>
+          <Grid item md={6} xs={6}>
+          <Grid container spacing={2}>
+              <Grid item md={6} xs={3}>
+                <StatisticCard
+                  title={t("statisticsPage.total_users")}
+                  value={activeUsersData?.data.count.toString()}
+                  color={theme.palette.success.main}
+                />
+              </Grid>
+              <Grid item md={6} xs={3}>
+                <StatisticCard
+                  title={t("statisticsPage.total_products_revenue")}
+                  value={`$${totalRevenueData?.data.total.toLocaleString()}`}
+                  color={theme.palette.success.dark}
+                />
+              </Grid>
+            </Grid>
+            <Grid item xs={4} md={12}>
+              <TopBuyersTable buyers={topBuyersData?.data.buyers || []} />
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <StatisticCard
-              title={t("statisticsPage.total_products_revenue")}
-              value="5:32 Hr"
-              color={theme.palette.success.dark}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <StatisticCard
-              title={t("statisticsPage.total_discounts")}
-              value="38:27 Hr"
-              color={theme.palette.success.light}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <StatisticCard
-              title={t("statisticsPage.total_advertisements")}
-              value="$4,6139"
-              color={theme.palette.success.contrastText}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <SummaryChart />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <ProgressChart />
-          </Grid>
-          <Grid item xs={12}>
-            <OrdersChart />
+          <Grid item md={6} xs={10}>
+            <OrdersOvertimeChart data={ordersOvertimeData.data.data} />
           </Grid>
         </Grid>
       </Box>

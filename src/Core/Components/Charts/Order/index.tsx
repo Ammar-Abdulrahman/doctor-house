@@ -1,6 +1,5 @@
-// src/Components/OrdersChart.tsx
-import React from 'react';
-import { Line } from 'react-chartjs-2';
+import React from "react";
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,40 +9,53 @@ import {
   Title,
   Tooltip,
   Legend,
-  ArcElement // Add ArcElement here
-} from 'chart.js';
+} from "chart.js";
+import { Paper } from "@mui/material";
+import { OrdersOvertimeChartResponse } from "@Types/Statistics";
 
-// Register components with ChartJS
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-const OrdersChart: React.FC = () => {
-  const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    datasets: [
-      {
-        label: 'Orders Count',
-        data: [431, 317, 270, 232, 253, 388, 394, 363, 469, 315, 247, 374],
-        borderColor: 'rgba(75,192,192,1)',
-        backgroundColor: 'rgba(75,192,192,0.2)',
-        fill: true,
-      },
-    ],
+const OrdersOvertimeChart: React.FC<OrdersOvertimeChartResponse> = ({ data }) => {
+  const chartData = {
+    labels: Array.from({ length: 12 }, (_, i) => `Month ${i + 1}`),
+    datasets: data.map((yearData) => ({
+      label: yearData.year,
+      data: yearData.data[0].data,
+      borderColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`, // Random color for each year
+      fill: false,
+      tension: 0.1,
+    })),
   };
 
   const options = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: "top" as const,
       },
       title: {
         display: true,
-        text: 'Orders Over Time',
+        text: "Orders Over Time",
       },
     },
   };
 
-  return <></>;
+  return (
+    <Paper
+      elevation={3}
+      style={{height: "350px", padding: "20px", borderRadius: 12, backgroundColor: "#F4F8F7" }}
+    >
+      <Line data={chartData} options={options} />
+    </Paper>
+  );
 };
 
-export default OrdersChart;
+export default OrdersOvertimeChart;
