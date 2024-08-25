@@ -44,6 +44,10 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
       stockKeepUnits: [],
     },
     validationSchema: Yup.object({
+      name: Yup.object({
+        en: Yup.string().required("English Name is Required"),
+        ar: Yup.string().required("Arabic Name is Required"),
+      }),
       //   name: Yup.string().required(t("validation.required")),
       //   description: Yup.string().required(t("validation.required")),
       //   price: Yup.number().required(t("validation.required")),
@@ -122,112 +126,136 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
   console.log(formik.values);
   return (
     <FormikProvider value={formik}>
-      <form onSubmit={formik.handleSubmit} style={{ marginTop: "1px" }}>
-        <TextField
-          fullWidth
-          style={{
-            margin: "5px",
-          }}
-          id="name.en"
-          name="name.en"
-          label={t("productsPage.name_en")}
-          value={formik.values.name.en}
-          onChange={formik.handleChange}
-          error={formik.touched.name?.en && Boolean(formik.errors.name?.en)}
-          helperText={formik.touched.name?.en && formik.errors.name?.en}
-        />
-        <TextField
-          fullWidth
-          style={{
-            marginTop: theme.spacing(1),
-            marginBottom: theme.spacing(1),
-          }}
-          id="name.ar"
-          name="name.ar"
-          label={t("productsPage.name_ar")}
-          value={formik.values.name.ar}
-          onChange={formik.handleChange}
-          error={formik.touched.name?.ar && Boolean(formik.errors.name?.ar)}
-          helperText={formik.touched.name?.ar && formik.errors.name?.ar}
-        />
-        <TextField
-          style={{
-            margin: theme.spacing(1),
-          }}
-          id="description.ar"
-          name="description.ar"
-          label={t("productsPage.desciption_ar")}
-          value={formik.values.description.ar}
-          onChange={formik.handleChange}
-          error={
-            formik.touched.description?.ar &&
-            Boolean(formik.errors.description?.ar)
-          }
-          helperText={
-            formik.touched.description?.ar && formik.errors.description?.ar
-          }
-        />
-        <TextField
-          style={{
-            margin: theme.spacing(1),
-          }}
-          id="description.en"
-          name="description.en"
-          label={t("productsPage.desciption_en")}
-          value={formik.values.description.en}
-          onChange={formik.handleChange}
-          error={
-            formik.touched.description?.en &&
-            Boolean(formik.errors.description?.en)
-          }
-          helperText={
-            formik.touched.description?.en && formik.errors.description?.en
-          }
-        />
-        <TextField
-          style={{ margin: theme.spacing(1) }}
-          id="subcategory"
-          name="subcategory"
-          label={t("productsPage.subcategory")}
-          type="number"
-          value={formik.values.subcategory}
-          onChange={formik.handleChange}
-          error={
-            formik.touched.subcategory && Boolean(formik.errors.subcategory)
-          }
-          helperText={formik.touched.subcategory && formik.errors.subcategory}
-        />
-        <input
-          accept="image/*"
-          style={{ display: "none" }}
-          id="image-upload"
-          type="file"
-          onChange={handleImageUpload}
-        />
-        <label htmlFor="image-upload">
-          <Button
-            variant="contained"
-            component="span"
-            color="primary"
-            disabled={imageUploading}
-            style={{
-              color: "white",
-              marginTop: theme.spacing(1),
-              marginBottom: theme.spacing(1),
-            }}
-          >
-            {imageUploading ? (
-              <CircularProgress size={24} />
-            ) : (
-              t("productsPage.image")
+      <form onSubmit={formik.handleSubmit} style={{ marginTop: "3px" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={6} md={6}>
+            <TextField
+              fullWidth
+              style={{
+                margin: "5px",
+              }}
+              id="name.en"
+              name="name.en"
+              label={t("productsPage.name_en")}
+              value={formik.values.name.en}
+              onChange={formik.handleChange}
+              error={formik.touched.name?.en && Boolean(formik.errors.name?.en)}
+              helperText={formik.touched.name?.en && formik.errors.name?.en}
+            />
+          </Grid>
+          <Grid item xs={6} md={6}>
+            <TextField
+              fullWidth
+              style={{
+                margin: "5px",
+              }}
+              id="name.ar"
+              name="name.ar"
+              label={t("productsPage.name_ar")}
+              value={formik.values.name.ar}
+              onChange={formik.handleChange}
+              error={formik.touched.name?.ar && Boolean(formik.errors.name?.ar)}
+              helperText={formik.touched.name?.ar && formik.errors.name?.ar}
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={6} md={6}>
+            <TextField
+              fullWidth
+              style={{
+                margin: "5px",
+              }}
+              id="description.ar"
+              name="description.ar"
+              label={t("productsPage.desciption_ar")}
+              value={formik.values.description.ar}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.description?.ar &&
+                Boolean(formik.errors.description?.ar)
+              }
+              helperText={
+                formik.touched.description?.ar && formik.errors.description?.ar
+              }
+            />
+          </Grid>
+          <Grid item xs={6} md={6}>
+            <TextField
+              fullWidth
+              style={{
+                margin: "5px",
+              }}
+              id="description.en"
+              name="description.en"
+              label={t("productsPage.desciption_en")}
+              value={formik.values.description.en}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.description?.en &&
+                Boolean(formik.errors.description?.en)
+              }
+              helperText={
+                formik.touched.description?.en && formik.errors.description?.en
+              }
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={6} md={6}>
+            <TextField
+              style={{ margin: "5px" }}
+              fullWidth
+              id="subcategory"
+              name="subcategory"
+              label={t("productsPage.subcategory")}
+              type="number"
+              value={formik.values.subcategory}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.subcategory && Boolean(formik.errors.subcategory)
+              }
+              helperText={
+                formik.touched.subcategory && formik.errors.subcategory
+              }
+            />
+          </Grid>
+          <Grid item xs={6} md={6}>
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="image-upload"
+              type="file"
+              onChange={handleImageUpload}
+            />
+            <label htmlFor="image-upload">
+              <Button
+                sx={{ margin: "5px", height: "55px" }}
+                fullWidth
+                variant="contained"
+                component="span"
+                color="primary"
+                disabled={imageUploading}
+                style={{
+                  color: "white",
+                  marginTop: theme.spacing(1),
+                  marginBottom: theme.spacing(1),
+                }}
+              >
+                {imageUploading ? (
+                  <CircularProgress size={24} />
+                ) : (
+                  t("productsPage.image")
+                )}
+              </Button>
+            </label>
+            {formik.values.image !== 0 && (
+              <Typography variant="body2" color="textSecondary">
+                {t("productsPage.image")}
+              </Typography>
             )}
-          </Button>
-        </label>
-        {formik.values.image !== 0 && (
-          <Typography variant="body2" color="textSecondary">
-            {t("productsPage.image")}
-          </Typography>
-        )}
+          </Grid>
+        </Grid>
 
         <FieldArray
           name="variants"
@@ -243,27 +271,39 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
               </Button>
               {formik.values.variants.map((variant, index) => (
                 <div key={index}>
-                  <TextField
-                    style={{ margin: theme.spacing(1) }}
-                    name={`variants.${index}.name.ar`}
-                    label={t("productsPage.variant_name.ar")}
-                    value={variant.name.ar}
-                    onChange={formik.handleChange}
-                  />
-                  <TextField
-                    style={{ margin: theme.spacing(1) }}
-                    name={`variants.${index}.name.en`}
-                    label={t("productsPage.variant_name.en")}
-                    value={variant.name.en}
-                    onChange={formik.handleChange}
-                  />
-                  <TextField
-                    style={{ margin: theme.spacing(1) }}
-                    name={`variants.${index}.type`}
-                    label={t("productsPage.variant_type")}
-                    value={variant.type}
-                    onChange={formik.handleChange}
-                  />
+                  <Grid container spacing={2}>
+                    <Grid item xs={6} md={6}>
+                      <TextField
+                        fullWidth
+                        style={{ margin: "5px" }}
+                        name={`variants.${index}.name.ar`}
+                        label={t("productsPage.variant_name.ar")}
+                        value={variant.name.ar}
+                        onChange={formik.handleChange}
+                      />
+                    </Grid>
+                    <Grid item xs={6} md={6}>
+                      <TextField
+                        fullWidth
+                        style={{ margin: "5px" }}
+                        name={`variants.${index}.name.en`}
+                        label={t("productsPage.variant_name.en")}
+                        value={variant.name.en}
+                        onChange={formik.handleChange}
+                      />
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={6} md={6}>
+                    <TextField
+                      fullWidth
+                      style={{ margin: "5px" }}
+                      name={`variants.${index}.type`}
+                      label={t("productsPage.variant_type")}
+                      value={variant.type}
+                      onChange={formik.handleChange}
+                    />
+                  </Grid>
                   <FieldArray
                     name={`variants.${index}.values`}
                     render={(valuesHelpers) => (
@@ -277,7 +317,7 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
                         {variant.values.map((value, valueIndex) => (
                           <div key={valueIndex}>
                             <TextField
-                              style={{ margin: theme.spacing(1) }}
+                              style={{ margin: "5px", width: "480px" }}
                               name={`variants.${index}.values.${valueIndex}`}
                               label={t("productsPage.values")}
                               value={value}
@@ -339,20 +379,29 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
                         </Button>
                         {sku.variants.map((variant, variantIndex) => (
                           <div key={variantIndex}>
-                            <TextField
-                              style={{ margin: theme.spacing(1) }}
-                              name={`stockKeepUnits.${index}.variants.${variantIndex}.name`}
-                              label={t("productForm.sku_variant_name")}
-                              value={variant.name}
-                              onChange={formik.handleChange}
-                            />
-                            <TextField
-                              style={{ margin: theme.spacing(1) }}
-                              name={`stockKeepUnits.${index}.variants.${variantIndex}.value`}
-                              label={t("productForm.sku_variant_value")}
-                              value={variant.value}
-                              onChange={formik.handleChange}
-                            />
+                            <Grid container spacing={2}>
+                              <Grid item xs={6} md={6}>
+                                <TextField
+                                  fullWidth
+                                  style={{ margin: "5px" }}
+                                  name={`stockKeepUnits.${index}.variants.${variantIndex}.name`}
+                                  label={t("productForm.sku_variant_name")}
+                                  value={variant.name}
+                                  onChange={formik.handleChange}
+                                />
+                              </Grid>
+                              <Grid item xs={6} md={6}>
+                                <TextField
+                                  fullWidth
+                                  style={{ margin: "5px" }}
+                                  name={`stockKeepUnits.${index}.variants.${variantIndex}.value`}
+                                  label={t("productForm.sku_variant_value")}
+                                  value={variant.value}
+                                  onChange={formik.handleChange}
+                                />
+                              </Grid>
+                            </Grid>
+
                             <IconButton
                               type="button"
                               onClick={() =>
@@ -366,22 +415,31 @@ const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
                       </div>
                     )}
                   />
-                  <TextField
-                    style={{ margin: theme.spacing(1) }}
-                    name={`stockKeepUnits.${index}.price`}
-                    label={t("productForm.sku_price")}
-                    type="number"
-                    value={sku.price}
-                    onChange={formik.handleChange}
-                  />
-                  <TextField
-                    style={{ margin: theme.spacing(1) }}
-                    name={`stockKeepUnits.${index}.quantity`}
-                    label={t("productForm.sku_quantity")}
-                    type="number"
-                    value={sku.quantity}
-                    onChange={formik.handleChange}
-                  />
+                  <Grid container spacing={2}>
+                    <Grid item xs={6} md={6}>
+                      <TextField
+                        fullWidth
+                        style={{ margin: "5px" }}
+                        name={`stockKeepUnits.${index}.price`}
+                        label={t("productForm.sku_price")}
+                        type="number"
+                        value={sku.price}
+                        onChange={formik.handleChange}
+                      />
+                    </Grid>
+                    <Grid item xs={6} md={6}>
+                      <TextField
+                        fullWidth
+                        style={{ margin: "5px" }}
+                        name={`stockKeepUnits.${index}.quantity`}
+                        label={t("productForm.sku_quantity")}
+                        type="number"
+                        value={sku.quantity}
+                        onChange={formik.handleChange}
+                      />
+                    </Grid>
+                  </Grid>
+
                   <input
                     accept="image/*"
                     style={{ display: "none" }}

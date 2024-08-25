@@ -13,6 +13,7 @@ import {
 } from "@Types/Categories";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { ErrorProps } from "@Types/ErrorProps";
 
 const useCategories = (
   needPagination: boolean
@@ -45,6 +46,11 @@ const useCategories = (
         queryClient.invalidateQueries("categories");
         toast.success(`${t("modal.success_create_category")}`);
       },
+      onError(error: ErrorProps, variables, context) {
+        toast.error(`Error :${error?.response.data.error.message}`, {
+          autoClose: false,
+        });
+      },
     }
   );
 
@@ -58,6 +64,11 @@ const useCategories = (
           queryClient.invalidateQueries("categories");
           toast.success(`${t("modal.success_edit_category")}`);
         },
+        onError(error: ErrorProps, variables, context) {
+          toast.error(`Error :${error?.response.data.error.message}`, {
+            autoClose: false,
+          });
+        },
       }
     );
   };
@@ -68,6 +79,11 @@ const useCategories = (
       onSuccess: () => {
         queryClient.invalidateQueries("categories");
         toast.success(`${t("modal.delete_category")}`);
+      },
+      onError(error: ErrorProps, variables, context) {
+        toast.error(`Error :${error?.response.data.error.message}`, {
+          autoClose: false,
+        });
       },
     }
   );

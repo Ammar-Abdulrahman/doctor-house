@@ -48,19 +48,19 @@ const HomePage = () => {
       >
         <Grid container spacing={3}>
           <Grid item md={6} xs={6}>
-          <Grid container spacing={2}>
+            <Grid container spacing={2}>
               <Grid item md={6} xs={3}>
                 <StatisticCard
                   title={t("statisticsPage.total_users")}
                   value={activeUsersData?.data.count.toString()}
-                  color={theme.palette.success.main}
+                  color={theme.palette.secondary.contrastText}
                 />
               </Grid>
               <Grid item md={6} xs={3}>
                 <StatisticCard
                   title={t("statisticsPage.total_products_revenue")}
-                  value={`$${totalRevenueData?.data.total.toLocaleString()}`}
-                  color={theme.palette.success.dark}
+                  value={`${totalRevenueData?.data.total.toLocaleString()} ل.س`}
+                  color={theme.palette.success.main}
                 />
               </Grid>
             </Grid>

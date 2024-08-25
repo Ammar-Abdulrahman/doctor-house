@@ -151,7 +151,7 @@ const Categories: React.FC = () => {
           <Grid container alignItems="center">
             <Grid item xs={3} md={7.5}>
               <AddButton
-                requiredPermission="createRole"
+                requiredPermission="createCategory"
                 onClickFunction={handleAddClick}
               />
             </Grid>
@@ -259,12 +259,15 @@ const Categories: React.FC = () => {
               </CardActions>
               <CardMedia
                 style={{
-                  height: "25%",
+                  height: "100px",
+                  width: "100px",
+                  // height: "25%",
                   display: "flex",
                   justifyContent: "center",
-                  marginRight: "150px",
+                  marginRight: i18n.language === "ar" ? "150px" : "",
+                  marginLeft: i18n.language === "en" ? "150px" : "",
                   marginTop: "10px",
-                  width: "25%",
+                  //width: "25%",
                 }}
                 component="img"
                 image={category.image}
@@ -277,7 +280,10 @@ const Categories: React.FC = () => {
                   gutterBottom
                   variant="h6"
                   component="div"
-                  style={{ marginRight: "130px" }}
+                  style={{
+                    marginRight: i18n.language === "ar" ? "130px" : "",
+                    marginLeft: i18n.language === "en" ? "130px" : "",
+                  }}
                 >
                   {i18n.language === "ar" ? category.name.ar : category.name.en}
                 </Typography>

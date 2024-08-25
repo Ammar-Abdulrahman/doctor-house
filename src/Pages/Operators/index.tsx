@@ -120,7 +120,7 @@ const Operators: React.FC = () => {
           <Grid container alignItems="center">
             <Grid item xs={3} md={7.5}>
               <AddButton
-                requiredPermission="createRole"
+                requiredPermission="createOperator"
                 onClickFunction={handleAddClick}
               />
             </Grid>

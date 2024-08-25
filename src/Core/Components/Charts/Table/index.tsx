@@ -9,6 +9,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 interface Buyer {
   user: string;
@@ -20,6 +21,7 @@ interface TopBuyersTableProps {
 }
 
 const TopBuyersTable: React.FC<TopBuyersTableProps> = ({ buyers }) => {
+  const { t } = useTranslation();
   return (
     <TableContainer
       style={{
@@ -30,12 +32,14 @@ const TopBuyersTable: React.FC<TopBuyersTableProps> = ({ buyers }) => {
       }}
       component={Paper}
     >
-      <Typography variant="h6">Top Buyers</Typography>
+      <Typography variant="h6">{t("statisticsPage.top_bayers")}</Typography>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>User</TableCell>
-            <TableCell align="left">Total Revenue</TableCell>
+            <TableCell> {t("statisticsPage.user")} </TableCell>
+            <TableCell align="left" color="primary">
+             {t("statisticsPage.total_revenue")}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -45,7 +49,7 @@ const TopBuyersTable: React.FC<TopBuyersTableProps> = ({ buyers }) => {
                 {buyer.user}
               </TableCell>
               <TableCell align="left">
-                ${buyer.total.toLocaleString()}
+                {buyer.total.toLocaleString()} ل.س
               </TableCell>
             </TableRow>
           ))}

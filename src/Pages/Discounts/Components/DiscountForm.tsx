@@ -60,6 +60,7 @@ const DiscountForm = ({
   });
 
   if (isLoading) return <Loader />;
+  console.log(data.data);
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -118,7 +119,10 @@ const DiscountForm = ({
           }}
         >
           {data?.data?.map((subcategory: Category) => (
-            <MenuItem key={subcategory.id} value={subcategory.id}>
+            <MenuItem
+              key={subcategory.id}
+              value={subcategory.subcategories[0].id}
+            >
               {i18n.language === "ar"
                 ? subcategory.subcategories[0].name.ar
                 : subcategory.subcategories[0].name.en}

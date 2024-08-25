@@ -13,6 +13,7 @@ import {
 } from "@Types/Operator";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { ErrorProps } from "@Types/ErrorProps";
 
 const useOperators = (
   needPagination: boolean
@@ -46,6 +47,11 @@ const useOperators = (
         queryClient.invalidateQueries("operators");
         toast.success(`${t("modal.success_create_operator")}`);
       },
+      onError(error: ErrorProps, variables, context) {
+        toast.error(`Error :${error?.response.data.error.message}`, {
+          autoClose: false,
+        });
+      },
     }
   );
 
@@ -68,6 +74,11 @@ const useOperators = (
       onSuccess: () => {
         queryClient.invalidateQueries("operators");
         toast.success(`${t("modal.delete_operator")}`);
+      },
+      onError(error: ErrorProps, variables, context) {
+        toast.error(`Error :${error?.response.data.error.message}`, {
+          autoClose: false,
+        });
       },
     }
   );

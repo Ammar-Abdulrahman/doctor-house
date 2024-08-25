@@ -12,6 +12,7 @@ import {
 } from "@Types/Delivery-areas";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { ErrorProps } from "@Types/ErrorProps";
 
 const useDeliveryAreas = () =>
   //needPagination: boolean
@@ -42,7 +43,11 @@ const useDeliveryAreas = () =>
           queryClient.invalidateQueries("delivery-areas");
           toast.success(`${t("modal.success_create_delivery_area")}`);
         },
-        onError: () => {},
+        onError(error: ErrorProps, variables, context) {
+          toast.error(`Error :${error?.response.data.error.message}`, {
+            autoClose: false,
+          });
+        },
       }
     );
 
@@ -55,6 +60,11 @@ const useDeliveryAreas = () =>
           queryClient.invalidateQueries("delivery-areas");
           toast.success(`${t("modal.success_edit_delivery_area")}`);
         },
+        onError(error: ErrorProps, variables, context) {
+          toast.error(`Error :${error?.response.data.error.message}`, {
+            autoClose: false,
+          });
+        },
       }
     );
 
@@ -65,7 +75,11 @@ const useDeliveryAreas = () =>
           queryClient.invalidateQueries("delivery-areas");
           toast.success(`${t("modal.delete_delivery_area")}`);
         },
-        onError: () => {},
+        onError(error: ErrorProps, variables, context) {
+          toast.error(`Error :${error?.response.data.error.message}`, {
+            autoClose: false,
+          });
+        },
       }
     );
 

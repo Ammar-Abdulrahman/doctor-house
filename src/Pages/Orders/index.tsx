@@ -38,7 +38,7 @@ const Orders: React.FC = () => {
         <Chip
           sx={{ color: "white", borderRadius: 2 }}
           label={order.status}
-          color="secondary"
+          color={"info"}
         />
       ) : (
         ""
@@ -48,7 +48,7 @@ const Orders: React.FC = () => {
         <Chip
           sx={{ color: "white", borderRadius: 2 }}
           label={order.deliverOption}
-          color="success"
+          color={order.deliverOption === "Paid" ? "primary" : "secondary"}
         />
       ) : (
         ""

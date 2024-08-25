@@ -29,8 +29,8 @@
     "image": "الصورة",
     "varients": "المتغيرات",
     "stockVarients": "المخزون",
-    "desciption_ar":"الوصف باللغة العربية",
-    "desciption_en":"الوصف باللغة الإنكليزية"
+    "desciption_ar": "الوصف باللغة العربية",
+    "desciption_en": "الوصف باللغة الإنكليزية"
   },
   "discountsPage": {
     "id": "رقم التعريف",
@@ -43,7 +43,8 @@
   },
   "advertisementsPage": {
     "id": "رقم التعريف",
-    "description": "الوصف",
+    "description_en": "الوصف باللغة الإنكليزية",
+    "description_ar": "الوصف باللغة العربية",
     "url": "الرابط",
     "image": "الصورة"
   },
@@ -91,7 +92,10 @@
     "total_users": "إجمالي المستخدمين",
     "total_products_revenue": "إجمالي إيرادات المنتجات",
     "total_discounts": "إجمالي الخصومات",
-    "total_advertisements": "إجمالي الإعلانات"
+    "total_advertisements": "إجمالي الإعلانات",
+    "top_bayers": "الأكثر شراءاً",
+    "total_revenue": "المشتريات",
+    "user":"اسم المستخدم"
   },
   "delivery_areasPage": {
     "id": "رقم التعريف",

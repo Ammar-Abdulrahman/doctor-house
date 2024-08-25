@@ -12,6 +12,7 @@ import {
 } from "@Types/Products";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { ErrorProps } from "@Types/ErrorProps";
 
 const useProducts = (
   needPagination: boolean
@@ -44,6 +45,11 @@ const useProducts = (
         queryClient.invalidateQueries("products");
         toast.success(`${t("modal.success_create_product")}`);
       },
+      onError(error: ErrorProps, variables, context) {
+        toast.error(`Error :${error?.response.data.error.message}`, {
+          autoClose: false,
+        });
+      },
     }
   );
 
@@ -65,6 +71,11 @@ const useProducts = (
       onSuccess: () => {
         queryClient.invalidateQueries("products");
         toast.success(`${t("modal.delete_product")}`);
+      },
+      onError(error: ErrorProps, variables, context) {
+        toast.error(`Error :${error?.response.data.error.message}`, {
+          autoClose: false,
+        });
       },
     }
   );

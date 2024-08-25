@@ -72,7 +72,10 @@
     "total_users": "Toltal Users",
     "total_products_revenue": "Total Products Revenue",
     "total_discounts": "Totla Discounts",
-    "total_advertisements": "Toltal Advertisements"
+    "total_advertisements": "Toltal Advertisements",
+    "top_bayers": "Top Bayers",
+    "total_revenue": "Toltal Revenue",
+    "user": "User Name"
   },
   "delivery_areasPage": {
     "id": "Id",

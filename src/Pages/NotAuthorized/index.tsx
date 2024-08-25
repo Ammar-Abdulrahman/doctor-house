@@ -12,9 +12,9 @@ const NotAuthorizedPage = () => {
         style={{
           marginLeft: i18n.language === "en" ? "450px" : "",
           marginRight: i18n.language === "ar" ? "450px" : "",
-          marginTop: "50px",
-          height: "550px",
-          width: "550px",
+          marginTop: "10px",
+          height: "500px",
+          width: "500px",
         }}
       >
         <Lottie

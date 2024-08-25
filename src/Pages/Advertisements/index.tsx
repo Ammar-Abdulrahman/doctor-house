@@ -154,7 +154,7 @@ const Advertisements: React.FC = () => {
           <Grid container alignItems="center">
             <Grid item xs={3} md={7.5}>
               <AddButton
-                requiredPermission="createRole"
+                requiredPermission="createAd"
                 onClickFunction={handleAddClick}
               />
             </Grid>
@@ -262,12 +262,15 @@ const Advertisements: React.FC = () => {
               </CardActions>
               <CardMedia
                 style={{
-                  height: "25%",
+                  //height: "25%",
                   display: "flex",
                   justifyContent: "center",
-                  marginRight: "150px",
+                  marginRight: i18n.language === "ar" ? "100px" : "",
+                  marginLeft: i18n.language === "en" ? "50px" : "",
                   marginTop: "10px",
-                  width: "25%",
+                  height: "150px",
+                  width: "230px",
+                  //width: "25%",
                 }}
                 component="img"
                 image={advertisement.image}
@@ -278,9 +281,19 @@ const Advertisements: React.FC = () => {
                   gutterBottom
                   variant="h6"
                   component="div"
-                  style={{ marginRight: "130px" }}
+                  style={{ marginRight: "90px" }}
                 >
                   {advertisement.url}
+                </Typography>
+                <Typography
+                  gutterBottom
+                  variant="h6"
+                  component="div"
+                  style={{ marginRight: "90px" }}
+                >
+                  {i18n.language === "ar"
+                    ? advertisement.description.ar
+                    : advertisement.description.en}
                 </Typography>
                 {/* <Typography variant="body2" color="text.secondary">
                   <ul>

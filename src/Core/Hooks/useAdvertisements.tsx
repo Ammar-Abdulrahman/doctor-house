@@ -13,6 +13,7 @@ import {
 } from "@Types/Advertisements";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { ErrorProps } from "@Types/ErrorProps";
 
 const useAdvertisements = () =>
   //needPagination: boolean
@@ -43,6 +44,11 @@ const useAdvertisements = () =>
           queryClient.invalidateQueries("advertisements");
           toast.success(`${t("modal.success_create_advertisement")}`);
         },
+        onError(error: ErrorProps, variables, context) {
+          toast.error(`Error :${error?.response.data.error.message}`, {
+            autoClose: false,
+          });
+        },
       }
     );
 
@@ -66,6 +72,11 @@ const useAdvertisements = () =>
         onSuccess: () => {
           queryClient.invalidateQueries("advertisements");
           toast.success(`${t("modal.delete_advertisement")}`);
+        },
+        onError(error: ErrorProps, variables, context) {
+          toast.error(`Error :${error?.response.data.error.message}`, {
+            autoClose: false,
+          });
         },
       }
     );

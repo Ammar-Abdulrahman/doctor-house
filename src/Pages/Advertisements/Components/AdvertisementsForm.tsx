@@ -83,88 +83,94 @@ const AdvertisementForm = ({
 
   return (
     <FormikProvider value={formik}>
-      <form onSubmit={formik.handleSubmit} style={{ marginTop: "1px" }}>
-        <TextField
-          style={{
-            margin: theme.spacing(1),
-          }}
-          id="url"
-          name="url"
-          label={t("categoriesPage.ar_name")}
-          value={formik.values.url}
-          onChange={formik.handleChange}
-          error={formik.touched.url && Boolean(formik.errors.url)}
-          helperText={formik.touched.url && formik.errors.url}
-        />
-        <TextField
-          style={{
-            margin: theme.spacing(1),
-          }}
-          id="description.ar"
-          name="description.ar"
-          label={t("categoriesPage.ar_name")}
-          value={formik.values.description.ar}
-          onChange={formik.handleChange}
-          error={
-            formik.touched.description?.ar &&
-            Boolean(formik.errors.description?.ar)
-          }
-          helperText={
-            formik.touched.description?.ar && formik.errors.description?.ar
-          }
-        />
-        <TextField
-          style={{
-            margin: theme.spacing(1),
-          }}
-          id="description.en"
-          name="description.en"
-          label={t("categoriesPage.ar_name")}
-          value={formik.values.description.en}
-          onChange={formik.handleChange}
-          error={
-            formik.touched.description?.en &&
-            Boolean(formik.errors.description?.en)
-          }
-          helperText={
-            formik.touched.description?.en && formik.errors.description?.en
-          }
-        />
-        <input
-          accept="image/*"
-          style={{ display: "none" }}
-          id="image-upload"
-          type="file"
-          onChange={handleImageUpload}
-        />
-        <label htmlFor="image-upload">
-          <Button
-            variant="contained"
-            component="span"
-            color="primary"
-            disabled={imageUploading}
-            style={{
-              color: "white",
-              marginTop: theme.spacing(1),
-              marginBottom: theme.spacing(1),
-            }}
-          >
-            {imageUploading ? (
-              <CircularProgress size={24} />
-            ) : (
-              t("categoriesPage.upload_image")
-            )}
-          </Button>
-        </label>
-        {formik.values.image !== 0 && (
-          <Typography variant="body2" color="textSecondary">
-            {t("categoriesPage.image_uploaded")}
-          </Typography>
-        )}
+      <form onSubmit={formik.handleSubmit}>
+        <Grid container>
+          <Grid item xs={6} md={5}>
+            <TextField
+              id="url"
+              name="url"
+              label={t("advertisementsPage.url")}
+              value={formik.values.url}
+              onChange={formik.handleChange}
+              error={formik.touched.url && Boolean(formik.errors.url)}
+              helperText={formik.touched.url && formik.errors.url}
+              sx={{ margin: "5px" }}
+            />
+          </Grid>
+          <Grid item xs={6} md={5}>
+            <TextField
+              id="description.ar"
+              name="description.ar"
+              label={t("advertisementsPage.description_ar")}
+              value={formik.values.description.ar}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.description?.ar &&
+                Boolean(formik.errors.description?.ar)
+              }
+              helperText={
+                formik.touched.description?.ar && formik.errors.description?.ar
+              }
+              sx={{ margin: "5px" }}
+            />
+          </Grid>
+          <Grid item xs={6} md={6}>
+            <TextField
+              id="description.en"
+              name="description.en"
+              label={t("advertisementsPage.description_en")}
+              value={formik.values.description.en}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.description?.en &&
+                Boolean(formik.errors.description?.en)
+              }
+              helperText={
+                formik.touched.description?.en && formik.errors.description?.en
+              }
+              sx={{ margin: "5px" }}
+            />
+          </Grid>
+
+          <input
+            accept="image/*"
+            style={{ display: "none" }}
+            id="image-upload"
+            type="file"
+            onChange={handleImageUpload}
+          />
+          <label htmlFor="image-upload">
+            <Button
+              variant="contained"
+              component="span"
+              color="primary"
+              disabled={imageUploading}
+              style={{
+                width: "220px",
+                height: "53px",
+                color: "white",
+                marginRight: "-43px",
+                marginTop: "7px",
+                marginBottom: theme.spacing(1),
+              }}
+            >
+              {imageUploading ? (
+                <CircularProgress size={24} />
+              ) : (
+                t("advertisementsPage.image")
+              )}
+            </Button>
+          </label>
+          {formik.values.image !== 0 && (
+            <Typography variant="body2" color="textSecondary">
+              {t("categoriesPage.image_uploaded")}
+            </Typography>
+          )}
+        </Grid>
         <Button
           style={{
             color: "white",
-            marginTop: theme.spacing(1),
+            marginTop: theme.spacing(2),
             marginBottom: theme.spacing(1),
           }}
           color="primary"
@@ -176,7 +182,7 @@ const AdvertisementForm = ({
         </Button>
         <Button
           style={{
-            marginTop: theme.spacing(1),
+            marginTop: theme.spacing(2),
             marginBottom: theme.spacing(1),
             marginLeft: theme.spacing(1),
             marginRight: theme.spacing(1),

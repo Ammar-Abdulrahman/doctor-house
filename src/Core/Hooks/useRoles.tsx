@@ -13,6 +13,7 @@ import {
 } from "@Types/Roles";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { ErrorProps } from "@Types/ErrorProps";
 
 const useRoles = (
   needPagination: boolean
@@ -41,6 +42,11 @@ const useRoles = (
         queryClient.invalidateQueries("roles");
         toast.success(`${t("modal.success_create_role")}`);
       },
+      onError(error: ErrorProps, variables, context) {
+        toast.error(`Error :${error?.response.data.error.message}`, {
+          autoClose: false,
+        });
+      },
     }
   );
 
@@ -60,6 +66,11 @@ const useRoles = (
     onSuccess: () => {
       queryClient.invalidateQueries("roles");
       toast.success(`${t("modal.delete_role")}`);
+    },
+    onError(error: ErrorProps, variables, context) {
+      toast.error(`Error :${error?.response.data.error.message}`, {
+        autoClose: false,
+      });
     },
   });
 
