@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { TextField, Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+} from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { RoleRequest } from "@Types/Roles";
 import usePrivileges from "@Hooks/usePrivileges"; // Create this hook to fetch privileges
 import { Privilege } from "@Types/Privileges"; // Create this type for privileges
+import { useLocale } from "@Context/LanguageContext";
 
 interface EditRoleFormProps {
   initialValues?: RoleRequest;
@@ -11,9 +18,16 @@ interface EditRoleFormProps {
   onCancel: () => void;
 }
 
-const EditRoleForm: React.FC<EditRoleFormProps> = ({ initialValues, onSubmit, onCancel }) => {
-  const { t, i18n } = useTranslation();
-  const [values, setValues] = useState<RoleRequest>(initialValues || { name: { ar: "", en: "" }, privileges: [] });
+const EditRoleForm: React.FC<EditRoleFormProps> = ({
+  initialValues,
+  onSubmit,
+  onCancel,
+}) => {
+  const { t } = useTranslation();
+  const { locale } = useLocale();
+  const [values, setValues] = useState<RoleRequest>(
+    initialValues || { name: { ar: "", en: "" }, privileges: [] }
+  );
   const { data: privileges } = usePrivileges();
 
   useEffect(() => {
@@ -27,9 +41,7 @@ const EditRoleForm: React.FC<EditRoleFormProps> = ({ initialValues, onSubmit, on
     setValues({ ...values, name: { ...values.name, [name]: value } });
   };
 
-  const handlePrivilegeChange = (id: number) => {
-    
-  };
+  const handlePrivilegeChange = (id: number) => {};
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +49,10 @@ const EditRoleForm: React.FC<EditRoleFormProps> = ({ initialValues, onSubmit, on
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
+    <form
+      onSubmit={handleSubmit}
+      style={{ direction: locale === "ar" ? "rtl" : "ltr" }}
+    >
       <TextField
         label={t("role.name_ar")}
         name="ar"
@@ -71,7 +86,11 @@ const EditRoleForm: React.FC<EditRoleFormProps> = ({ initialValues, onSubmit, on
       <Button type="submit" variant="contained" color="primary">
         {t("common.submit")}
       </Button>
-      <Button onClick={onCancel} variant="outlined" style={{ marginLeft: "10px" }}>
+      <Button
+        onClick={onCancel}
+        variant="outlined"
+        style={{ marginLeft: "10px" }}
+      >
         {t("common.cancel")}
       </Button>
     </form>

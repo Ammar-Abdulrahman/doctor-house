@@ -9,10 +9,11 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  useTheme,
 } from "@mui/material";
 import useRoles from "@Hooks/useRoles";
 import { Role } from "@Types/Roles";
-import theme from "@Styles/theme";
+//import theme from "@Styles/theme";
 import { useTranslation } from "react-i18next";
 import Loader from "@Components/Loader/AppLoader";
 
@@ -29,7 +30,7 @@ const OperatorForm = ({
   const { getRoles } = useRoles(true);
   const { data, isLoading: rolesLoading } = getRoles();
   const { t } = useTranslation();
-
+const theme = useTheme()
   const formik = useFormik({
     initialValues: {
       username: "",

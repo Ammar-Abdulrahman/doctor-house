@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Card,
   CardActions,
@@ -9,140 +9,68 @@ import {
   Menu,
   MenuItem,
   Typography,
+  useTheme,
 } from "@mui/material";
-import useCategories from "@Hooks/useCategories";
 import { useTranslation } from "react-i18next";
 import HeaderTitle from "@Components/Header/HeaderTitle";
-import { Category, CategoryOne, CategoryRequest } from "@Types/Categories";
+import { Category } from "@Types/Categories";
 import PageLoader from "@Components/Loader/PageLoader";
 import ConfirmationModal from "@Components/Modal/ConfirmationModal";
 import CustomModal from "@Components/Modal/CreateModal";
 import AddButton from "@Components/Button/Add";
-import { toast } from "react-toastify";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import theme from "@Styles/theme";
+//import theme from "@Styles/theme";
 import CategoryForm from "./Components/CategoryForm";
 import ViewCategoryModal from "./Components/ViewCategoryModal";
 import ViewModal from "@Components/Modal/ViewModal";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import useCategoriesContainer from "./Container/useCategoriesContainer";
+import { useLocale } from "@Context/LanguageContext";
 //import EditDiscountForm from "./Components/EditDiscountForm";
 //import ViewModal from "@Components/Modal/ViewModal";
 
 const Categories: React.FC = () => {
-  const [needPagination] = useState(false);
+  const { t } = useTranslation();
+  const theme = useTheme();
+  const {locale} = useLocale()
   const {
-    getCategories,
-    getCategory,
-    updateCategory,
-    deleteCategory,
-    createCategory,
-  } = useCategories(needPagination);
-  const { data, isLoading, isError, error, refetch } = getCategories();
-  const { t, i18n } = useTranslation();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [isSubmitting, setSubmitting] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
-  const [currentId, setCurrentId] = useState<number | null>(null);
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editData, setEditData] = useState<Category | null>(null);
-  const [openViewModal, setOpenViewModal] = useState(false);
-  const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
-  const [isRefetching, setIsRefetching] = useState(false);
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, id: number) => {
-    setCurrentId(id);
-    setAnchorEl(event.currentTarget);
-  };
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleRefetch = async () => {
-    setIsRefetching(true);
-    await refetch();
-    setIsRefetching(false);
-  };
-
-  const handleDeleteClick =
-    (id: number) => (event: React.MouseEvent<HTMLElement>) => {
-      setOpenModal(true);
-      handleDelete();
-    };
-
-  const handleDelete = () => {
-    //setCurrentId(id);
-    //console.log(id)
-    setOpenModal(true);
-    handleMenuClose();
-  };
-
-  const handleViewClick =
-    (id: number) => (event: React.MouseEvent<HTMLElement>) => {
-      handleView();
-    };
-
-  const handleView = () => {
-    //setCurrentId(id);
-    setOpenViewModal(true);
-    handleMenuClose();
-  };
-
-  useEffect(() => {
-    if (currentId !== null && openViewModal) {
-      getCategory(currentId).then((response) => {
-        setCurrentCategory(response.data);
-      });
-    }
-  }, [currentId]);
-
-  const handleEditClick =
-    (id: number) => (event: React.MouseEvent<HTMLElement>) => {
-      handleEdit(id);
-    };
-
-  const handleEdit = (id: number) => {
-    const category =
-      data?.data.find((category: Category) => category.id === id) || null;
-    setEditData(category);
-    setEditModalOpen(true);
-  };
-
-  const confirmDelete = () => {
-    if (currentId != null) {
-      deleteCategory.mutate(currentId, {
-        onSuccess: () => {
-          setOpenModal(false);
-          setCurrentId(null);
-        },
-      });
-    }
-  };
-
-  const handleAddClick = () => {
-    setModalOpen(true);
-  };
-
-  const handleFormSubmit = async (formData: CategoryRequest) => {
-    setSubmitting(true);
-    try {
-      createCategory.mutate(formData);
-      setModalOpen(false);
-    } catch (error) {
-      console.error("API error:", error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
+    data,
+    isError,
+    isLoading,
+    isRefetching,
+    isSubmitting,
+    confirmDelete,
+    currentCategory,
+    currentId,
+    error,
+    handleAddClick,
+    handleDeleteClick,
+    handleEditClick,
+    handleFormSubmit,
+    handleMenuClose,
+    handleMenuOpen,
+    handleRefetch,
+    handleViewClick,
+    anchorEl,
+    setCurrentCategory,
+    setCurrentId,
+    setModalOpen,
+    setOpenModal,
+    setOpenViewModal,
+    setSubmitting,
+    modalOpen,
+    openModal,
+    openViewModal,
+  } = useCategoriesContainer();
 
   if (isLoading || isRefetching) return <PageLoader />;
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
-    <div style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
+    <div style={{ direction: locale === "ar" ? "rtl" : "ltr" }}>
       <Grid container justifyContent="space-between" alignItems="center">
         <Grid item xs={6} md={8}>
           <HeaderTitle title={t("homePage.categories")} />
@@ -192,7 +120,7 @@ const Categories: React.FC = () => {
                   open={Boolean(anchorEl)}
                   onClose={handleMenuClose}
                   style={{
-                    direction: i18n.language === "ar" ? "rtl" : "ltr",
+                    direction: locale === "ar" ? "rtl" : "ltr",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "flex-start",
@@ -203,16 +131,16 @@ const Categories: React.FC = () => {
                       color: theme.palette.warning.main,
                       margin: theme.spacing(1),
                       marginLeft:
-                        i18n.language === "ar" ? theme.spacing(2) : "",
+                        locale === "ar" ? theme.spacing(2) : "",
                       marginRight:
-                        i18n.language === "ar" ? "" : theme.spacing(2),
+                        locale === "ar" ? "" : theme.spacing(2),
                     }}
                     onClick={handleEditClick(currentId || 0)}
                   >
                     <EditIcon
                       style={{
-                        marginRight: i18n.language === "ar" ? "" : "12px",
-                        marginLeft: i18n.language === "ar" ? "12px" : "",
+                        marginRight: locale === "ar" ? "" : "12px",
+                        marginLeft: locale === "ar" ? "12px" : "",
                       }}
                     />{" "}
                     {t("actions.edit")}
@@ -222,16 +150,16 @@ const Categories: React.FC = () => {
                       color: theme.palette.primary.main,
                       margin: theme.spacing(1),
                       marginLeft:
-                        i18n.language === "ar" ? theme.spacing(2) : "",
+                        locale === "ar" ? theme.spacing(2) : "",
                       marginRight:
-                        i18n.language === "ar" ? "" : theme.spacing(2),
+                        locale === "ar" ? "" : theme.spacing(2),
                     }}
                     onClick={handleViewClick(currentId || 0)}
                   >
                     <VisibilityIcon
                       style={{
-                        marginRight: i18n.language === "ar" ? "" : "12px",
-                        marginLeft: i18n.language === "ar" ? "12px" : "",
+                        marginRight: locale === "ar" ? "" : "12px",
+                        marginLeft: locale === "ar" ? "12px" : "",
                       }}
                     />{" "}
                     {t("actions.view")}
@@ -241,16 +169,16 @@ const Categories: React.FC = () => {
                       color: theme.palette.error.main,
                       margin: theme.spacing(1),
                       marginLeft:
-                        i18n.language === "ar" ? theme.spacing(2) : "",
+                        locale === "ar" ? theme.spacing(2) : "",
                       marginRight:
-                        i18n.language === "ar" ? "" : theme.spacing(2),
+                        locale === "ar" ? "" : theme.spacing(2),
                     }}
                     onClick={handleDeleteClick(currentId || 0)}
                   >
                     <DeleteIcon
                       style={{
-                        marginRight: i18n.language === "ar" ? "" : "12px",
-                        marginLeft: i18n.language === "ar" ? "12px" : "",
+                        marginRight: locale === "ar" ? "" : "12px",
+                        marginLeft: locale === "ar" ? "12px" : "",
                       }}
                     />
                     {t("actions.delete")}
@@ -264,15 +192,15 @@ const Categories: React.FC = () => {
                   // height: "25%",
                   display: "flex",
                   justifyContent: "center",
-                  marginRight: i18n.language === "ar" ? "150px" : "",
-                  marginLeft: i18n.language === "en" ? "150px" : "",
+                  marginRight: locale === "ar" ? "150px" : "",
+                  marginLeft: locale === "en" ? "150px" : "",
                   marginTop: "10px",
                   //width: "25%",
                 }}
                 component="img"
                 image={category.image}
                 alt={
-                  i18n.language === "ar" ? category.name.ar : category.name.en
+                  locale === "ar" ? category.name.ar : category.name.en
                 }
               />
               <CardContent>
@@ -281,11 +209,11 @@ const Categories: React.FC = () => {
                   variant="h6"
                   component="div"
                   style={{
-                    marginRight: i18n.language === "ar" ? "130px" : "",
-                    marginLeft: i18n.language === "en" ? "130px" : "",
+                    marginRight: locale === "ar" ? "130px" : "",
+                    marginLeft: locale === "en" ? "130px" : "",
                   }}
                 >
-                  {i18n.language === "ar" ? category.name.ar : category.name.en}
+                  {locale === "ar" ? category.name.ar : category.name.en}
                 </Typography>
               </CardContent>
             </Card>

@@ -39,7 +39,11 @@
     "from": "Start Date",
     "to": "End Date",
     "subcategory": "Sub Category",
-    "value": "Value"
+    "value": "Value",
+    "codeValidation": "Discount Code is Required*",
+    "percentageValidation": "Percentage is Required*",
+    "fromValidation": "Start Date is Required*",
+    "toValidation": "End Date is Required*"
   },
   "advertisementsPage": {
     "id": "Id",
@@ -69,12 +73,12 @@
     "message_not_found": "The requested page could not be found. Please check the URL or navigate back to the homepage"
   },
   "statisticsPage": {
-    "total_users": "Toltal Users",
+    "total_users": "Total Users",
     "total_products_revenue": "Total Products Revenue",
     "total_discounts": "Totla Discounts",
-    "total_advertisements": "Toltal Advertisements",
+    "total_advertisements": "Total Advertisements",
     "top_bayers": "Top Bayers",
-    "total_revenue": "Toltal Revenue",
+    "total_revenue": "Total Revenue",
     "user": "User Name"
   },
   "delivery_areasPage": {
@@ -110,7 +114,10 @@
     "add": "Add",
     "delete": "Delete",
     "view": "View",
-    "edit": "Edit"
+    "edit": "Edit",
+    "language": "Swtich Language",
+    "light": "Light",
+    "dark": "Dark"
   },
   "modal": {
     "role": "role",

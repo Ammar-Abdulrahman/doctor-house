@@ -1,8 +1,16 @@
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import theme from "@Styles/theme";
+//import theme from "@Styles/theme";
 import { useTranslation } from "react-i18next";
 import { ProtectedFeature } from "@Utils/index";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles((theme: any) => ({
+  buttonStyle: {
+    backgroundColor: theme.palette.primary.dark,
+    color: "white",
+  },
+}));
 
 interface AddButtonProps {
   onClickFunction: any;
@@ -11,10 +19,11 @@ interface AddButtonProps {
 
 const AddButton = ({ onClickFunction, requiredPermission }: AddButtonProps) => {
   const { t } = useTranslation();
+  const classes = useStyles();
   return (
     <ProtectedFeature requiredPermission={requiredPermission}>
       <Button
-        style={{ backgroundColor: theme.palette.primary.dark, color: "white" }}
+        className={classes.buttonStyle}
         onClick={onClickFunction}
         variant="contained"
       >

@@ -1,40 +1,31 @@
-// LanguageContext.tsx
-import React, { createContext, useContext, useState } from 'react';
-import i18n from '../../Localization';
+import { createContext, useState, useContext, useEffect } from "react";
+import i18n from "@Localization/index"; // Import the i18next instance
 
-// Define the context's shape
-interface LanguageContextType {
-  language: string;
-  changeLanguage: (lng: string) => void;
-}
+// Define the context
+const LocaleContext = createContext(undefined);
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+// Locale provider with language switching logic
+export const LanguageAppProvider = ({ children }) => {
+  //const [locale, setLocale] = useState(i18n.language); // Default to i18n's current language
+  const [locale, setLocale] = useState(
+    localStorage.getItem("locale") || i18n.language
+  );
 
-export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const storedLanguage = localStorage.getItem('language') || 'ar';
+  useEffect(() => {
+    i18n.changeLanguage(locale); // Sync i18n with state
+    localStorage.setItem("locale", locale);
+  }, [locale]);
 
-  // Ensure i18n is initialized with the stored language
-  i18n.changeLanguage(storedLanguage);
-
-  const [language, setLanguage] = useState<string>(storedLanguage);
-
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng); // Change the i18n language
-    localStorage.setItem('language', lng); // Persist the new language
-    setLanguage(lng); // Update the state
+  const switchLanguage = (lang: any) => {
+    setLocale(lang); // Update locale in state
   };
 
   return (
-    <LanguageContext.Provider value={{ language, changeLanguage }}>
+    <LocaleContext.Provider value={{ locale, switchLanguage }}>
       {children}
-    </LanguageContext.Provider>
+    </LocaleContext.Provider>
   );
 };
 
-export const useLanguage = (): LanguageContextType => {
-  const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
-  return context;
-};
+// Custom hook to use LocaleContext
+export const useLocale = () => useContext(LocaleContext);

@@ -1,133 +1,59 @@
-import React, { useEffect, useState } from "react";
-import useDiscounts from "@Hooks/useDiscounts";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import HeaderTitle from "@Components/Header/HeaderTitle";
-import { Discount, DiscountsRequest } from "@Types/Discounts";
 import EnhancedTable from "@Components/Table";
-import { getDiscountColumns } from "./Columns/index";
+import { getDiscountColumns } from "./Helper/index";
 import ConfirmationModal from "@Components/Modal/ConfirmationModal/index";
-import { toast } from "react-toastify";
 import PageLoader from "@Components/Loader/PageLoader";
 import AddButton from "@Components/Button/Add";
-import { Grid, IconButton } from "@mui/material";
+import { Grid, IconButton, Skeleton, useTheme } from "@mui/material";
 import CustomModal from "@Components/Modal/CreateModal";
 import DiscountForm from "./Components/DiscountForm";
 import ViewDiscountModal from "./Components/ViewDiscount";
 import EditDiscountForm from "./Components/EditDiscountForm";
 import ViewModal from "@Components/Modal/ViewModal";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { formatDate } from "@Utils/index";
+import useDiscountsContainer from "./Container/useDiscountsContainer";
+import { useLocale } from "@Context/LanguageContext";
+import SkeletonTable from "@Components/Skeleton/Table";
 
 const Discounts: React.FC = () => {
-  const { t, i18n } = useTranslation();
-  const [needPagination] = useState(true);
+  const { t } = useTranslation();
+  const theme = useTheme();
+  const { locale } = useLocale();
   const {
-    getDiscounts,
-    deleteDiscount,
-    createDiscount,
-    updateDiscount,
-    getDiscount,
-  } = useDiscounts(needPagination);
-  const { data, isLoading, isError, error, refetch } = getDiscounts();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [isSubmitting, setSubmitting] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
-  const [currentId, setCurrentId] = useState<number | null>(null);
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editData, setEditData] = useState<Discount | null>(null);
-  const [openViewModal, setOpenViewModal] = useState(false);
-  const [currentDiscount, setCurrentDiscount] = useState<Discount | null>(null);
-  const [isRefetching, setIsRefetching] = useState(false);
-
-  const rows =
-    data?.data?.map((discount: Discount) => ({
-      id: discount.id,
-      code: discount.code,
-      percentage: discount.percentage ? `${discount.percentage}%` : "-",
-      from: formatDate(discount.from),
-      to: formatDate(discount.to),
-      value: discount.value ?? "-",
-    })) || [];
-
-  const handleRefetch = async () => {
-    setIsRefetching(true);
-    await refetch();
-    setIsRefetching(false);
-  };
-
-  const handleDelete = (id: number) => {
-    setCurrentId(id);
-    setOpenModal(true);
-  };
-
-  const handleView = (id: number) => {
-    setCurrentId(id);
-    setOpenViewModal(true);
-  };
-
-  useEffect(() => {
-    if (currentId !== null && openViewModal) {
-      getDiscount(currentId).then((response) => {
-        setCurrentDiscount(response.data);
-      });
-    }
-  }, [currentId]);
-
-  const handleEdit = (id: number) => {
-    const discount =
-      data?.data.find((discount: Discount) => discount.id === id) || null;
-    setEditData(discount);
-    setEditModalOpen(true);
-  };
-
-  const confirmDelete = () => {
-    if (currentId != null) {
-      deleteDiscount.mutate(currentId, {
-        onSuccess: () => {
-          setOpenModal(false);
-          setCurrentId(null);
-        },
-      });
-    }
-  };
-
-  const handleAddClick = () => {
-    setModalOpen(true);
-  };
-
-  const handleFormSubmit = async (formData: DiscountsRequest) => {
-    setSubmitting(true);
-    try {
-      createDiscount.mutate(formData);
-      setModalOpen(false);
-    } catch (error) {
-      console.error("API error:", error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const handleEditFormSubmit = async (formData: DiscountsRequest) => {
-    if (editData) {
-      setSubmitting(true);
-      try {
-        updateDiscount.mutate({ ...formData, id: editData.id });
-        setEditModalOpen(false);
-      } catch (error) {
-        console.error("API error:", error);
-      } finally {
-        setSubmitting(false);
-      }
-    }
-  };
+    rows,
+    isLoading,
+    isError,
+    error,
+    isRefetching,
+    modalOpen,
+    editModalOpen,
+    openViewModal,
+    openModal,
+    currentDiscount,
+    currentId,
+    editData,
+    isSubmitting,
+    handleRefetch,
+    handleDelete,
+    handleAddClick,
+    handleView,
+    handleEdit,
+    confirmDelete,
+    handleFormSubmit,
+    handleEditFormSubmit,
+    setModalOpen,
+    setOpenModal,
+    setEditModalOpen,
+    setOpenViewModal,
+    setSubmitting,
+  } = useDiscountsContainer();
 
   const columns = getDiscountColumns(t, handleDelete, handleView, handleEdit);
 
-  if (isLoading || isRefetching) return <PageLoader />;
-  if (isError) return <div>Error: {error.message}</div>;
-
   return (
-    <div style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
+    <div style={{ direction: locale === "ar" ? "rtl" : "ltr" }}>
       <Grid container justifyContent="space-between" alignItems="center">
         <Grid item xs={6} md={8}>
           <HeaderTitle title={t("homePage.discounts")} />
@@ -148,7 +74,13 @@ const Discounts: React.FC = () => {
           </Grid>
         </Grid>
       </Grid>
-      <EnhancedTable rows={rows} columns={columns} />
+      {isLoading ? (
+        <SkeletonTable />
+      ) : !isLoading && isRefetching ? (
+        <PageLoader />
+      ) : (
+        <EnhancedTable rows={rows} columns={columns} />
+      )}
       <CustomModal
         open={modalOpen}
         onClose={() => {

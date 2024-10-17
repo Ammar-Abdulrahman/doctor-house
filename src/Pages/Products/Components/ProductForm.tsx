@@ -8,13 +8,14 @@ import {
   Grid,
   Box,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { useState } from "react";
-import theme from "@Styles/theme";
+//import theme from "@Styles/theme";
 import { ProductsRequest, ProductVariant, ProductSku } from "@Types/Products";
 
 interface ProductFormProps {
@@ -26,6 +27,7 @@ interface ProductFormProps {
 const ProductForm = ({ onSubmit, isSubmitting, onClose }: ProductFormProps) => {
   const { t } = useTranslation();
   const [imageUploading, setImageUploading] = useState(false);
+  const theme = useTheme();
 
   const formik = useFormik({
     initialValues: {

@@ -1,13 +1,12 @@
 import axiosInstance from "@Constants/Shared";
 
 export const fetchData = async <T,>(url: string): Promise<T> => {
-  const response = await axiosInstance.get<T>(url,{ headers: { 'Cache-Control': 'no-cache' } }) ;
-  console.log(response.data)
+  const response = await axiosInstance.get<T>(url);
   return response.data;
 };
 
 export const postData = async <T,>(url: string, data: object): Promise<T> => {
-  const response = await axiosInstance.post(url, data) ;
+  const response = await axiosInstance.post(url, data);
   return response.data;
 };
 

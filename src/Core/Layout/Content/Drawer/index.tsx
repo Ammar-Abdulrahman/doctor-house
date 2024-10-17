@@ -1,16 +1,16 @@
-import { Toolbar, Drawer } from "@mui/material";
-import theme from "@Styles/theme";
+import { Toolbar, Drawer, useTheme } from "@mui/material";
 import Sidebar from "../../Sidebar";
-import { useTranslation } from "react-i18next";
+import { useLocale } from "@Context/LanguageContext";
 
 const drawerWidth = 240;
 
 const DrawerHeader = () => {
-  const { i18n } = useTranslation();
+  const theme = useTheme();
+  const { locale } = useLocale();
   return (
     <Drawer
       variant="permanent"
-      anchor={i18n.language === 'ar' ? 'right' : 'left'}
+      anchor={locale === "ar" ? "right" : "left"}
       sx={{
         width: drawerWidth,
         flexShrink: 0,

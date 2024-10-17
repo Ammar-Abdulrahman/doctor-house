@@ -8,7 +8,6 @@ import {
 import {
   RoleResponse,
   RoleRequest,
-  Role,
   SingleRoleResponse,
 } from "@Types/Roles";
 import { toast } from "react-toastify";
@@ -28,6 +27,11 @@ const useRoles = (
       ["roles"],
       () => fetchData<RoleResponse>(`/roles?needPagination=${needPagination}`),
       {
+        onError(error: ErrorProps) {
+          toast.error(`Error :${error?.response.data.error.message}`, {
+            autoClose: false,
+          });
+        },
         cacheTime: 120000,
         staleTime: Infinity,
       }
@@ -42,7 +46,7 @@ const useRoles = (
         queryClient.invalidateQueries("roles");
         toast.success(`${t("modal.success_create_role")}`);
       },
-      onError(error: ErrorProps, variables, context) {
+      onError(error: ErrorProps) {
         toast.error(`Error :${error?.response.data.error.message}`, {
           autoClose: false,
         });
@@ -67,7 +71,7 @@ const useRoles = (
       queryClient.invalidateQueries("roles");
       toast.success(`${t("modal.delete_role")}`);
     },
-    onError(error: ErrorProps, variables, context) {
+    onError(error: ErrorProps) {
       toast.error(`Error :${error?.response.data.error.message}`, {
         autoClose: false,
       });

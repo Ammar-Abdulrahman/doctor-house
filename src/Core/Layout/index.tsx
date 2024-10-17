@@ -1,17 +1,23 @@
-import { Box, ThemeProvider, CssBaseline, Toolbar } from "@mui/material";
-import theme from "@Styles/theme";
+import { Box, CssBaseline, Toolbar } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Content from "./Content";
 import withGuards from "@Routes/withGuard.routes";
-import { useTranslation } from "react-i18next";
+import { useThemeContext } from "@Context/ThemeContext";
+import { useLocale } from "@Context/LanguageContext";
 
 //const drawerWidth = 240;
 
 const LayoutPage = () => {
-  const { i18n } = useTranslation()
+  const { locale } = useLocale();
+  const { mode } = useThemeContext();
   return (
-    <ThemeProvider theme={theme}>
-      <div style={{ display:"flex" , direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}>
+    <>
+      <div
+        style={{
+          display: "flex",
+          direction: locale === "ar" ? "rtl" : "ltr",
+        }}
+      >
         <CssBaseline />
         <Content />
         <Box
@@ -22,13 +28,16 @@ const LayoutPage = () => {
             paddingRight: `${16}px`,
             //paddingLeft: `${16}px`,
           }}
-          style={{ direction:"ltr" , backgroundColor: '#f5f5f5' , width:"100vh" , height:'100vh' }}
+          style={{
+            direction: "ltr",
+            backgroundColor: mode === "light" ? "#eFeFee" : "",
+          }}
         >
           <Toolbar />
           <Outlet />
         </Box>
       </div>
-    </ThemeProvider>
+    </>
   );
 };
 

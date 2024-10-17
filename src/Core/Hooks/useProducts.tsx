@@ -30,6 +30,11 @@ const useProducts = (
           `/products?needPagination=${needPagination}`
         ),
       {
+        onError(error: ErrorProps) {
+          toast.error(`Error :${error?.response.data.error.message}`, {
+            autoClose: false,
+          });
+        },
         cacheTime: 120000,
         staleTime: Infinity,
       }
@@ -45,7 +50,7 @@ const useProducts = (
         queryClient.invalidateQueries("products");
         toast.success(`${t("modal.success_create_product")}`);
       },
-      onError(error: ErrorProps, variables, context) {
+      onError(error: ErrorProps) {
         toast.error(`Error :${error?.response.data.error.message}`, {
           autoClose: false,
         });
@@ -72,7 +77,7 @@ const useProducts = (
         queryClient.invalidateQueries("products");
         toast.success(`${t("modal.delete_product")}`);
       },
-      onError(error: ErrorProps, variables, context) {
+      onError(error: ErrorProps) {
         toast.error(`Error :${error?.response.data.error.message}`, {
           autoClose: false,
         });

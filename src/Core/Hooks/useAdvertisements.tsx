@@ -8,7 +8,6 @@ import {
 import {
   AdvertisementsResponse,
   AdvertisementsRequest,
-  Advertisement,
   SingleAdvertisementResponse,
 } from "@Types/Advertisements";
 import { toast } from "react-toastify";
@@ -28,6 +27,11 @@ const useAdvertisements = () =>
         ["advertisements"],
         () => fetchData<AdvertisementsResponse>(`/ads`),
         {
+          onError(error: ErrorProps) {
+            toast.error(`Error :${error?.response.data.error.message}`, {
+              autoClose: false,
+            });
+          },
           cacheTime: 120000,
           staleTime: Infinity,
         }
@@ -44,7 +48,7 @@ const useAdvertisements = () =>
           queryClient.invalidateQueries("advertisements");
           toast.success(`${t("modal.success_create_advertisement")}`);
         },
-        onError(error: ErrorProps, variables, context) {
+        onError(error: ErrorProps) {
           toast.error(`Error :${error?.response.data.error.message}`, {
             autoClose: false,
           });
@@ -73,7 +77,7 @@ const useAdvertisements = () =>
           queryClient.invalidateQueries("advertisements");
           toast.success(`${t("modal.delete_advertisement")}`);
         },
-        onError(error: ErrorProps, variables, context) {
+        onError(error: ErrorProps) {
           toast.error(`Error :${error?.response.data.error.message}`, {
             autoClose: false,
           });

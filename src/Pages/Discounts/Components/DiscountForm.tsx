@@ -1,5 +1,4 @@
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import {
   TextField,
   Button,
@@ -9,13 +8,16 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  useTheme,
 } from "@mui/material";
 import useCategories from "@Hooks/useCategories";
 import { Category } from "@Types/Categories";
-import theme from "@Styles/theme";
+//import theme from "@Styles/theme";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import Loader from "@Components/Loader/AppLoader";
+import { discountValidationSchema } from "../Helper";
+import { useLocale } from "@Context/LanguageContext";
 
 interface OperatorFormProps {
   onSubmit?: any;
@@ -30,6 +32,8 @@ const DiscountForm = ({
   const { getCategories } = useCategories(false);
   const { data, isLoading } = getCategories();
   const { t, i18n } = useTranslation();
+  const theme = useTheme()
+  const {locale} =useLocale()
 
   const formik = useFormik({
     initialValues: {
@@ -40,12 +44,7 @@ const DiscountForm = ({
       percentage: undefined,
       value: undefined,
     },
-    validationSchema: Yup.object({
-      code: Yup.string().required("Discount Code is Required"),
-      from: Yup.string().required("start date is Required"),
-      to: Yup.string().required("end date is Required"),
-      subcategory: Yup.number().required("subcategory is Required"),
-    }),
+    validationSchema: discountValidationSchema,
     onSubmit: (values, { setSubmitting }) => {
       try {
         onSubmit(values);
@@ -54,13 +53,11 @@ const DiscountForm = ({
         toast.error(error?.error?.message);
       } finally {
         setSubmitting(false);
-        //toast.success(`${t("modal.success_create_discount")}`);
       }
     },
   });
 
   if (isLoading) return <Loader />;
-  console.log(data.data);
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -123,7 +120,7 @@ const DiscountForm = ({
               key={subcategory.id}
               value={subcategory.subcategories[0].id}
             >
-              {i18n.language === "ar"
+              {locale === "ar"
                 ? subcategory.subcategories[0].name.ar
                 : subcategory.subcategories[0].name.en}
             </MenuItem>

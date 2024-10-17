@@ -1,117 +1,54 @@
-import React, { useEffect, useState } from "react";
-import useOperators from "@Hooks/useOperators";
-import { useTranslation } from "react-i18next";
+import React from "react";
 import HeaderTitle from "@Components/Header/HeaderTitle";
-import { Operator, OperatorRequest } from "@Types/Operator";
-import { getOperatorColumns } from "./Columns";
+import { getOperatorColumns } from "./Helper";
 import EnhancedTable from "@Components/Table";
 import PageLoader from "@Components/Loader/PageLoader";
 import AddButton from "@Components/Button/Add";
-import { Grid, IconButton } from "@mui/material";
+import { Grid, IconButton, Skeleton, useTheme } from "@mui/material";
 import CustomModal from "@Components/Modal/CreateModal";
 import OperatorForm from "./Components/OperatorForm";
 import ConfirmationModal from "@Components/Modal/ConfirmationModal/index";
 import ViewModal from "@Components/Modal/ViewModal";
-import { toast } from "react-toastify";
 import ViewOperatorModal from "./Components/ViewOperator";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import useOperatorsContainer from "./Container/useOperatorsContainer";
+import { useTranslation } from "react-i18next";
+import { useLocale } from "@Context/LanguageContext";
+import SkeletonTable from "@Components/Skeleton/Table";
 
 const Operators: React.FC = () => {
-  const [needPagination] = useState(true);
-  const { getOperators, createOperator, deleteOperator, getOperator } =
-    useOperators(needPagination);
-  const { data, isLoading, isError, error, refetch } = getOperators();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [isSubmitting, setSubmitting] = useState(false);
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [currentId, setCurrentId] = useState<number | null>(null);
-  const [openViewModal, setOpenViewModal] = useState(false);
-  const [currentOperator, setCurrentOperator] = useState<Operator | null>(null);
-  const [isRefetching, setIsRefetching] = useState(false);
-
   const { t, i18n } = useTranslation();
-
-  const rows =
-    data?.data?.map((operator: Operator) => ({
-      id: operator.id,
-      username: operator.username,
-      fullName: operator.fullName,
-      role:
-        i18n.language === "ar" ? operator.role.name.ar : operator.role.name.en,
-    })) || [];
-
-  const handleAddClick = () => {
-    setModalOpen(true);
-  };
-
-  // const handleFormSubmit = (formData: OperatorRequest) => {
-  //   createOperator.mutate(formData, {
-  //     onSuccess: () => {
-  //       console.log(formData)
-  //       console.log(formData)
-  //       setModalOpen(false);
-  //     },
-  //   });
-  // };
-
-  const handleRefetch = async () => {
-    setIsRefetching(true);
-    await refetch();
-    setIsRefetching(false);
-  };
-
-  const handleFormSubmit = async (formData: OperatorRequest) => {
-    setSubmitting(true);
-    try {
-      createOperator.mutate(formData);
-      setModalOpen(false);
-    } catch (error) {
-      console.error("API error:", error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const handleView = (id: number) => {
-    setCurrentId(id);
-    setOpenViewModal(true);
-  };
-
-  useEffect(() => {
-    if (currentId !== null && openViewModal) {
-      getOperator(currentId).then((response) => {
-        setCurrentOperator(response.data);
-      });
-    }
-  }, [currentId]);
-
-  const handleEdit = (id: any) => {
-    console.log("Edit:", id);
-  };
-
-  const handleDelete = (id: number) => {
-    setCurrentId(id);
-    setOpenDeleteModal(true);
-  };
-
-  const confirmDelete = () => {
-    if (currentId != null) {
-      deleteOperator.mutate(currentId, {
-        onSuccess: () => {
-          setOpenDeleteModal(false);
-          setCurrentId(null);
-        },
-      });
-    }
-  };
+  const theme = useTheme();
+  const { locale } = useLocale();
+  const {
+    rows,
+    isLoading,
+    isError,
+    error,
+    isRefetching,
+    modalOpen,
+    openViewModal,
+    currentOperator,
+    currentId,
+    isSubmitting,
+    handleRefetch,
+    handleDelete,
+    handleAddClick,
+    handleView,
+    handleEdit,
+    confirmDelete,
+    handleFormSubmit,
+    setModalOpen,
+    setOpenViewModal,
+    setSubmitting,
+    openDeleteModal,
+    setOpenDeleteModal,
+  } = useOperatorsContainer();
 
   const columns = getOperatorColumns(t, handleDelete, handleView, handleEdit);
 
-  if (isLoading || isRefetching) return <PageLoader />;
-  if (isError) return <div>Error: {error.message}</div>;
-
   return (
-    <div style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
+    <div style={{ direction: locale === "ar" ? "rtl" : "ltr" }}>
       <Grid container justifyContent="space-between" alignItems="center">
         <Grid item xs={6} md={8}>
           <HeaderTitle title={t("homePage.operators")} />
@@ -125,14 +62,23 @@ const Operators: React.FC = () => {
               />
             </Grid>
             <Grid item xs={3} md={1}>
-              <IconButton onClick={handleRefetch}>
+              <IconButton
+                sx={{ color: theme.palette.primary.main }}
+                onClick={handleRefetch}
+              >
                 <RefreshIcon />
               </IconButton>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-      <EnhancedTable rows={rows} columns={columns} />
+      {isLoading ? (
+        <SkeletonTable />
+      ) : !isLoading && isRefetching ? (
+        <PageLoader />
+      ) : (
+        <EnhancedTable rows={rows} columns={columns} />
+      )}
       <CustomModal
         open={modalOpen}
         onClose={() => {

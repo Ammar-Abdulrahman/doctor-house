@@ -19,7 +19,7 @@
     "login": " تسجيل الدخول",
     "username": "اسم المستخدم",
     "password": "كلمة السر",
-    "welcome": "مرحباً !"
+    "welcome": "مرحباً ..."
   },
   "productsPage": {
     "name_ar": "اسم المنتج العربي",
@@ -39,7 +39,11 @@
     "from": "التاريخ الأولي",
     "to": "التاريخ النهائي",
     "subcategory": "التصنيف الفرعي",
-    "value": "القيمة"
+    "value": "القيمة",
+    "codeValidation": "كود الخصم مطلوب*",
+    "percentageValidation": "نسبة الخصم مطلوبة*",
+    "fromValidation": "التاريخ الأولي مطلوب*",
+    "toValidation": "التاريخ النهائي مطلوب*"
   },
   "advertisementsPage": {
     "id": "رقم التعريف",
@@ -95,7 +99,7 @@
     "total_advertisements": "إجمالي الإعلانات",
     "top_bayers": "الأكثر شراءاً",
     "total_revenue": "المشتريات",
-    "user":"اسم المستخدم"
+    "user": "اسم المستخدم"
   },
   "delivery_areasPage": {
     "id": "رقم التعريف",
@@ -111,7 +115,10 @@
     "add": "إضافة",
     "delete": "حذف",
     "view": "عرض",
-    "edit": "تعديل"
+    "edit": "تعديل",
+    "language": "تبديل اللغة",
+    "light": "نهاري",
+    "dark": "ليلي"
   },
   "modal": {
     "role": "الدور",

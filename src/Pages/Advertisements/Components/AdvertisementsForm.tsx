@@ -8,13 +8,14 @@ import {
   Grid,
   Box,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { useState } from "react";
-import theme from "@Styles/theme";
+//import theme from "@Styles/theme";
 import { AdvertisementsRequest } from "@Types/Advertisements";
 
 interface CategoryFormProps {
@@ -30,6 +31,7 @@ const AdvertisementForm = ({
 }: CategoryFormProps) => {
   const { t } = useTranslation();
   const [imageUploading, setImageUploading] = useState(false);
+  const theme = useTheme();
 
   const formik = useFormik({
     initialValues: {

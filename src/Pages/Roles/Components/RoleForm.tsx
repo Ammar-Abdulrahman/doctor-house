@@ -8,11 +8,14 @@ import {
   MenuItem,
   Select,
   CircularProgress,
+  useTheme,
 } from "@mui/material";
 import { fetchData } from "@Services/apiService";
 import { Role, RoleRequest } from "@Types/Roles";
-import theme from "@Styles/theme";
+//import theme from "@Styles/theme";
 import { useFormik } from "formik";
+import { roleValidationSchema } from "../Helper";
+import { useLocale } from "@Context/LanguageContext";
 
 interface RoleFormProps {
   onSubmit: (data: RoleRequest) => void;
@@ -20,8 +23,10 @@ interface RoleFormProps {
 }
 
 const RoleForm: React.FC<RoleFormProps> = ({ onSubmit, onClose }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [allPrivileges, setAllPrivileges] = useState<any[]>([]);
+  const theme = useTheme();
+  const { locale } = useLocale();
 
   useEffect(() => {
     const fetchPrivileges = async () => {
@@ -39,6 +44,7 @@ const RoleForm: React.FC<RoleFormProps> = ({ onSubmit, onClose }) => {
       nameEn: "",
       privileges: [] as number[],
     },
+    validationSchema: roleValidationSchema,
     onSubmit: (values) => {
       onSubmit({
         name: {
@@ -82,7 +88,7 @@ const RoleForm: React.FC<RoleFormProps> = ({ onSubmit, onClose }) => {
         >
           {allPrivileges.map((role: Role) => (
             <MenuItem key={role.id} value={role.id}>
-              {role.name[i18n.language]}
+              {role.name[locale]}
             </MenuItem>
           ))}
         </Select>
@@ -106,10 +112,7 @@ const RoleForm: React.FC<RoleFormProps> = ({ onSubmit, onClose }) => {
       </Button>
       <Button
         style={{
-          marginTop: theme.spacing(1),
-          marginBottom: theme.spacing(1),
-          marginLeft: theme.spacing(1),
-          marginRight: theme.spacing(1),
+          margin: theme.spacing(1),
         }}
         color="primary"
         type="submit"

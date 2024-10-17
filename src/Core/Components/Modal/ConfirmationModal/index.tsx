@@ -6,9 +6,11 @@ import {
   DialogTitle,
   Button,
   Typography,
+  useTheme,
 } from "@mui/material";
-import theme from "@Styles/theme";
+//import theme from "@Styles/theme";
 import { useTranslation } from "react-i18next";
+import { useLocale } from "@Context/LanguageContext";
 
 interface ConfirmationModalProps {
   open: boolean;
@@ -26,9 +28,11 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   itemId,
 }) => {
   const { t, i18n } = useTranslation();
+  const theme = useTheme();
+  const { locale } = useLocale();
   return (
     <Dialog
-      style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}
+      style={{ direction: locale === "ar" ? "rtl" : "ltr" }}
       open={open}
       onClose={onClose}
     >
@@ -39,7 +43,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         <Typography>
           {t("modal.confirm_message")}#
           <span style={{ color: theme.palette.primary.main }}>{itemId}</span>
-          {i18n.language === "ar" ? "؟" : "?"}
+          {locale === "ar" ? "؟" : "?"}
         </Typography>
       </DialogContent>
       <DialogActions>

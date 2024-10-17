@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useLocale } from "@Context/LanguageContext";
 
 interface LogoutModalProps {
   open: boolean;
@@ -19,6 +20,7 @@ const LogoutModal: React.FC<LogoutModalProps> = ({ open, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const { locale } = useLocale();
 
   const handleConfirmLogout = () => {
     setIsLoading(true);
@@ -35,7 +37,7 @@ const LogoutModal: React.FC<LogoutModalProps> = ({ open, onClose }) => {
     <Modal
       open={open}
       onClose={onClose}
-      style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}
+      style={{ direction: locale === "ar" ? "rtl" : "ltr" }}
     >
       <Box
         sx={{
@@ -65,8 +67,8 @@ const LogoutModal: React.FC<LogoutModalProps> = ({ open, onClose }) => {
             style={{
               marginTop: "25px",
               marginBottom: "-17px",
-              marginRight: i18n.language === "ar" ? "170px" : "-17px",
-              marginLeft: i18n.language === "ar" ? "-17px" : "170px",
+              marginRight: locale === "ar" ? "170px" : "-17px",
+              marginLeft: locale === "ar" ? "-17px" : "170px",
             }}
           >
             <Button

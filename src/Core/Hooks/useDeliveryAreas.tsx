@@ -27,6 +27,11 @@ const useDeliveryAreas = () =>
         ["delivery-areas"],
         () => fetchData<DeliveryAreasResponse>(`/delivery-areas`),
         {
+          onError(error: ErrorProps) {
+            toast.error(`Error :${error?.response.data.error.message}`, {
+              autoClose: false,
+            });
+          },
           cacheTime: 120000,
           staleTime: Infinity,
         }
@@ -43,7 +48,7 @@ const useDeliveryAreas = () =>
           queryClient.invalidateQueries("delivery-areas");
           toast.success(`${t("modal.success_create_delivery_area")}`);
         },
-        onError(error: ErrorProps, variables, context) {
+        onError(error: ErrorProps) {
           toast.error(`Error :${error?.response.data.error.message}`, {
             autoClose: false,
           });
@@ -60,7 +65,7 @@ const useDeliveryAreas = () =>
           queryClient.invalidateQueries("delivery-areas");
           toast.success(`${t("modal.success_edit_delivery_area")}`);
         },
-        onError(error: ErrorProps, variables, context) {
+        onError(error: ErrorProps) {
           toast.error(`Error :${error?.response.data.error.message}`, {
             autoClose: false,
           });
@@ -75,7 +80,7 @@ const useDeliveryAreas = () =>
           queryClient.invalidateQueries("delivery-areas");
           toast.success(`${t("modal.delete_delivery_area")}`);
         },
-        onError(error: ErrorProps, variables, context) {
+        onError(error: ErrorProps) {
           toast.error(`Error :${error?.response.data.error.message}`, {
             autoClose: false,
           });

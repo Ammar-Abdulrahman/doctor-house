@@ -2,6 +2,7 @@ import React from "react";
 import { Paper } from "@mui/material";
 import { Line } from "react-chartjs-2";
 import { useTranslation } from "react-i18next";
+import { useLocale } from "@Context/LanguageContext";
 
 const data = {
   labels: ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"],
@@ -17,6 +18,7 @@ const data = {
 
 const ProgressChart: React.FC = () => {
   const { i18n } = useTranslation();
+  const { locale } = useLocale();
   return (
     <Paper
       elevation={3}
@@ -24,18 +26,18 @@ const ProgressChart: React.FC = () => {
         marginTop: "10px",
         padding: "20px",
         height: "315px",
-        marginRight: i18n.language === "ar" ? "-92px" : "" ,
-        marginLeft:i18n.language === "ar" ? "" : "-92px",
+        marginRight: locale === "ar" ? "-92px" : "",
+        marginLeft: locale === "ar" ? "" : "-92px",
         width: "700px",
         borderRadius: 12,
-        backgroundColor:"#F4F8F7"
+        backgroundColor: "#F4F8F7",
         //ECF3F0
       }}
     >
       <Line
         style={{
-          marginRight: i18n.language === "ar" ? "50px" : "",
-          marginLeft: i18n.language === "ar" ? "" : "50px",
+          marginRight: locale === "ar" ? "50px" : "",
+          marginLeft: locale === "ar" ? "" : "50px",
         }}
         data={data}
       />

@@ -13,8 +13,8 @@ i18n.use(initReactI18next).init({
       translation: englishTranslation,
     },
   },
-  lng: "ar", 
-  fallbackLng: "ar", 
+  lng: localStorage.getItem("locale") || "ar",
+  fallbackLng: "ar",
   interpolation: {
     escapeValue: false,
   },

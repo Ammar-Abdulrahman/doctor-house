@@ -7,8 +7,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { t } from "i18next";
-import theme from "@Styles/theme";
+//import theme from "@Styles/theme";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "@mui/material";
+import { useLocale } from "@Context/LanguageContext";
 
 // Define the props type for clarity and type-checking
 interface ActionsMenuProps {
@@ -28,7 +30,9 @@ const ActionsMenu: React.FC<ActionsMenuProps> = ({
 }) => {
   const { i18n } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
+  const theme = useTheme();
+  const { locale, switchLanguage } = useLocale();
+  
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -48,7 +52,7 @@ const ActionsMenu: React.FC<ActionsMenuProps> = ({
         <MoreVertIcon />
       </IconButton>
       <Menu
-        style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}
+        style={{ direction: locale === "ar" ? "rtl" : "ltr" }}
         id="action-menu"
         anchorEl={anchorEl}
         keepMounted
@@ -68,10 +72,10 @@ const ActionsMenu: React.FC<ActionsMenuProps> = ({
         >
           <VisibilityIcon
             style={{
-              color:theme.palette.primary.main,
+              color: theme.palette.primary.main,
               margin: theme.spacing(1),
-              marginLeft: i18n.language === "ar" ? theme.spacing(2) : "",
-              marginRight: i18n.language === "ar" ? "" : theme.spacing(2),
+              marginLeft: locale === "ar" ? theme.spacing(2) : "",
+              marginRight: locale === "ar" ? "" : theme.spacing(2),
             }}
           />{" "}
           <span style={{ flex: 1 }}>{t("actions.view")}</span>
@@ -84,10 +88,10 @@ const ActionsMenu: React.FC<ActionsMenuProps> = ({
         >
           <EditIcon
             style={{
-              color:theme.palette.warning.main,
+              color: theme.palette.warning.main,
               margin: theme.spacing(1),
-              marginLeft: i18n.language === "ar" ? theme.spacing(2) : "",
-              marginRight: i18n.language === "ar" ? "" : theme.spacing(2),
+              marginLeft: locale === "ar" ? theme.spacing(2) : "",
+              marginRight: locale === "ar" ? "" : theme.spacing(2),
             }}
           />{" "}
           <span style={{ flex: 1 }}>{t("actions.edit")}</span>
@@ -100,10 +104,10 @@ const ActionsMenu: React.FC<ActionsMenuProps> = ({
         >
           <DeleteIcon
             style={{
-              color:theme.palette.error.main,
+              color: theme.palette.error.main,
               margin: theme.spacing(1),
-              marginLeft: i18n.language === "ar" ? theme.spacing(2) : "",
-              marginRight: i18n.language === "ar" ? "" : theme.spacing(2),
+              marginLeft: locale === "ar" ? theme.spacing(2) : "",
+              marginRight: locale === "ar" ? "" : theme.spacing(2),
             }}
           />{" "}
           <span style={{ flex: 1 }}>{t("actions.delete")}</span>

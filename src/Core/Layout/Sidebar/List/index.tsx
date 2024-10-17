@@ -1,23 +1,32 @@
-import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import theme from "@Styles/theme";
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  useTheme,
+} from "@mui/material";
+//import theme from "@Styles/theme";
 import { menuItems } from "../items/items";
 import { Link, useLocation } from "react-router-dom";
 import { hasPermission } from "@Utils/index";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import { useLocale } from "@Context/LanguageContext";
 
 const ListItems = () => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
+  const theme = useTheme();
+  const { locale } = useLocale();
 
   return (
     <List
       style={{
         color: theme.palette.secondary.light,
-        textAlign: i18n.language === "ar" ? "right" : "left",
+        textAlign: locale === "ar" ? "right" : "left",
         marginTop: "18px",
         justifyContent: "flex-start",
-        direction: i18n.language === "ar" ? "rtl" : "ltr",
+        direction: locale === "ar" ? "rtl" : "ltr",
         overflow: "hidden",
       }}
     >
@@ -39,7 +48,7 @@ const ListItems = () => {
               to={item.link}
               selected={location.pathname === item.link}
               style={{
-                direction: i18n.language === "ar" ? "rtl" : "ltr",
+                direction: locale === "ar" ? "rtl" : "ltr",
                 backgroundColor:
                   location.pathname === item.link
                     ? theme.palette.action.selected
@@ -58,8 +67,8 @@ const ListItems = () => {
                   minWidth: 0,
                   alignItems: "center",
                   justifyContent: "center",
-                  marginRight: i18n.language === "ar" ? theme.spacing(3) : "",
-                  marginLeft: i18n.language === "en" ? theme.spacing(3) : "",
+                  marginRight: locale === "ar" ? theme.spacing(3) : "",
+                  marginLeft: locale === "en" ? theme.spacing(3) : "",
                 }}
               >
                 <item.icon />
@@ -67,9 +76,9 @@ const ListItems = () => {
               <ListItemText
                 primary={t(item.text)}
                 style={{
-                  textAlign: i18n.language === "ar" ? "right" : "left",
-                  marginRight: i18n.language === "ar" ? theme.spacing(4) : "",
-                  marginLeft: i18n.language === "en" ? theme.spacing(4) : "",
+                  textAlign: locale === "ar" ? "right" : "left",
+                  marginRight: locale === "ar" ? theme.spacing(4) : "",
+                  marginLeft: locale === "en" ? theme.spacing(4) : "",
                 }}
               />
             </ListItem>

@@ -1,19 +1,35 @@
-import { labelStyle, textFieldStyle, valueStyle } from "@Styles/sharedStyles";
+import { useThemeContext } from "@Context/ThemeContext";
+import useStyles from "@Styles/sharedStyles";
 import { Box, Typography } from "@mui/material";
 
 interface BoxContainerProps {
   title?: string;
   value?: any;
 }
-const BoxContainer: React.FC<BoxContainerProps> = ({ title, value }) => {
+const BoxContainerViewLabel: React.FC<BoxContainerProps> = ({
+  title,
+  value,
+}) => {
+  const classes = useStyles();
+  const { mode } = useThemeContext();
   return (
-    <Box component="fieldset" sx={textFieldStyle}>
-      <Typography component="legend" sx={labelStyle}>
+    <Box component="fieldset" className={classes.textFieldStyle}>
+      <Typography
+        component="legend"
+        sx={{
+          backgroundColor:
+            mode === "light"
+              ? "#fff"
+              : //  "#191616"
+                "#161313",
+        }}
+        className={classes.labelStyle}
+      >
         {title}
       </Typography>
-      <Typography style={valueStyle}>{value}</Typography>
+      <Typography className={classes.valueStyle}>{value}</Typography>
     </Box>
   );
 };
 
-export default BoxContainer;
+export default BoxContainerViewLabel;

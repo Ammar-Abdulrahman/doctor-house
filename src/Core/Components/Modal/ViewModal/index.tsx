@@ -1,8 +1,17 @@
 import React from "react";
-import { Modal, Box, Button, AppBar, Grid } from "@mui/material";
-import theme from "@Styles/theme";
+import {
+  Modal,
+  Box,
+  Button,
+  AppBar,
+  Grid,
+  IconButton,
+  useTheme,
+} from "@mui/material";
+//import theme from "@Styles/theme";
 import ForwardIcon from "@mui/icons-material/Forward";
 import { useTranslation } from "react-i18next";
+import { useLocale } from "@Context/LanguageContext";
 
 interface ViewRoleModalProps {
   open: boolean;
@@ -12,15 +21,18 @@ interface ViewRoleModalProps {
 }
 
 const modalContent = {
-  position: "absolute",
-  top: "50%",
-  height: "100%",
-  left: "85%",
-  transform: "translate(-50%, -50%)",
-  width: 500,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  //position: "absolute",
+  //top: "50%",
+  height: "100vh",
+  //left: "85%",
+  //transform: "translate(-50%, -50%)",
+  width: "33%",
   bgcolor: "background.paper",
   boxShadow: 24,
-  p: 4,
+  p: 3,
   borderRadius: 5,
 };
 // const roleTitle = {
@@ -42,53 +54,57 @@ const ViewModal: React.FC<ViewRoleModalProps> = ({
   children,
 }) => {
   const { i18n } = useTranslation();
+  const theme = useTheme();
+  const {locale} = useLocale()
   return (
-    <Modal
-      style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}
-      open={open}
-      onClose={onClose}
-    >
+    <Modal style={{ direction: "rtl" }} open={open} onClose={onClose}>
       <Grid
-        style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}
+        container
+        style={{ direction: locale === "ar" ? "rtl" : "ltr" }}
         sx={modalContent}
       >
-        <Box display="flex" justifyContent="flex-end"></Box>
-        <AppBar
-          style={{
-            height: 58,
-            backgroundColor: theme.palette.primary.main,
-            padding: 2,
-            borderTopLeftRadius:8
-          }}
-          id="show-modal-title"
-        >
-          <Button
-            onClick={onClose}
+        <Grid item justifyContent="end" alignItems={"end"}>
+          <AppBar
             style={{
-              marginTop: 8,
-              position: "absolute",
-              marginRight: i18n.language === "ar" ? 425 : "",
-              marginLeft: i18n.language === "en" ? 425 : "",
-              color: "white",
-              direction: i18n.language === "ar" ? "rtl" : "ltr",
+              height: 58,
+              width: "33%",
+              backgroundColor: theme.palette.primary.main,
+              padding: 2,
+              borderTopLeftRadius: 8,
             }}
-            aria-label="close"
+            id="show-modal-title"
           >
-            <ForwardIcon />
-          </Button>
-          <span
-            style={{
-              marginRight: i18n.language === "ar" ? 30 : "",
-              marginLeft: i18n.language === "en" ? 30 : "",
-              color: "white",
-              marginTop: 12,
-              fontSize: 18,
-            }}
-          >
-            {title}
-          </span>
-        </AppBar>
-        <Box>{children}</Box>
+            <IconButton
+              onClick={onClose}
+              style={{
+                marginTop: 8,
+                position: "absolute",
+                marginRight: locale === "ar" ? 395 : "",
+                marginLeft: locale === "en" ? 395 : "",
+                color: "white",
+                direction: locale === "ar" ? "rtl" : "ltr",
+              }}
+              aria-label="close"
+            >
+              <ForwardIcon />
+            </IconButton>
+            <span
+              style={{
+                marginRight: locale === "ar" ? 30 : "",
+                marginLeft: locale === "en" ? 30 : "",
+                color: "white",
+                marginTop: 12,
+                fontSize: 18,
+              }}
+            >
+              {title}
+            </span>
+          </AppBar>
+        </Grid>
+
+        <Grid item width={"90%"}>
+          {children}
+        </Grid>
       </Grid>
     </Modal>
   );

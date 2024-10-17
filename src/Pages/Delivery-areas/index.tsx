@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
-import useDeliveryAreas from "@Hooks/useDeliveryAreas";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import HeaderTitle from "@Components/Header/HeaderTitle";
-import { DeliveryArea, DeliveryAreasRequest } from "@Types/Delivery-areas";
 import EnhancedTable from "@Components/Table";
-import { getDeliveryAreaColumns } from "./Columns/index";
+import { getDeliveryAreaColumns } from "./Helper/index";
 import ConfirmationModal from "@Components/Modal/ConfirmationModal/index";
-import { toast } from "react-toastify";
 import PageLoader from "@Components/Loader/PageLoader";
 import AddButton from "@Components/Button/Add";
 import { Grid, IconButton } from "@mui/material";
@@ -16,109 +13,41 @@ import ViewDeliveryAreaModal from "./Components/ViewDeliveryAreaModal";
 import ViewModal from "@Components/Modal/ViewModal";
 import EditDeliveryAreaForm from "./Components/EditDeliveryAreaForm";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import useDeliveryAreasContainer from "./Container/useDeliveryAreasContainer";
+import { useLocale } from "@Context/LanguageContext";
+import SkeletonTable from "@Components/Skeleton/Table";
 
 const DeliveryAreas: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const { locale } = useLocale();
   const {
-    getDeliveryAreas,
-    deleteDeliveryArea,
-    createDeliveryArea,
-    updateDeliveryArea,
-    getDeliveryArea,
-  } = useDeliveryAreas();
-  const { data, isLoading, isError, error, refetch } = getDeliveryAreas();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [isSubmitting, setSubmitting] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
-  const [currentId, setCurrentId] = useState<number | null>(null);
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editData, setEditData] = useState<DeliveryArea | null>(null);
-  const [openViewModal, setOpenViewModal] = useState(false);
-  const [currentDeliveryArea, setCurrentDeliveryArea] =
-    useState<DeliveryArea | null>(null);
-  const [isRefetching, setIsRefetching] = useState(false);
-
-  const rows =
-    data?.data?.map((deliveryArea: DeliveryArea) => ({
-      id: deliveryArea.id,
-      time:
-        i18n.language === "ar" ? deliveryArea.time.ar : deliveryArea.time.en,
-      area:
-        i18n.language === "ar" ? deliveryArea.area.ar : deliveryArea.area.en,
-    })) || [];
-
-  const handleRefetch = async () => {
-    setIsRefetching(true);
-    await refetch();
-    setIsRefetching(false);
-  };
-
-  const handleDelete = (id: number) => {
-    setCurrentId(id);
-    setOpenModal(true);
-  };
-
-  const handleView = (id: number) => {
-    setCurrentId(id);
-    setOpenViewModal(true);
-  };
-
-  useEffect(() => {
-    if (currentId !== null && openViewModal) {
-      getDeliveryArea(currentId).then((response) => {
-        setCurrentDeliveryArea(response.data);
-      });
-    }
-  }, [currentId]);
-
-  const handleEdit = (id: number) => {
-    const deliveryArea = currentDeliveryArea;
-    setEditData(deliveryArea);
-    console.log(id);
-    setEditModalOpen(true);
-    console.log("edit");
-  };
-
-  const confirmDelete = () => {
-    if (currentId != null) {
-      deleteDeliveryArea.mutate(currentId, {
-        onSuccess: () => {
-          setOpenModal(false);
-          setCurrentId(null);
-        },
-      });
-    }
-  };
-
-  const handleAddClick = () => {
-    setModalOpen(true);
-  };
-
-  const handleFormSubmit = async (formData: DeliveryAreasRequest) => {
-    setSubmitting(true);
-    try {
-      createDeliveryArea.mutate(formData);
-      setModalOpen(false);
-    } catch (error) {
-      console.error("API error:", error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const handleEditFormSubmit = async (formData: DeliveryAreasRequest) => {
-    if (editData) {
-      setSubmitting(true);
-      try {
-        updateDeliveryArea.mutate({ ...formData, id: editData.id });
-        setEditModalOpen(false);
-      } catch (error) {
-        console.error("API error:", error);
-      } finally {
-        setSubmitting(false);
-      }
-    }
-  };
+    rows,
+    isLoading,
+    isError,
+    error,
+    isRefetching,
+    modalOpen,
+    editModalOpen,
+    openViewModal,
+    openModal,
+    currentDeliveryArea,
+    currentId,
+    editData,
+    isSubmitting,
+    handleRefetch,
+    handleDelete,
+    handleAddClick,
+    handleView,
+    handleEdit,
+    confirmDelete,
+    handleFormSubmit,
+    handleEditFormSubmit,
+    setModalOpen,
+    setOpenModal,
+    setEditModalOpen,
+    setOpenViewModal,
+    setSubmitting,
+  } = useDeliveryAreasContainer();
 
   const columns = getDeliveryAreaColumns(
     t,
@@ -127,11 +56,8 @@ const DeliveryAreas: React.FC = () => {
     handleEdit
   );
 
-  if (isLoading || isRefetching) return <PageLoader />;
-  if (isError) return <div>Error: {error.message}</div>;
-
   return (
-    <div style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
+    <div style={{ direction: locale === "ar" ? "rtl" : "ltr" }}>
       <Grid container justifyContent="space-between" alignItems="center">
         <Grid item xs={6} md={8}>
           <HeaderTitle title={t("homePage.delivery_areas")} />
@@ -152,7 +78,13 @@ const DeliveryAreas: React.FC = () => {
           </Grid>
         </Grid>
       </Grid>
-      <EnhancedTable rows={rows} columns={columns} />
+      {isLoading ? (
+        <SkeletonTable />
+      ) : !isLoading && isRefetching ? (
+        <PageLoader />
+      ) : (
+        <EnhancedTable rows={rows} columns={columns} />
+      )}
       <CustomModal
         open={modalOpen}
         onClose={() => {

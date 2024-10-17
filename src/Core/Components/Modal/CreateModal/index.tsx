@@ -11,6 +11,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
 import rtlPlugin from "stylis-plugin-rtl";
+import { useLocale } from "@Context/LanguageContext";
 
 interface CustomModalProps {
   open: boolean;
@@ -28,13 +29,14 @@ const CustomModal: React.FC<CustomModalProps> = ({
   onSubmit,
 }) => {
   const { t, i18n } = useTranslation();
+  const { locale } = useLocale();
   const cacheRtl = createCache({
     key: "muiltr",
-    stylisPlugins: i18n.language === "ar" ? [prefixer, rtlPlugin] : [],
+    stylisPlugins: locale === "ar" ? [prefixer, rtlPlugin] : [],
   });
   return (
     <Dialog
-      style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}
+      style={{ direction: locale === "ar" ? "rtl" : "ltr" }}
       open={open}
       onClose={onClose}
       maxWidth="sm"

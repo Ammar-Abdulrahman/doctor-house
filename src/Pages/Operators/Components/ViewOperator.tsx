@@ -1,9 +1,9 @@
 import React from "react";
 import { Operator } from "@Types/Operator";
-import theme from "@Styles/theme";
 import { useTranslation } from "react-i18next";
-import { Typography, Box } from "@mui/material";
-import Loader from "@Components/Loader/ModalLoader";
+import Loader from "@Components/Loader/ModalViewLoader";
+import BoxContainerViewLabel from "@Components/Box";
+import { useLocale } from "@Context/LanguageContext";
 
 interface ViewOperatorProps {
   operator: Operator | null;
@@ -11,75 +11,32 @@ interface ViewOperatorProps {
 
 const ViewOperatorModal: React.FC<ViewOperatorProps> = ({ operator }) => {
   const { t, i18n } = useTranslation();
-
-  const textFieldStyle = {
-    border: `1px solid #CACDCC`,
-    borderRadius: 4,
-    marginTop:"30px",
-    height:"80px",
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    position: 'relative',
-  };
-
-  const labelStyle = {
-    fontWeight: 'bold',
-    position: 'absolute',
-    top: -12,
-    left: i18n.language === "ar" ? 'auto' : 16,
-    right: i18n.language === "ar" ? 16 : 'auto',
-    backgroundColor: '#fff',
-    padding: '0 4px',
-  };
-
-  const valueStyle = {
-    color: theme.palette.text.primary,
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    marginRight: "50px",
-  };
-
+  const { locale } = useLocale();
   return (
     <>
       {operator ? (
         <div style={{ marginTop: "60px" }}>
-          <Box component="fieldset" sx={textFieldStyle}>
-            <Typography component="legend" sx={labelStyle}>
-              {t("operatorsPage.id")}
-            </Typography>
-            <Typography style={valueStyle}>
-              {operator.id}
-            </Typography>
-          </Box>
+          <BoxContainerViewLabel
+            title={t("operatorsPage.id")}
+            value={operator.id}
+          />
 
-          <Box component="fieldset" sx={textFieldStyle}>
-            <Typography component="legend" sx={labelStyle}>
-              {t("operatorsPage.username")}
-            </Typography>
-            <Typography style={valueStyle}>
-              {operator.username}
-            </Typography>
-          </Box>
+          <BoxContainerViewLabel
+            title={t("operatorsPage.username")}
+            value={operator.username}
+          />
 
-          <Box component="fieldset" sx={textFieldStyle}>
-            <Typography component="legend" sx={labelStyle}>
-              {t("operatorsPage.fullName")}
-            </Typography>
-            <Typography style={valueStyle}>
-              {operator.fullName}
-            </Typography>
-          </Box>
+          <BoxContainerViewLabel
+            title={t("operatorsPage.fullName")}
+            value={operator.fullName}
+          />
 
-          <Box component="fieldset" sx={textFieldStyle}>
-            <Typography component="legend" sx={labelStyle}>
-              {t("modal.role")}
-            </Typography>
-            <Typography style={valueStyle}>
-              {i18n.language === "ar"
-                ? operator.role.name.ar
-                : operator.role.name.en}
-            </Typography>
-          </Box>
+          <BoxContainerViewLabel
+            title={t("modal.role")}
+            value={
+              locale === "ar" ? operator.role.name.ar : operator.role.name.en
+            }
+          />
         </div>
       ) : (
         <Loader />

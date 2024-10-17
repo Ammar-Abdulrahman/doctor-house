@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { TextField, Button, CircularProgress } from "@mui/material";
-import theme from "@Styles/theme";
+import { TextField, Button, CircularProgress, useTheme } from "@mui/material";
+//import theme from "@Styles/theme";
 import { useTranslation } from "react-i18next";
 
 interface OperatorFormProps {
@@ -15,7 +15,7 @@ const DeliveryAreaForm = ({
   onClose,
 }: OperatorFormProps) => {
   const { t } = useTranslation();
-
+const theme = useTheme()
   const formik = useFormik({
     initialValues: {
       area: {

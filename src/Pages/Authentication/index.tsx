@@ -1,275 +1,151 @@
-import React, { useState } from "react";
-import { TextField, Button, CircularProgress, Box, Grid } from "@mui/material";
-import { useMutation } from "react-query";
-import { loginApi } from "@Services/Authentications";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import {
+  TextField,
+  Button,
+  CircularProgress,
+  Box,
+  Grid,
+  InputAdornment,
+  Paper,
+  IconButton,
+  useTheme,
+} from "@mui/material";
 import { useTranslation } from "react-i18next";
-import theme from "@Styles/theme";
 import vectorImage from "@Assets/images/Vector.png";
 import teeth from "@Assets/images/teeth.png";
 import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-import { prefixer } from "stylis";
-import rtlPlugin from "stylis-plugin-rtl";
-
+import useStyles from "./Styles";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useLocale } from "@Context/LanguageContext";
+import SwitchComponent from "@Components/Switch";
+import useAuthenticationContainer from "./Container/useAuthenticationContainer";
 
 const Login: React.FC = () => {
-  const navigate = useNavigate();
-  const { t , i18n } = useTranslation();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const { t } = useTranslation();
+  const theme = useTheme();
+  const { locale } = useLocale();
+  const classes = useStyles();
 
-  // const mutation = useMutation(() => loginApi(username, password), {
-  //   onSuccess: (data) => {
-  //     sessionStorage.setItem("token", data.data.accessToken);
-  //     sessionStorage.setItem(
-  //       "privileges",
-  //       JSON.stringify(data.data?.user?.role?.privileges)
-  //     );
-  //     console.log(data.data.accessToken);
-  //     console.log(data.data?.user?.role?.privileges);
-  //     setAuthToken(data.data.accessToken);
-  //     navigate("/");
-  //   },
-  // });
-  const cacheRtl = createCache({
-    key: "muiltr",
-    stylisPlugins: i18n.language === "ar" ? [prefixer, rtlPlugin] : [],
-  });
-
-  const mutation = useMutation(() => loginApi(username, password), {
-    onSuccess: (data) => {
-      const { accessToken, user } = data.data;
-      sessionStorage.setItem("token", accessToken);
-      sessionStorage.setItem(
-        "privileges",
-        JSON.stringify(user?.role?.privileges)
-      );
-      navigate("/");
-      console.log(data.data.accessToken);
-      console.log(data.data?.user?.role?.privileges);
-    },
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    mutation.mutate();
-  };
+  const {
+    username,
+    setUsername,
+    password,
+    setPassword,
+    showPassword,
+    cacheRtl,
+    togglePasswordVisibility,
+    mutation,
+    handleSubmit,
+  } = useAuthenticationContainer();
 
   return (
-    <div>
+    <>
       <img
-        style={{
-          height: "20vh",
-          width: "100%",
-          position: "fixed",
-          marginTop: "-10px",
-          marginLeft: "-8px",
-        }}
+        className={classes.imageHeader}
         srcSet={vectorImage}
         loading="lazy"
       />
-      {/* <img
-        style={{
-          height: "100vh",
-          width: "100%",
-          position: "fixed",
-          marginTop: "-8px",
-          marginLeft: "-8px",
-        }}
-        srcSet={`src/Core/Assets/images/image1.jpg`}
-        loading="lazy"
-      /> */}
-      {/* <img
-        style={{
-          height: "60vh",
-          width: "100%",
-          position: "fixed",
-          marginTop: "285px",
-          marginLeft: "-8px",
-        }}
-        srcSet={`src/Core/Assets/images/image2.jpg`}
-        loading="lazy"
-      /> */}
-      {/* <img
-        style={{
-          height: "18vh",
-          width: "100%",
-          position: "fixed",
-          marginTop: "-10px",
-          marginLeft: "-8px",
-        }}
-        srcSet={`src/Core/Assets/images/green-frame-copy.png`}
-        loading="lazy"
-      /> */}
-      {/* <img
-        style={{
-          height: "100vh",
-          width: "100%",
-          position: "fixed",
-          marginTop:"-8px"
-        }}
-        srcSet={`src/Core/Assets/images/image5.jpg`}
-        loading="lazy"
-      /> */}
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="90vh"
-      >
-        <Grid style={{ zIndex: 100 }} width={300}>
-          <div>
-            {" "}
-            <img
-              style={{
-                position: "fixed",
-                height: "35px",
-                marginTop: "0px",
-                marginLeft: "250px",
-              }}
-              srcSet={teeth}
-            />{" "}
-            <h2
-              style={{
-                direction: "rtl",
-                marginRight: "70px",
-                color: theme.palette.primary.main,
-              }}
-            >
-              {" "}
-              {t("loginPage.welcome")}{" "}
-            </h2>
-          </div>
-          <CacheProvider value={cacheRtl}>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label={t("loginPage.username")}
-              fullWidth
-              style={{ direction: "rtl" }}
-              margin="normal"
-              value={username}
-              color="primary"
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <TextField
-              type="password"
-              label={t("loginPage.password")}
-              style={{ direction: "rtl" }}
-              fullWidth
-              color="primary"
-              margin="normal"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Box mt={2} display="flex" justifyContent="space-between">
-              {mutation.isLoading ? (
-                <CircularProgress style={{ marginLeft: "150px" }} size={24} />
-              ) : (
-                <Button
-                  fullWidth
-                  type="submit"
-                  variant="contained"
-                  style={{ backgroundColor: theme.palette.primary.main , color:"white" }}
+      <Grid container className={classes.container}>
+        <Paper elevation={3} className={classes.paper}>
+          <Box className={classes.formBox}>
+            <Grid>
+              <div>
+                <Grid
+                  container
+                  className={classes.paperContainer}
+                  justifyContent={
+                    locale === "ar" ? "space-between" : "flex-start"
+                  }
+                  direction={locale === "en" ? "row" : "row-reverse"}
                 >
-                  {t("loginPage.login")}
-                </Button>
-              )}
-            </Box>
-            {mutation.isError && (
-              <div style={{ color: "red", marginTop: "20px" }}>
-                {/* Login failed: {mutation.error?.message} */}
+                  <Grid item>
+                    <img style={{ height: "29px" }} srcSet={teeth} />
+                  </Grid>
+                  <Grid item>
+                    <h2
+                      style={{ textAlign: locale === "ar" ? "right" : "left" }}
+                      className={classes.welcomeHeader}
+                    >
+                      {t("loginPage.welcome")}
+                    </h2>
+                  </Grid>
+                  <Grid item style={{ flexGrow: 1 }} />
+                  <Grid item>
+                    <SwitchComponent />
+                  </Grid>
+                </Grid>
               </div>
-            )}
-          </form>
-          </CacheProvider>
-        </Grid>
-      </Box>
-    </div>
+              <CacheProvider value={cacheRtl}>
+                <form onSubmit={handleSubmit}>
+                  <TextField
+                    label={t("loginPage.username")}
+                    //autoFocus
+                    fullWidth
+                    variant="filled"
+                    style={{
+                      direction: locale === "ar" ? "rtl" : "ltr",
+                    }}
+                    margin="normal"
+                    value={username}
+                    color="primary"
+                    onChange={(e) => setUsername(e.target.value)}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="start">
+                          <AccountCircle />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    type={showPassword ? "text" : "password"}
+                    label={t("loginPage.password")}
+                    style={{
+                      direction: locale === "ar" ? "rtl" : "ltr",
+                    }}
+                    fullWidth
+                    variant="filled"
+                    color="primary"
+                    margin="normal"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={togglePasswordVisibility}>
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <Box mt={2} display="flex" justifyContent="space-between">
+                    {mutation.isLoading ? (
+                      <Grid container className={classes.loadingContainer}>
+                        <CircularProgress size={24} />
+                      </Grid>
+                    ) : (
+                      <Button
+                        color="primary"
+                        sx={{ color: "white", marginTop: theme.spacing(1) }}
+                        fullWidth
+                        type="submit"
+                        variant="contained"
+                      >
+                        {t("loginPage.login")}
+                      </Button>
+                    )}
+                  </Box>
+                </form>
+              </CacheProvider>
+            </Grid>
+          </Box>
+        </Paper>
+      </Grid>
+    </>
   );
 };
 
 export default Login;
-
-// import React from 'react';
-// import { useFormik } from 'formik';
-// import { TextField, Button, CircularProgress } from '@mui/material';
-// import { validationSchema } from './validationSchemas';
-
-// interface FormValues {
-//   userName: string;
-//   email: string;
-//   password: string;
-//   image: File | null;
-// }
-
-// const UserForm: React.FC = () => {
-//   const formik = useFormik({
-//     initialValues: {
-//       userName: '',
-//       email: '',
-//       password: '',
-//       image: null,
-//     },
-//     validationSchema: validationSchema,
-//     onSubmit: (values) => {
-//       console.log(values);
-//       // Here, handle your form submission logic, such as sending data to a backend
-//     },
-//   });
-
-//   return (
-//     <form onSubmit={formik.handleSubmit}>
-//       <TextField
-//         fullWidth
-//         id="userName"
-//         name="userName"
-//         label="Username"
-//         value={formik.values.userName}
-//         onChange={formik.handleChange}
-//         error={formik.touched.userName && Boolean(formik.errors.userName)}
-//         helperText={formik.touched.userName && formik.errors.userName}
-//       />
-//       <TextField
-//         fullWidth
-//         type="email"
-//         id="email"
-//         name="email"
-//         label="Email"
-//         value={formik.values.email}
-//         onChange={formik.handleChange}
-//         error={formik.touched.email && Boolean(formik.errors.email)}
-//         helperText={formik.touched.email && formik.errors.email}
-//       />
-//       <TextField
-//         fullWidth
-//         type="password"
-//         id="password"
-//         name="password"
-//         label="Password"
-//         value={formik.values.password}
-//         onChange={formik.handleChange}
-//         error={formik.touched.password && Boolean(formik.errors.password)}
-//         helperText={formik.touched.password && formik.errors.password}
-//       />
-//       <input
-//         id="image"
-//         name="image"
-//         type="file"
-//         onChange={(event) => {
-//           const file = event.currentTarget.files ? event.currentTarget.files[0] : null;
-//           formik.setFieldValue("image", file);
-//         }}
-//       />
-//       {formik.isSubmitting ? (
-//         <CircularProgress />
-//       ) : (
-//         <Button color="primary" variant="contained" type="submit" disabled={formik.isSubmitting}>
-//           Submit
-//         </Button>
-//       )}
-//     </form>
-//   );
-// };
-
-// export default UserForm;

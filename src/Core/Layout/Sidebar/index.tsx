@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import ListItems from "./List";
-import { useTranslation } from "react-i18next";
+import { useLocale } from "@Context/LanguageContext";
 
 const Sidebar = () => {
-  const { i18n } = useTranslation()
+  const { locale } = useLocale();
   return (
-    <Box sx={{ overflow: "auto", direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}>
+    <Box sx={{ overflow: "auto", direction: locale === "ar" ? "rtl" : "ltr" }}>
       <ListItems />
     </Box>
   );

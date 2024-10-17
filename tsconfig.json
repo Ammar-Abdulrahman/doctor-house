@@ -13,7 +13,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    
+
     /*alias*/
 
     "baseUrl": "./src", // This is to avoid adding the ./src prefix to each path below.
@@ -25,8 +25,10 @@
       "@Hooks/*": ["Core/Hooks/*"],
       "@Layout/*": ["Core/Layout/*"],
       "@Localization/*": ["Core/Localization/*"],
+      "@Providers/*": ["Core/Providers/*"],
       "@Routes/*": ["Core/Routes/*"],
       "@Services/*": ["Core/Services/*"],
+      "@Store/*": ["Core/Store/*"],
       "@Styles/*": ["Core/Styles/*"],
       "@Types/*": ["Core/Types/*"],
       "@Utils/*": ["Core/Utils/*"],
@@ -39,7 +41,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
+    "noFallthroughCasesInSwitch": false
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,
     // "noFallthroughCasesInSwitch": true

@@ -1,11 +1,12 @@
-import { Typography, Toolbar } from "@mui/material";
-import theme from "@Styles/theme";
+import { Typography, Toolbar , useTheme } from "@mui/material";
+//import theme from "@Styles/theme";
 
 interface HeaderTitleProps {
   title: string;
 }
 
 const HeaderTitle = ({ title }: HeaderTitleProps) => {
+  const theme = useTheme();
   return (
     <Toolbar>
       <Typography

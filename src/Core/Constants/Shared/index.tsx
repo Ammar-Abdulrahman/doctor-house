@@ -2,7 +2,7 @@ import axios from "axios";
 import i18next from "i18next";
 
 const axiosInstance = axios.create({
-  baseURL: "http://192.168.43.208:3000/api/v1",
+  baseURL: "https://doctor-store.onrender.com/api/v1",
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${sessionStorage.getItem("token")}`,

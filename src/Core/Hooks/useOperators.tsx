@@ -8,7 +8,6 @@ import {
 import {
   OperatorResponse,
   OperatorRequest,
-  Operator,
   SingleOperatorResponse,
 } from "@Types/Operator";
 import { toast } from "react-toastify";
@@ -28,10 +27,14 @@ const useOperators = (
       ["operators"],
       () =>
         fetchData<OperatorResponse>(
-          //needPagination=true&page=0&limit=10
           `/operators?needPagination=${needPagination}`
         ),
       {
+        onError(error: ErrorProps) {
+          toast.error(`Error :${error?.response.data.error.message}`, {
+            autoClose: false,
+          });
+        },
         cacheTime: 120000,
         staleTime: Infinity,
       }
@@ -47,7 +50,7 @@ const useOperators = (
         queryClient.invalidateQueries("operators");
         toast.success(`${t("modal.success_create_operator")}`);
       },
-      onError(error: ErrorProps, variables, context) {
+      onError(error: ErrorProps) {
         toast.error(`Error :${error?.response.data.error.message}`, {
           autoClose: false,
         });
@@ -75,7 +78,7 @@ const useOperators = (
         queryClient.invalidateQueries("operators");
         toast.success(`${t("modal.delete_operator")}`);
       },
-      onError(error: ErrorProps, variables, context) {
+      onError(error: ErrorProps) {
         toast.error(`Error :${error?.response.data.error.message}`, {
           autoClose: false,
         });

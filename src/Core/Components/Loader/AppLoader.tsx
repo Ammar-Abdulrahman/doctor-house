@@ -1,18 +1,11 @@
-//import React from 'react'
-// import Lottie from "lottie-react"
-// import AppLoaderAnimation from '@Assets/json/AppLoader.json'
-import { LinearProgress } from '@mui/material'
+import { LinearProgress } from "@mui/material";
 
- const AppLoader = () => {
-
+const AppLoader = () => {
   return (
-    // <div style = {{marginLeft:"530px" , marginTop:"100px" , height:"450px" , width:"450px"}} >
-      <div>
-        <LinearProgress color="success" />
-        {/* <Lottie loop={false} autoPlay={true} animationData={AppLoaderAnimation} /> */}
-        </div>
-    // </div>
-  )
-}
+    <div>
+      <LinearProgress color="success" />
+    </div>
+  );
+};
 
 export default AppLoader;

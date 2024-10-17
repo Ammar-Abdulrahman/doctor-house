@@ -8,7 +8,6 @@ import {
 import {
   CategoriesResponse,
   CategoryRequest,
-  Category,
   SingleCategoryResponse,
 } from "@Types/Categories";
 import { toast } from "react-toastify";
@@ -31,6 +30,11 @@ const useCategories = (
           `/categories?needPagination=${needPagination}`
         ),
       {
+        onError(error: ErrorProps) {
+          toast.error(`Error :${error?.response.data.error.message}`, {
+            autoClose: false,
+          });
+        },
         cacheTime: 120000,
         staleTime: Infinity,
       }
@@ -46,7 +50,7 @@ const useCategories = (
         queryClient.invalidateQueries("categories");
         toast.success(`${t("modal.success_create_category")}`);
       },
-      onError(error: ErrorProps, variables, context) {
+      onError(error: ErrorProps) {
         toast.error(`Error :${error?.response.data.error.message}`, {
           autoClose: false,
         });
@@ -64,7 +68,7 @@ const useCategories = (
           queryClient.invalidateQueries("categories");
           toast.success(`${t("modal.success_edit_category")}`);
         },
-        onError(error: ErrorProps, variables, context) {
+        onError(error: ErrorProps) {
           toast.error(`Error :${error?.response.data.error.message}`, {
             autoClose: false,
           });
@@ -80,7 +84,7 @@ const useCategories = (
         queryClient.invalidateQueries("categories");
         toast.success(`${t("modal.delete_category")}`);
       },
-      onError(error: ErrorProps, variables, context) {
+      onError(error: ErrorProps) {
         toast.error(`Error :${error?.response.data.error.message}`, {
           autoClose: false,
         });

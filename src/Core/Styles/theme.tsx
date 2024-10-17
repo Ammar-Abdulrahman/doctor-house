@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles";
-import { teal, green, yellow, red, blue } from "@mui/material/colors";
+import { teal, yellow, red, blue } from "@mui/material/colors";
 
 const colorPrimary = {
   1000: "#002C2A",
@@ -15,8 +15,12 @@ const colorPrimary = {
   50: "#B3B3B3",
   5: "#FFFFFF",
 };
-const theme = createTheme({
+const lightTheme = createTheme({
   palette: {
+    mode: "light",
+    background: {
+      default: "#efefee", // Apply light mode background color
+    },
     primary: {
       main: colorPrimary[500],
       light: colorPrimary[200],
@@ -44,7 +48,7 @@ const theme = createTheme({
     success: {
       main: teal[300],
       light: teal[700],
-      dark: red["300"], //green
+      dark: red["300"],
       contrastText: teal["A400"],
     },
     warning: {
@@ -60,4 +64,50 @@ const theme = createTheme({
   spacing: [0, 4, 8, 16, 32, 64],
 });
 
-export default theme;
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: colorPrimary[500],
+      light: colorPrimary[200],
+      dark: colorPrimary[600],
+      contrastText: colorPrimary[800],
+    },
+    secondary: {
+      main: teal["A400"],
+      light: "dark",
+      dark: teal["A700"],
+      contrastText: colorPrimary[500],
+    },
+    info: {
+      main: blue[500],
+      light: "#424242",
+      dark: blue[700],
+      contrastText: blue[900],
+    },
+    error: {
+      main: red[500],
+      light: red[200],
+      dark: red[700],
+      contrastText: red[900],
+    },
+    success: {
+      main: teal[200],
+      light: teal[500],
+      dark: teal["A400"],
+      contrastText: teal["A100"],
+    },
+    warning: {
+      main: yellow[700], // Darker yellow for dark mode
+      light: yellow[500],
+      dark: yellow[900],
+      contrastText: yellow[100],
+    },
+  },
+  typography: {
+    fontFamily: "Noto Kufi Arabic",
+  },
+  spacing: [0, 4, 8, 16, 32, 64],
+});
+
+export { lightTheme, darkTheme };

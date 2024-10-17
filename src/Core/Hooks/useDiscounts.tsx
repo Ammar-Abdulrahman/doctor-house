@@ -9,7 +9,6 @@ import {
   DiscountsResponse,
   DiscountsRequest,
   SingleDiscountResponse,
-  //Discount,
 } from "@Types/Discounts";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
@@ -31,6 +30,11 @@ const useDiscounts = (
           `/discounts?needPagination=${needPagination}`
         ),
       {
+        onError(error: ErrorProps) {
+          toast.error(`Error :${error?.response.data.error.message}`, {
+            autoClose: false,
+          });
+        },
         cacheTime: 120000,
         staleTime: Infinity,
       }
@@ -46,7 +50,7 @@ const useDiscounts = (
         queryClient.invalidateQueries("discounts");
         toast.success(`${t("modal.success_create_discount")}`);
       },
-      onError(error: ErrorProps, variables, context) {
+      onError(error: ErrorProps) {
         toast.error(`Error :${error?.response.data.error.message}`, {
           autoClose: false,
         });
@@ -73,7 +77,7 @@ const useDiscounts = (
         queryClient.invalidateQueries("discounts");
         toast.success(`${t("modal.delete_discount")}`);
       },
-      onError(error: ErrorProps, variables, context) {
+      onError(error: ErrorProps) {
         toast.error(`Error :${error?.response.data.error.message}`, {
           autoClose: false,
         });
