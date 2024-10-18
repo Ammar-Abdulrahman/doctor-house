@@ -9,6 +9,9 @@ import { useTranslation } from "react-i18next";
 import { StyledEngineProvider } from "@mui/material/styles";
 import ThemeProvider from "../Theme";
 import LanguageProvider from "../Language";
+import { Provider } from "react-redux";
+import store, { persistor } from "Core/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 const queryClient = new QueryClient();
 
@@ -17,17 +20,21 @@ const App = () => {
   return (
     <LanguageProvider>
       <ThemeProvider>
-        <StyledEngineProvider injectFirst>
-          <Suspense fallback={<AppLoader />}>
-            <QueryClientProvider client={queryClient}>
-              <RouterProvider router={router} />
-              <ToastContainer
-                style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}
-                position="bottom-right"
-              />
-            </QueryClientProvider>
-          </Suspense>
-        </StyledEngineProvider>
+        <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <StyledEngineProvider injectFirst>
+            <Suspense fallback={<AppLoader />}>
+              <QueryClientProvider client={queryClient}>
+                <RouterProvider router={router} />
+                <ToastContainer
+                  style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}
+                  position="bottom-right"
+                />
+              </QueryClientProvider>
+            </Suspense>
+          </StyledEngineProvider>
+          </PersistGate>
+        </Provider>
       </ThemeProvider>
     </LanguageProvider>
   );

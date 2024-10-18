@@ -4,9 +4,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button,
 } from "@mui/material";
-import { useTranslation } from "react-i18next";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
@@ -28,7 +26,6 @@ const CustomModal: React.FC<CustomModalProps> = ({
   children,
   onSubmit,
 }) => {
-  const { t, i18n } = useTranslation();
   const { locale } = useLocale();
   const cacheRtl = createCache({
     key: "muiltr",

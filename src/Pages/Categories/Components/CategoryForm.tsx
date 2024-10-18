@@ -90,9 +90,9 @@ const CategoryForm = ({
           "https://doctor-store.onrender.com/api/v1/upload",
           formData,
           {
-            headers: {
-              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-            },
+            // headers: {
+            //   Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            // },
           }
         );
         const imageId = response.data.data.id;

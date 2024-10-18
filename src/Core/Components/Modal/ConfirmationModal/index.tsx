@@ -8,7 +8,6 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-//import theme from "@Styles/theme";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@Context/LanguageContext";
 
@@ -27,7 +26,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   title,
   itemId,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const theme = useTheme();
   const { locale } = useLocale();
   return (

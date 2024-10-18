@@ -14,19 +14,24 @@ import { useTranslation } from "react-i18next";
 import vectorImage from "@Assets/images/Vector.png";
 import teeth from "@Assets/images/teeth.png";
 import { CacheProvider } from "@emotion/react";
-import useStyles from "./Styles";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useLocale } from "@Context/LanguageContext";
 import SwitchComponent from "@Components/Switch";
 import useAuthenticationContainer from "./Container/useAuthenticationContainer";
+import {
+  container,
+  paper,
+  paperContainer,
+  formBox,
+  loadingContainer,
+} from "./Styles";
 
 const Login: React.FC = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const { locale } = useLocale();
-  const classes = useStyles();
 
   const {
     username,
@@ -43,18 +48,24 @@ const Login: React.FC = () => {
   return (
     <>
       <img
-        className={classes.imageHeader}
+        style={{
+          height: "20vh",
+          width: "101%",
+          position: "fixed",
+          marginTop: "-10px",
+          marginLeft: "-8px",
+        }}
         srcSet={vectorImage}
         loading="lazy"
       />
-      <Grid container className={classes.container}>
-        <Paper elevation={3} className={classes.paper}>
-          <Box className={classes.formBox}>
+      <Grid container sx={container}>
+        <Paper elevation={3} sx={paper}>
+          <Box sx={formBox}>
             <Grid>
               <div>
                 <Grid
                   container
-                  className={classes.paperContainer}
+                  sx={paperContainer}
                   justifyContent={
                     locale === "ar" ? "space-between" : "flex-start"
                   }
@@ -65,8 +76,12 @@ const Login: React.FC = () => {
                   </Grid>
                   <Grid item>
                     <h2
-                      style={{ textAlign: locale === "ar" ? "right" : "left" }}
-                      className={classes.welcomeHeader}
+                      style={{
+                        textAlign: locale === "ar" ? "right" : "left",
+                        direction: "rtl",
+                        margin: "12px",
+                        color: theme.palette.primary.main,
+                      }}
                     >
                       {t("loginPage.welcome")}
                     </h2>
@@ -123,7 +138,7 @@ const Login: React.FC = () => {
                   />
                   <Box mt={2} display="flex" justifyContent="space-between">
                     {mutation.isLoading ? (
-                      <Grid container className={classes.loadingContainer}>
+                      <Grid container sx={loadingContainer}>
                         <CircularProgress size={24} />
                       </Grid>
                     ) : (

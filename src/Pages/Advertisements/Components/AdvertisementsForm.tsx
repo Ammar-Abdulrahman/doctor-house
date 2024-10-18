@@ -68,9 +68,9 @@ const AdvertisementForm = ({
           "http://192.168.43.208:3000/api/v1/upload",
           formData,
           {
-            headers: {
-              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-            },
+            // headers: {
+            //   Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            // },
           }
         );
         const imageId = response.data.data.id;

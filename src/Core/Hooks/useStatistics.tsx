@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { fetchData } from "@Services/apiService";
+import { fetchData } from "@Services/Api/apiService";
 import {
   ActiveUsersResponse,
   OrdersOvertimeResponse,

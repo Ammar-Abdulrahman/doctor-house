@@ -12,7 +12,6 @@ import {
   useTheme,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-//import theme from "@Styles/theme";
 import { Column } from "@Types/Column";
 import { useThemeContext } from "@Context/ThemeContext";
 import { useLocale } from "@Context/LanguageContext";

@@ -7,15 +7,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { t } from "i18next";
-//import theme from "@Styles/theme";
-import { useTranslation } from "react-i18next";
 import { useTheme } from "@mui/material";
 import { useLocale } from "@Context/LanguageContext";
 
-// Define the props type for clarity and type-checking
 interface ActionsMenuProps {
   rowData: {
-    id: number; // Ensure the type matches the expected row data structure
+    id: number;
   };
   onEdit: (id: number) => void;
   onView: (id: number) => void;
@@ -28,10 +25,9 @@ const ActionsMenu: React.FC<ActionsMenuProps> = ({
   onView,
   onDelete,
 }) => {
-  const { i18n } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const theme = useTheme();
-  const { locale, switchLanguage } = useLocale();
+  const { locale } = useLocale();
   
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

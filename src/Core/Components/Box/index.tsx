@@ -1,5 +1,5 @@
 import { useThemeContext } from "@Context/ThemeContext";
-import useStyles from "@Styles/sharedStyles";
+import { Label, Value, StyledBox } from "@Styles/sharedStyles";
 import { Box, Typography } from "@mui/material";
 
 interface BoxContainerProps {
@@ -10,25 +10,18 @@ const BoxContainerViewLabel: React.FC<BoxContainerProps> = ({
   title,
   value,
 }) => {
-  const classes = useStyles();
   const { mode } = useThemeContext();
   return (
-    <Box component="fieldset" className={classes.textFieldStyle}>
-      <Typography
-        component="legend"
+    <StyledBox component="fieldset">
+      <Label
         sx={{
-          backgroundColor:
-            mode === "light"
-              ? "#fff"
-              : //  "#191616"
-                "#161313",
+          backgroundColor: mode === "light" ? "#fff" : "#161313",
         }}
-        className={classes.labelStyle}
       >
         {title}
-      </Typography>
-      <Typography className={classes.valueStyle}>{value}</Typography>
-    </Box>
+      </Label>
+      <Value>{value}</Value>
+    </StyledBox>
   );
 };
 

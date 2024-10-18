@@ -4,7 +4,7 @@ import {
   postData,
   updateData,
   deleteData,
-} from "@Services/apiService";
+} from "@Services/Api/apiService";
 import {
   ProductsResponse,
   ProductsRequest,

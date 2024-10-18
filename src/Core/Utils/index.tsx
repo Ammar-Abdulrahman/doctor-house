@@ -1,11 +1,14 @@
+import store from "Core/store";
+
 export const getPermissionKeys = (): string[] => {
-  const permissions = sessionStorage.getItem("privileges");
-  if (!permissions) {
+  const state = store.getState();
+  const privileges = state.auth?.privileges;
+
+  if (!privileges) {
     return [];
   }
 
-  const parsedPermissions = JSON.parse(permissions);
-  return parsedPermissions.map((privilege: any) => privilege.key);
+  return privileges.map((privilege: any) => privilege.key);
 };
 
 export const hasPermission = (requiredPermission: string): boolean => {

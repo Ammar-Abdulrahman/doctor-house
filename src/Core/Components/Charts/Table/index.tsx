@@ -28,7 +28,7 @@ const TopBuyersTable: React.FC<TopBuyersTableProps> = ({ buyers }) => {
         marginTop: "15px",
         padding: "20px",
         borderRadius: 12,
-        backgroundColor: "#F4F8F7",
+        //backgroundColor: "#F4F8F7",
       }}
       component={Paper}
     >

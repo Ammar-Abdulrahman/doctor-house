@@ -30,7 +30,7 @@ const ProgressChart: React.FC = () => {
         marginLeft: locale === "ar" ? "" : "-92px",
         width: "700px",
         borderRadius: 12,
-        backgroundColor: "#F4F8F7",
+        //backgroundColor: "#F4F8F7",
         //ECF3F0
       }}
     >

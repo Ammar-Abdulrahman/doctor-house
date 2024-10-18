@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { fetchData } from "@Services/apiService";
+import { fetchData } from "@Services/Api/apiService";
 import { OrdersResponse, SingleOrderResponse } from "@Types/Orders";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";

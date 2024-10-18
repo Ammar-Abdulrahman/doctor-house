@@ -23,7 +23,9 @@ ChartJS.register(
   Legend
 );
 
-const OrdersOvertimeChart: React.FC<OrdersOvertimeChartResponse> = ({ data }) => {
+const OrdersOvertimeChart: React.FC<OrdersOvertimeChartResponse> = ({
+  data,
+}) => {
   const chartData = {
     labels: Array.from({ length: 12 }, (_, i) => `Month ${i + 1}`),
     datasets: data.map((yearData) => ({
@@ -51,7 +53,12 @@ const OrdersOvertimeChart: React.FC<OrdersOvertimeChartResponse> = ({ data }) =>
   return (
     <Paper
       elevation={3}
-      style={{height: "350px", padding: "20px", borderRadius: 12, backgroundColor: "#F4F8F7" }}
+      style={{
+        height: "350px",
+        padding: "20px",
+        borderRadius: 12,
+        //backgroundColor: "#F4F8F7"
+      }}
     >
       <Line data={chartData} options={options} />
     </Paper>

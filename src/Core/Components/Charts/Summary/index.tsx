@@ -31,7 +31,7 @@ const SummaryChart: React.FC = () => {
         height: "315px",
         width: "510px",
         borderRadius: 12,
-        backgroundColor: "#F4F8F7",
+        //backgroundColor: "#F4F8F7",
       }}
     >
       <Pie

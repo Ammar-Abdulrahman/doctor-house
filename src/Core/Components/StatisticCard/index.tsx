@@ -15,7 +15,11 @@ const StatisticCard: React.FC<StatisticCardProps> = ({
   return (
     <Paper
       elevation={3}
-      style={{ padding: "20px", borderRadius: 12, backgroundColor: "#F4F8F7" }}
+      style={{
+        padding: "20px",
+        borderRadius: 12,
+        //backgroundColor: "#F4F8F7"
+      }}
     >
       <Typography variant="h6" style={{ color: color }}>
         {title}

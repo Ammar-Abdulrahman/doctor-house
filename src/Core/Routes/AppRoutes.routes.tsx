@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute.routes";
+import UnProtectedRoute from "./UnProtectedRoute.routes";
 
 const Layout = React.lazy(() => import("@Layout/index"));
 const HomePage = React.lazy(() => import("@Pages/Home/index"));
@@ -165,12 +166,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: sessionStorage.getItem("token") ? (
-      <Navigate to="/" />
-    ) : (
-      <Suspense fallback={<></>}>
-        <LoginPage />
-      </Suspense>
+    element: (
+      <UnProtectedRoute>
+        <Suspense fallback={<></>}>
+          <LoginPage />
+        </Suspense>
+      </UnProtectedRoute>
     ),
   },
 ]);

@@ -10,6 +10,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@Context/LanguageContext";
+import { logout } from "@Store/Slices/authSlice";
+import { useDispatch } from "react-redux";
+import { persistor } from "Core/store";
 
 interface LogoutModalProps {
   open: boolean;
@@ -19,14 +22,15 @@ interface LogoutModalProps {
 const LogoutModal: React.FC<LogoutModalProps> = ({ open, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { locale } = useLocale();
+  const dispatch = useDispatch();
 
   const handleConfirmLogout = () => {
     setIsLoading(true);
     setTimeout(() => {
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("privileges");
+      dispatch(logout());
+      persistor.purge();
       setIsLoading(false);
       onClose();
       navigate("/login");
