@@ -10,7 +10,6 @@ import {
   useTheme,
 } from "@mui/material";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-//import "@Localization/index";
 import { useTranslation } from "react-i18next";
 import IconProject from "../../../../../public/doctorHouse.svg";
 import LogoutModal from "@Components/Modal/LogoutModal";

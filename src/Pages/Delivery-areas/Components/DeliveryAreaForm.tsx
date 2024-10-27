@@ -1,7 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { TextField, Button, CircularProgress, useTheme } from "@mui/material";
-//import theme from "@Styles/theme";
 import { useTranslation } from "react-i18next";
 
 interface OperatorFormProps {

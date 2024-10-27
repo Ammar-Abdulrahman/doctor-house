@@ -109,7 +109,7 @@ const DeliveryAreas: React.FC = () => {
           setEditModalOpen(false);
           setSubmitting(false);
         }}
-        title="Edit Delivery Area"
+        title={t("modal.edit_delivery_area")}
         onSubmit={handleEditFormSubmit}
       >
         {editData && (

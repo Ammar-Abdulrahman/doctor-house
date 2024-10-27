@@ -34,4 +34,29 @@ export const discountValidationSchema = Yup.object().shape({
   code: Yup.string().required(t("discountsPage.codeValidation")),
   from: Yup.string().required(t("discountsPage.fromValidation")),
   to: Yup.string().required(t("discountsPage.toValidation")),
+  percentage: Yup.number()
+    .nullable()
+    .test(
+      t("discountsPage.valuePercentage"),
+      t("discountsPage.percentageValidation"),
+      function (value) {
+        const { value: formValue } = this.parent;
+        return !!value || !!formValue;
+      }
+    )
+    .min(1, t("discountsPage.minPercentage"))
+    .max(100, t("discountsPage.maxPercentage")),
+
+  value: Yup.number()
+    .nullable()
+    .test(
+      t("discountsPage.valuePercentage"),
+      t("discountsPage.valueValidation"),
+      function (value) {
+        const { percentage } = this.parent;
+        return !!value || !!percentage;
+      }
+    )
+    .min(1, t("discountsPage.minValue")),
+  subcategory: Yup.number().nullable(),
 });

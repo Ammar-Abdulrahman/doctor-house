@@ -43,7 +43,12 @@
     "codeValidation": "Discount Code is Required*",
     "percentageValidation": "Percentage is Required*",
     "fromValidation": "Start Date is Required*",
-    "toValidation": "End Date is Required*"
+    "toValidation": "End Date is Required*",
+    "valueValidation": "Value is Required*",
+    "valuePercentage": "Value or Percentage is Required",
+    "minValue": "Value must be at least 1",
+    "minPercentage": "Percentage must be at least 1",
+    "maxPercentage": "Percentage cannot exceed 100"
   },
   "advertisementsPage": {
     "id": "Id",
@@ -115,6 +120,7 @@
     "delete": "Delete",
     "view": "View",
     "edit": "Edit",
+    "save": "Save",
     "language": "Swtich Language",
     "light": "Light",
     "dark": "Dark"
@@ -128,6 +134,7 @@
     "discount": "discount",
     "order": "Order",
     "delivery_area": "Delivery Area",
+    "syria": "syr",
 
     "confirm_message": "Are you sure you want to delete this item with ",
     "confirm_title": "Confirm delete",
@@ -154,6 +161,15 @@
     "view_discount": "View Discount",
     "view_order": "View Order",
     "view_delivery_area": "View Delivery area",
+
+    "edit_role": "Edit Order",
+    "edit_operator": "Edit Operator",
+    "edit_category": "Edit Category",
+    "edit_product": "Edit Product",
+    "edit_advertisement": "Edit Advertisement",
+    "edit_discount": "Edit Discount",
+    "edit_order": "Edit Order",
+    "edit_delivery_area": "Edit Delivery area",
 
     "success_create_role": "Role created successfully",
     "success_create_operator": "Operator created successfully",

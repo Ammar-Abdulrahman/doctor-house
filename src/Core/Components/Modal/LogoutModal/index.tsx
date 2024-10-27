@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Modal,
   Box,
@@ -7,12 +7,9 @@ import {
   CircularProgress,
   Grid,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@Context/LanguageContext";
-import { logout } from "@Store/Slices/authSlice";
-import { useDispatch } from "react-redux";
-import { persistor } from "Core/store";
+import useAuthentication from "@Hooks/useAuthentication";
 
 interface LogoutModalProps {
   open: boolean;
@@ -20,22 +17,9 @@ interface LogoutModalProps {
 }
 
 const LogoutModal: React.FC<LogoutModalProps> = ({ open, onClose }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   const { t } = useTranslation();
   const { locale } = useLocale();
-  const dispatch = useDispatch();
-
-  const handleConfirmLogout = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      dispatch(logout());
-      persistor.purge();
-      setIsLoading(false);
-      onClose();
-      navigate("/login");
-    }, 2000);
-  };
+  const { HandleLogout, isLoading } = useAuthentication();
 
   return (
     <Modal
@@ -95,7 +79,7 @@ const LogoutModal: React.FC<LogoutModalProps> = ({ open, onClose }) => {
               />
             ) : (
               <Button
-                onClick={handleConfirmLogout}
+                onClick={HandleLogout}
                 color="error"
                 autoFocus
                 variant="contained"

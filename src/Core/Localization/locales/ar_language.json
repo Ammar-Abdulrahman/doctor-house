@@ -43,7 +43,12 @@
     "codeValidation": "كود الخصم مطلوب*",
     "percentageValidation": "نسبة الخصم مطلوبة*",
     "fromValidation": "التاريخ الأولي مطلوب*",
-    "toValidation": "التاريخ النهائي مطلوب*"
+    "toValidation": "التاريخ النهائي مطلوب*",
+    "valueValidation": "القيمة مطلوبة*",
+    "valuePercentage": "",
+    "minValue": "",
+    "minPercentage": "",
+    "maxPercentage": ""
   },
   "advertisementsPage": {
     "id": "رقم التعريف",
@@ -116,6 +121,7 @@
     "delete": "حذف",
     "view": "عرض",
     "edit": "تعديل",
+    "save": "حفظ",
     "language": "تبديل اللغة",
     "light": "نهاري",
     "dark": "ليلي"
@@ -129,6 +135,7 @@
     "discount": "الحسم",
     "order": "الطلب",
     "delivery_area": "منطقة التوصيل",
+    "syria": "ل.س",
 
     "confirm_message": "هل أنت متأكد أنك تريد حذف هذا العنصر بالمعرف",
     "confirm_title": "تأكيد حذف",
@@ -155,6 +162,15 @@
     "view_discount": "عرض الخصم",
     "view_order": "عرض الطلب",
     "view_delivery_area": "عرض منطقة التوصيل",
+
+    "edit_role": "تعديل الدور",
+    "edit_operator": "تعديل المستخدم",
+    "edit_category": "تعديل التصنيف",
+    "edit_product": "تعديل المنتج",
+    "edit_advertisement": "تعديل الإعلان",
+    "edit_discount": "تعديل الحسم",
+    "edit_order": "تعديل الطلب",
+    "edit_delivery_area": "تعديل منطقة التوصيل المجاني",
 
     "success_create_role": "تم إضافة الدور بنجاح",
     "success_create_operator": "تم إضافة المستخدم بنجاح",

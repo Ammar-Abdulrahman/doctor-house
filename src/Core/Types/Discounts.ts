@@ -1,20 +1,20 @@
 export interface Discount {
-  id: number;
-  code: string;
-  from: string;
-  to: string;
-  subcategory: number;
-  percentage: number;
-  value?:number
+  id?: number;
+  code?: string;
+  from?: string;
+  to?: string;
+  subcategory?: number;
+  percentage?: number;
+  value?: number;
 }
 
 export interface DiscountsRequest {
-  code: string;
-  from: string;
-  to: string;
-  subcategory: number;
-  percentage: number;
-  value?:number;
+  code?: string;
+  from?: string;
+  to?: string;
+  subcategory?: number;
+  percentage?: number;
+  value?: number;
 }
 
 export interface DiscountsResponse {

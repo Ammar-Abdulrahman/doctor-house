@@ -12,6 +12,8 @@ import LanguageProvider from "../Language";
 import { Provider } from "react-redux";
 import store, { persistor } from "Core/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const queryClient = new QueryClient();
 
@@ -20,21 +22,25 @@ const App = () => {
   return (
     <LanguageProvider>
       <ThemeProvider>
-        <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <StyledEngineProvider injectFirst>
-            <Suspense fallback={<AppLoader />}>
-              <QueryClientProvider client={queryClient}>
-                <RouterProvider router={router} />
-                <ToastContainer
-                  style={{ direction: i18n.language === "ar" ? "rtl" : "ltr" }}
-                  position="bottom-right"
-                />
-              </QueryClientProvider>
-            </Suspense>
-          </StyledEngineProvider>
-          </PersistGate>
-        </Provider>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <StyledEngineProvider injectFirst>
+                <Suspense fallback={<AppLoader />}>
+                  <QueryClientProvider client={queryClient}>
+                    <RouterProvider router={router} />
+                    <ToastContainer
+                      style={{
+                        direction: i18n.language === "ar" ? "rtl" : "ltr",
+                      }}
+                      position="bottom-right"
+                    />
+                  </QueryClientProvider>
+                </Suspense>
+              </StyledEngineProvider>
+            </PersistGate>
+          </Provider>
+        </LocalizationProvider>
       </ThemeProvider>
     </LanguageProvider>
   );

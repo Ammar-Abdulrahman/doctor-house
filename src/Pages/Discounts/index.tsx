@@ -6,11 +6,10 @@ import { getDiscountColumns } from "./Helper/index";
 import ConfirmationModal from "@Components/Modal/ConfirmationModal/index";
 import PageLoader from "@Components/Loader/PageLoader";
 import AddButton from "@Components/Button/Add";
-import { Grid, IconButton, Skeleton, useTheme } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import CustomModal from "@Components/Modal/CreateModal";
 import DiscountForm from "./Components/DiscountForm";
 import ViewDiscountModal from "./Components/ViewDiscount";
-import EditDiscountForm from "./Components/EditDiscountForm";
 import ViewModal from "@Components/Modal/ViewModal";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import useDiscountsContainer from "./Container/useDiscountsContainer";
@@ -19,13 +18,10 @@ import SkeletonTable from "@Components/Skeleton/Table";
 
 const Discounts: React.FC = () => {
   const { t } = useTranslation();
-  const theme = useTheme();
   const { locale } = useLocale();
   const {
     rows,
     isLoading,
-    isError,
-    error,
     isRefetching,
     modalOpen,
     editModalOpen,
@@ -82,40 +78,29 @@ const Discounts: React.FC = () => {
         <EnhancedTable rows={rows} columns={columns} />
       )}
       <CustomModal
-        open={modalOpen}
+        open={modalOpen || editModalOpen}
         onClose={() => {
           setModalOpen(false);
-          setSubmitting(false);
-        }}
-        title={t("modal.create_discount")}
-        onSubmit={handleFormSubmit}
-      >
-        <DiscountForm
-          onSubmit={handleFormSubmit}
-          isSubmitting={isSubmitting}
-          onClose={() => {
-            setModalOpen(false);
-            setSubmitting(false);
-          }}
-        />
-      </CustomModal>
-      <CustomModal
-        open={editModalOpen}
-        onClose={() => {
           setEditModalOpen(false);
           setSubmitting(false);
         }}
-        title="Edit Discount"
-        onSubmit={handleEditFormSubmit}
+        title={
+          modalOpen ? t("modal.create_discount") : t("modal.edit_discount")
+        }
+        onSubmit={modalOpen ? handleFormSubmit : handleEditFormSubmit}
       >
-        {editData && (
-          <EditDiscountForm
-            defaultValues={editData}
-            onSubmit={handleEditFormSubmit}
-            isSubmitting={isSubmitting}
-          />
-        )}
+        <DiscountForm
+          onSubmit={modalOpen ? handleFormSubmit : handleEditFormSubmit}
+          isSubmitting={isSubmitting}
+          onClose={() => {
+            setModalOpen(false);
+            setEditModalOpen(false);
+            setSubmitting(false);
+          }}
+          initialValues={modalOpen ? {} : editData}
+        />
       </CustomModal>
+
       <ConfirmationModal
         open={openModal}
         onClose={() => setOpenModal(false)}

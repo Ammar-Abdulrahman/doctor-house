@@ -67,6 +67,11 @@ const useDiscounts = (
         queryClient.invalidateQueries("discounts");
         toast.success(`${t("modal.success_edit_discount")}`);
       },
+      onError(error: ErrorProps) {
+        toast.error(`Error :${error?.response.data.error.message}`, {
+          autoClose: false,
+        });
+      },
     }
   );
 

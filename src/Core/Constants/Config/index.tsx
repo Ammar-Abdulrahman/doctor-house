@@ -1,10 +1,10 @@
 import axios from "axios";
 import i18next from "i18next";
 import store from "Core/store";
-import { baseURL } from "@Constants/Shared";
+import { baseUrl } from "@Constants/Shared";
 
 const axiosInstance = axios.create({
-  baseURL: baseURL,
+  baseURL: baseUrl,
   headers: {
     "Content-Type": "application/json",
     Accept: "*/*",

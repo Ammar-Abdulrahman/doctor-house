@@ -7,7 +7,7 @@ export const container = {
 };
 export const paper = {
   padding: "2.5rem",
-  width: "390px",
+  width: "380px",
   marginTop: "100px",
   textAlign: "center",
   borderRadius: "15px",
